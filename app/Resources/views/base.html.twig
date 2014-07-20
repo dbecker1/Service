@@ -2,12 +2,28 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Maclay Community Serivce{% endblock %}</title>
+        {% block styles %}
+            {% stylesheets 'bundles/maclayservice/css/*' filter='cssrewrite' %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <div class="container">
+            {% if not app.user %}
+                {% block content %}{% endblock %}
+            {% else %}
+                
+            {% endif %}
+            
+        </div>
+        {% block scripts %}
+            {% javascripts '@MaclayServiceBundle/Resources/public/js/*' %}
+                <script type="text/javascript" src="{{ asset_url }}">
+            {% endjavascripts %}
+        {% endblock %}
     </body>
 </html>

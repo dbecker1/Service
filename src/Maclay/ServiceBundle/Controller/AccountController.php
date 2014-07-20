@@ -9,6 +9,6 @@ class AccountController extends Controller
 {
     public function loginAction()
     {
-        return new Response("<html><body><h1>THIS CRAP FINALLY WORKS</h1></body></html>");
+        return $this->render("MaclayServiceBundle:Account:login.html.twig");
     }
 }
