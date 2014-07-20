@@ -1,0 +1,4 @@
+maclay_service:
+    resource: "@MaclayServiceBundle/Resources/config/routing.yml"
+    prefix:   /
+

@@ -1,0 +1,27 @@
+Maclay\ServiceBundle\Entity\Club:
+    type: entity
+    table: null
+    repositoryClass: Maclay\ServiceBundle\Entity\ClubRepository
+    oneToOne:
+        clubsponsor:
+            targetEntity: User
+            inversedBy: clubowner
+            joinColumn:
+                name: SponsorID
+                referencedColumnName: id
+    manyToMany: 
+        members:
+            targetEntity: User
+            mappedBy: clubs
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        clubName:
+            type: string
+            length: 255
+            column: ClubName
+    lifecycleCallbacks: {  }

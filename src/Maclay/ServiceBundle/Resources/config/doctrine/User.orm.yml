@@ -1,0 +1,81 @@
+Maclay\ServiceBundle\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: Maclay\ServiceBundle\Entity\UserRepository
+    manyToMany:
+        clubs:
+            targetEntity: Club
+            inversedBy: members
+            joinTable:
+                name: ClubMembers
+                joinColumns: 
+                    MemberID: 
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    ClubID:
+                        referencedColumnName: id
+    manyToMany: 
+        parents:
+            targetEntity: User
+            inversedBy: children
+            joinTable:
+                name: ParentChildInfo
+                joinColumns:
+                    ParentID: 
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    ChildID:
+                        referencedColumnName: id
+    manyToMany:
+        children:
+            targetEntity: User
+            mappedBy: parents
+    manyToMany:
+        roles:
+            targetEntity: Role
+            joinTable:
+                name: UserRole
+                joinColumns:
+                    UserID:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    RoleID:
+                        referencedColumnName: id
+                        unique: true
+    oneToOne:
+        studentinfo:
+            targetEntity: StudentInfo
+            mappedBy: student
+    
+    oneToOne:
+        clubowner:
+            targetEntity: Club
+            mappedBy: clubsponsor
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        username:
+            type: string
+            length: 255
+            column: Username
+        password:
+            type: string
+            length: 255
+            column: Password
+        firstName:
+            type: string
+            length: 255
+            column: FirstName
+        lastName:
+            type: string
+            length: 255
+            column: LastName
+        middleName:
+            type: string
+            length: 255
+            column: MiddleName
+    lifecycleCallbacks: {  }

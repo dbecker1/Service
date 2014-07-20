@@ -1,0 +1,32 @@
+Maclay\ServiceBundle\Entity\StudentInfo:
+    type: entity
+    table: null
+    repositoryClass: Maclay\ServiceBundle\Entity\StudentInfoRepository
+    oneToOne:
+        student:
+            targetEntity: User
+            inversedBy: studentinfo
+            joinColumn:
+                name: StudentID
+                referencedColunName: id
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        studentNumber:
+            type: integer
+            column: StudentNumber
+        gradYear:
+            type: integer
+            column: GradYear
+        grade:
+            type: integer
+            column: Grade
+        gender:
+            type: string
+            length: '6'
+            column: Gender
+    lifecycleCallbacks: {  }

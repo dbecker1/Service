@@ -1,0 +1,83 @@
+<?php
+
+namespace Maclay\ServiceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Clubmembersinfo
+ */
+class Clubmembersinfo
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var integer
+     */
+    private $clubinfoid;
+
+    /**
+     * @var integer
+     */
+    private $memberuserid;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set clubinfoid
+     *
+     * @param integer $clubinfoid
+     * @return Clubmembersinfo
+     */
+    public function setClubinfoid($clubinfoid)
+    {
+        $this->clubinfoid = $clubinfoid;
+
+        return $this;
+    }
+
+    /**
+     * Get clubinfoid
+     *
+     * @return integer 
+     */
+    public function getClubinfoid()
+    {
+        return $this->clubinfoid;
+    }
+
+    /**
+     * Set memberuserid
+     *
+     * @param integer $memberuserid
+     * @return Clubmembersinfo
+     */
+    public function setMemberuserid($memberuserid)
+    {
+        $this->memberuserid = $memberuserid;
+
+        return $this;
+    }
+
+    /**
+     * Get memberuserid
+     *
+     * @return integer 
+     */
+    public function getMemberuserid()
+    {
+        return $this->memberuserid;
+    }
+}

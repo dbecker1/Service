@@ -1,0 +1,166 @@
+-- phpMyAdmin SQL Dump
+-- version 4.1.12
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Jul 07, 2014 at 04:39 AM
+-- Server version: 5.6.16
+-- PHP Version: 5.5.11
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `macsvcdb`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ClubInfo`
+--
+
+CREATE TABLE IF NOT EXISTS `ClubInfo` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ClubName` text NOT NULL,
+  `ClubSponsorUserID` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ClubMembersInfo`
+--
+
+CREATE TABLE IF NOT EXISTS `ClubMembersInfo` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ClubInfoID` int(11) NOT NULL,
+  `MemberUserID` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ParentChildInfo`
+--
+
+CREATE TABLE IF NOT EXISTS `ParentChildInfo` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ParentUserID` int(11) NOT NULL,
+  `ChildUserID` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Record`
+--
+
+CREATE TABLE IF NOT EXISTS `Record` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `StudentUserID` int(11) NOT NULL,
+  `CurrentGrade` int(2) NOT NULL,
+  `DateFrom` date NOT NULL,
+  `DateTo` date NOT NULL,
+  `NumHours` int(11) NOT NULL,
+  `Activity` text NOT NULL,
+  `Notes` text NOT NULL,
+  `Organization` text NOT NULL,
+  `Supervisor` text NOT NULL,
+  `DateCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ApproverUserID` int(11) DEFAULT NULL,
+  `ApprovalDate` date DEFAULT NULL,
+  `ApproverComments` text,
+  `ApprovalStatus` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `StudentInfo`
+--
+
+CREATE TABLE IF NOT EXISTS `StudentInfo` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `UserID` int(11) NOT NULL,
+  `StudentNumber` int(11) NOT NULL,
+  `GradYear` int(4) NOT NULL,
+  `Grade` int(2) NOT NULL,
+  `Gender` text NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `User`
+--
+
+CREATE TABLE IF NOT EXISTS `User` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Username` text NOT NULL,
+  `Password` text NOT NULL,
+  `PasswordSalt` text NOT NULL,
+  `FirstName` text NOT NULL,
+  `LastName` text NOT NULL,
+  `MiddleName` text,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `UserRole`
+--
+
+CREATE TABLE IF NOT EXISTS `UserRole` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `UserID` int(11) NOT NULL,
+  `UserTypeID` int(11) NOT NULL,
+  `CanViewAll` tinyint(1) DEFAULT NULL,
+  `CanEnterRecord` tinyint(1) DEFAULT NULL,
+  `CanApprove` tinyint(1) DEFAULT NULL,
+  `HasAdmin` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `UserType`
+--
+
+CREATE TABLE IF NOT EXISTS `UserType` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Description` text NOT NULL,
+  `CanViewAll` tinyint(1) NOT NULL DEFAULT '0',
+  `CanEnterRecord` tinyint(1) NOT NULL DEFAULT '0',
+  `CanApprove` tinyint(1) NOT NULL DEFAULT '0',
+  `HasAdmin` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `UserType`
+--
+
+INSERT INTO `UserType` (`ID`, `Description`, `CanViewAll`, `CanEnterRecord`, `CanApprove`, `HasAdmin`) VALUES
+(1, 'Student', 0, 1, 0, 0),
+(2, 'Teacher', 1, 0, 0, 0),
+(3, 'Parent', 0, 0, 0, 0),
+(4, 'Coordinator', 1, 1, 1, 0),
+(5, 'SystemAdmin', 1, 1, 1, 1);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -1,0 +1,197 @@
+<?php
+
+namespace Maclay\ServiceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Userrole
+ */
+class Userrole
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var integer
+     * @ORM\OneToOne(targetEntity="User", inversedBy="id")
+     * @ORM\JoinColumn(name="userid", referencedColumnName="id")
+     */
+    private $userid;
+
+    /**
+     * @var integer
+     */
+    private $usertypeid;
+
+    /**
+     * @var boolean
+     */
+    private $canviewall;
+
+    /**
+     * @var boolean
+     */
+    private $canenterrecord;
+
+    /**
+     * @var boolean
+     */
+    private $canapprove;
+
+    /**
+     * @var boolean
+     */
+    private $hasadmin;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set userid
+     *
+     * @param integer $userid
+     * @return Userrole
+     */
+    public function setUserid($userid)
+    {
+        $this->userid = $userid;
+
+        return $this;
+    }
+
+    /**
+     * Get userid
+     *
+     * @return integer 
+     */
+    public function getUserid()
+    {
+        return $this->userid;
+    }
+
+    /**
+     * Set usertypeid
+     *
+     * @param integer $usertypeid
+     * @return Userrole
+     */
+    public function setUsertypeid($usertypeid)
+    {
+        $this->usertypeid = $usertypeid;
+
+        return $this;
+    }
+
+    /**
+     * Get usertypeid
+     *
+     * @return integer 
+     */
+    public function getUsertypeid()
+    {
+        return $this->usertypeid;
+    }
+
+    /**
+     * Set canviewall
+     *
+     * @param boolean $canviewall
+     * @return Userrole
+     */
+    public function setCanviewall($canviewall)
+    {
+        $this->canviewall = $canviewall;
+
+        return $this;
+    }
+
+    /**
+     * Get canviewall
+     *
+     * @return boolean 
+     */
+    public function getCanviewall()
+    {
+        return $this->canviewall;
+    }
+
+    /**
+     * Set canenterrecord
+     *
+     * @param boolean $canenterrecord
+     * @return Userrole
+     */
+    public function setCanenterrecord($canenterrecord)
+    {
+        $this->canenterrecord = $canenterrecord;
+
+        return $this;
+    }
+
+    /**
+     * Get canenterrecord
+     *
+     * @return boolean 
+     */
+    public function getCanenterrecord()
+    {
+        return $this->canenterrecord;
+    }
+
+    /**
+     * Set canapprove
+     *
+     * @param boolean $canapprove
+     * @return Userrole
+     */
+    public function setCanapprove($canapprove)
+    {
+        $this->canapprove = $canapprove;
+
+        return $this;
+    }
+
+    /**
+     * Get canapprove
+     *
+     * @return boolean 
+     */
+    public function getCanapprove()
+    {
+        return $this->canapprove;
+    }
+
+    /**
+     * Set hasadmin
+     *
+     * @param boolean $hasadmin
+     * @return Userrole
+     */
+    public function setHasadmin($hasadmin)
+    {
+        $this->hasadmin = $hasadmin;
+
+        return $this;
+    }
+
+    /**
+     * Get hasadmin
+     *
+     * @return boolean 
+     */
+    public function getHasadmin()
+    {
+        return $this->hasadmin;
+    }
+}

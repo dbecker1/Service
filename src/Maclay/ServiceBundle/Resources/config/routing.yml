@@ -1,0 +1,4 @@
+maclay_service_login:
+    path:   /
+    defaults:   { _controller: MaclayServiceBundle:Account:login }
+    methods: [GET]

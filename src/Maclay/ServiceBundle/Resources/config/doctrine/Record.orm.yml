@@ -1,0 +1,53 @@
+Maclay\ServiceBundle\Entity\Record:
+    type: entity
+    table: null
+    repositoryClass: Maclay\ServiceBundle\Entity\RecordRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        currentGrade:
+            type: integer
+            column: CurrentGrade
+        dateFrom:
+            type: date
+            column: DateFrom
+        dateTo:
+            type: date
+            column: DateTo
+        numHours:
+            type: integer
+            column: NumHours
+        activity:
+            type: string
+            length: 255
+            column: Activity
+        notes:
+            type: string
+            length: 255
+            column: Notes
+        organization:
+            type: string
+            length: 255
+            column: Organization
+        supervisor:
+            type: string
+            length: 255
+            column: Supervisor
+        dateCreated:
+            type: datetime
+            column: DateCreated
+        approvalDate:
+            type: datetime
+            column: ApprovalDate
+        approverComments:
+            type: string
+            length: 255
+            column: ApproverComments
+        approvalStatus:
+            type: boolean
+            column: ApprovalStatus
+    lifecycleCallbacks: {  }
