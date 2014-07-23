@@ -4,8 +4,13 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Maclay Community Serivce{% endblock %}</title>
+        {% block javascripts %}
+            {% javascripts '@jquery' '@bootstrapjs' %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
         {% block styles %}
-            {% stylesheets 'bundles/maclayservice/css/*' filter='cssrewrite' %}
+            {% stylesheets 'bundles/maclayservice/css/live/*' 'bundles/maclayservice/css/custom/*' filter="cssrewrite" %}
                 <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
         {% endblock %}
@@ -13,17 +18,10 @@
     </head>
     <body>
         <div class="container">
-            {% if not app.user %}
-                {% block content %}{% endblock %}
-            {% else %}
-                
-            {% endif %}
-            
+            <div class="titlebar" >
+                <p>Test</p>
+            </div>
         </div>
-        {% block scripts %}
-            {% javascripts '@MaclayServiceBundle/Resources/public/js/*' %}
-                <script type="text/javascript" src="{{ asset_url }}">
-            {% endjavascripts %}
-        {% endblock %}
+        
     </body>
 </html>

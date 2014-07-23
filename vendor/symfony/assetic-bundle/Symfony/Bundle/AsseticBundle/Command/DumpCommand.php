@@ -186,6 +186,8 @@ class DumpCommand extends ContainerAwareCommand
             $target = rtrim($this->basePath, '/').'/'.$asset->getTargetPath();
             $target = str_replace('_controller/', '', $target);
             $target = VarUtils::resolve($target, $asset->getVars(), $asset->getValues());
+            
+            date_default_timezone_set("America/New_York");
 
             if (!is_dir($dir = dirname($target))) {
                 $output->writeln(sprintf(
