@@ -5,21 +5,21 @@ namespace Maclay\ServiceBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * User
  */
-class User implements UserInterface, \Serializable
+class User extends BaseUser
 {
     public function __construct()
     {
-        $this->roles = new ArrayCollection();
+        parent::__construct();
         $this->parents = new ArrayCollection();
         $this->children = new ArrayCollection();
         $this->clubs = new ArrayCollection();
     }
     
-    protected $roles;
     protected $studentinfo;
     protected $parents;
     protected $children;
@@ -28,17 +28,9 @@ class User implements UserInterface, \Serializable
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
-    /**
-     * @var string
-     */
-    private $username;
-
-    /**
-     * @var string
-     */
-    private $password;
+    
 
     /**
      * @var string
@@ -66,51 +58,9 @@ class User implements UserInterface, \Serializable
         return $this->id;
     }
 
-    /**
-     * Set username
-     *
-     * @param string $username
-     * @return User
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
+    
 
-        return $this;
-    }
-
-    /**
-     * Get username
-     *
-     * @return string 
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return User
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string 
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
+   
 
     /**
      * Set firstName
@@ -237,32 +187,5 @@ class User implements UserInterface, \Serializable
         return $this->clubs;
     }
     
-    public function getSalt(){
-        return null;
-    }
     
-    public function eraseCredentials() {
-        
-    }
-    
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->username,
-            $this->password,
-        ));
-    }
-    
-    public function unserialize($serialized){
-        list (
-                $this->id,
-                $this->username,
-                $this->password,
-        ) = unserialize($serialized);
-    }
-    
-    public function getRoles(){
-        return $this->roles;
-    }
 }

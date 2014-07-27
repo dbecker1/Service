@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Maclay Community Serivce{% endblock %}</title>
+        {% block javascripts %}
+            {% javascripts '@jquery' '@bootstrapjs' %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
+        {% block styles %}
+            {% stylesheets 'bundles/maclayservice/css/live/*' 'bundles/maclayservice/css/custom/*' filter="cssrewrite" %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body class="blue">
+        <header>
+            {{ render(controller('MaclayServiceBundle:Layout:titlebar')) }}
+        </header>
+        <div id="content-container">
+            <div class="container">
+                {% block header %}
+                <br />
+                    <h1 style="color: #0000ff;">Maclay Community Service</h1>
+                {% endblock %}
+                <hr />
+                {% block content %}
+                    {% block fos_user_content %}{% endblock %}
+                {% endblock %}
+            </div>
+        </div>
+        <footer class="full">
+            <br />
+            <p class="text-center login-text">Created by Daniel Becker</p>
+        </footer>
+    </body>
+</html>

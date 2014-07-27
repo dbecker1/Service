@@ -7,15 +7,22 @@ security:
         PARENT:     Parent
         STUDENT:    Student
         TEACHER:    Teacher
-        COORDINATOR: [ Parent, Student, Teacher, Coordinator ]
+        COORDINATOR: [ PARENT, STUDENT, TEACHER, Coordinator ]
         ADMIN:      [ Coordinator, Admin ]
         
 
     providers:
-        administrators:
-            entity: { class: MaclayServiceBundle:User, property: username } 
+        fos_userbundle:
+            id: fos_user.user_provider.username
 
     firewalls:
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+            logout: true
+            anonymous: true
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -37,4 +44,4 @@ security:
             #    realm: "Secured Demo Area"
 
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }

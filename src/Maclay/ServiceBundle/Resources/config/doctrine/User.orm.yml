@@ -30,18 +30,7 @@ Maclay\ServiceBundle\Entity\User:
         children:
             targetEntity: User
             mappedBy: parents
-    manyToMany:
-        roles:
-            targetEntity: Role
-            joinTable:
-                name: UserRole
-                joinColumns:
-                    UserID:
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    RoleID:
-                        referencedColumnName: id
-                        unique: true
+    
     oneToOne:
         studentinfo:
             targetEntity: StudentInfo
@@ -58,14 +47,6 @@ Maclay\ServiceBundle\Entity\User:
             generator:
                 strategy: AUTO
     fields:
-        username:
-            type: string
-            length: 255
-            column: Username
-        password:
-            type: string
-            length: 255
-            column: Password
         firstName:
             type: string
             length: 255
