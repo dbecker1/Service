@@ -43,6 +43,10 @@ div{
     color: #FFFFFF;
 }
 
+.partial-header a{
+    color: #FFFFFF;
+}
+
 .float-right{
     float:right;
 }

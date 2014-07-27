@@ -72,6 +72,8 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Maclay\ServiceBundle\Entity\User
+    group:
+        group_class: Maclay\ServiceBundle\Entity\Role
 
 # Swiftmailer Configuration
 swiftmailer:

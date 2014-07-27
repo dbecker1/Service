@@ -1,11 +1,8 @@
 <div class="partial-header">
-    {% if isLoggedIn %}
-        <p>
-            Welcome!
-        </p>
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <p> Welcome {{ app.user.username }}! |
+        <a href="{{ path('fos_user_security_logout') }}">Log Out</a>
     {% else %}
-        <p>
-            Please log in!
-        </p>
+        <a href="{{ path('fos_user_security_login') }}">{{ 'Click here to log in'|trans({}, 'FOSUserBundle') }}</a>
     {% endif %}
 </div>

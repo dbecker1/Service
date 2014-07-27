@@ -3,6 +3,17 @@ Maclay\ServiceBundle\Entity\User:
     table: null
     repositoryClass: Maclay\ServiceBundle\Entity\UserRepository
     manyToMany:
+        groups:
+            targetEntity: Role
+            joinTable:
+                 name: UserRoles
+                 joinColumns:
+                     UserID:
+                         referencedColumnName: id
+                 inverseJoinColumns:
+                     RoleID: 
+                         referencedColumnName: id
+    manyToMany:
         clubs:
             targetEntity: Club
             inversedBy: members
@@ -40,6 +51,17 @@ Maclay\ServiceBundle\Entity\User:
         clubowner:
             targetEntity: Club
             mappedBy: clubsponsor
+    manyToMany:
+        groups:
+            targetEntity: Group
+            joinTable:
+                 name: UserRoles
+                 joinColumns:
+                     UserId:
+                         referencedColumnName: id
+                 inverseJoinColumns:
+                     RoleID: 
+                         referencedColumnName: id
     id:
         id:
             type: integer
