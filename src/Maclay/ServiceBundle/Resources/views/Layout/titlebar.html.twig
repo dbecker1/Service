@@ -3,6 +3,6 @@
         <p> Welcome {{ app.user.username }}! |
         <a href="{{ path('fos_user_security_logout') }}">Log Out</a>
     {% else %}
-        <a href="{{ path('fos_user_security_login') }}">{{ 'Click here to log in'|trans({}, 'FOSUserBundle') }}</a>
+        <a href="{{ path('maclay_service_login') }}">{{ 'Click here to log in'|trans({}, 'FOSUserBundle') }}</a>
     {% endif %}
 </div>

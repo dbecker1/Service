@@ -2,3 +2,16 @@ maclay_service_login:
     path:   /
     defaults:   { _controller: MaclayServiceBundle:Account:login }
     methods: [GET]
+    
+maclay_service_login_full:
+    path: /Account/Login
+    defaults:   { _controller: MaclayServiceBundle:Account:login }
+    methods: [GET]
+
+maclay_service_profile:
+    path: /Profile
+    defaults: { _controller: MaclayServiceBundle:Profile:profile }
+    
+addgroup:
+    path: /AddGroup
+    defaults: { _controller: MaclayServiceBundle:Account:group }

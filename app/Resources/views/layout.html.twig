@@ -24,9 +24,11 @@
             <div class="container">
                 {% block header %}
                 <br />
-                    <h1 style="color: #0000ff;">Maclay Community Service</h1>
+                    <h1>Maclay Community Service</h1>
                 {% endblock %}
                 <hr />
+                <h3>{%block pagename%}{%endblock%}</h3>
+                <br />
                 {% block content %}
                     {% block fos_user_content %}{% endblock %}
                 {% endblock %}

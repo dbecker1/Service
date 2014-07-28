@@ -2,4 +2,11 @@
 
 {% block title %}Maclay Service Login Page{% endblock %}
 
-{% block content %}<p>Correctly created template</p>{% endblock %}
+{% block pagename %}Login{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-offset-4">
+    {% render controller("FOSUserBundle:Security:login") %}
+</div>
+{% endblock %}

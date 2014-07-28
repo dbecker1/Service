@@ -3,12 +3,11 @@ security:
         Maclay\ServiceBundle\Entity\User:
             algorithm: bcrypt
 
+    acl:
+        connection: default
+        
     role_hierarchy:
-        PARENT:     Parent
-        STUDENT:    Student
-        TEACHER:    Teacher
-        COORDINATOR: [ PARENT, STUDENT, TEACHER, Coordinator ]
-        ADMIN:      [ Coordinator, Admin ]
+        ROLE_ADMIN: ROLE_USER
         
 
     providers:
@@ -44,4 +43,5 @@ security:
             #    realm: "Secured Demo Area"
 
     access_control:
+        - { path: ^/register, role: ROLE_ADMIN }
         - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }
