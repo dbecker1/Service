@@ -9,3 +9,6 @@ web/bundles/maclayservice
 web/bundles/framework
 
 src/FOS
+*.log
+
+app/logs/dev.log

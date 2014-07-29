@@ -20,7 +20,10 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
-            logout: true
+                failure_path: fos_user_security_login
+            logout: 
+                path: fos_user_security_logout
+                
             anonymous: true
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/

@@ -8,13 +8,7 @@ class ProfileController extends Controller
 {
     public function profileAction()
     {
-        $role = "";
-        if ($this->get("security.context")->isGranted("ROLE_ADMIN")){
-            $role = "Admin";
-        }
-        else{
-            $role = "User";
-        }
-        return $this->render("MaclayServiceBundle:Profile:profile.html.twig", array("role" => $role));
+        
+        return $this->render("MaclayServiceBundle:Profile:profile.html.twig");
     }
 }

@@ -27,4 +27,8 @@ class LayoutController extends Controller
                 array("isLoggedIn" => $isLoggedIn)
             );
     }
+    
+    public function studentnavAction(){
+        return $this->render("MaclayServiceBundle:Layout:studentnav.html.twig");
+    }
 }

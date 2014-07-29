@@ -8,7 +8,13 @@ class AccountController extends Controller
 {
     public function loginAction()
     {
-        return $this->render("MaclayServiceBundle:Account:login.html.twig");
+        $securityContext = $this->container->get("security.context");
+        if ($securityContext->isGranted("IS_AUTHENTICATED_REMEMBERED")){
+            return $this->redirect($this->generateUrl("maclay_service_profile"));
+        }
+        else {
+            return $this->redirect($this->generateUrl("fos_user_security_login"));
+        }
     }
     
     public function groupAction()

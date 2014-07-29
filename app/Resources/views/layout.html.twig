@@ -29,9 +29,13 @@
                 <hr />
                 <h3>{%block pagename%}{%endblock%}</h3>
                 <br />
-                {% block content %}
-                    {% block fos_user_content %}{% endblock %}
-                {% endblock %}
+                <div class="row">
+                    {% block nav %}
+                    {% endblock %}
+                    {% block content %}
+                        {% block fos_user_content %}{% endblock %}
+                    {% endblock %}
+                </div>
             </div>
         </div>
         <footer class="full">
