@@ -2,6 +2,10 @@ Maclay\ServiceBundle\Entity\User:
     type: entity
     table: null
     repositoryClass: Maclay\ServiceBundle\Entity\UserRepository
+    oneToMany:
+        records:
+            targetEntity: Record
+            mappedBy: student
     manyToMany:
         groups:
             targetEntity: Role

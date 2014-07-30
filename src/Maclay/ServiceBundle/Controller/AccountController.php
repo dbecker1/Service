@@ -21,7 +21,7 @@ class AccountController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
         
-        $group = new \Maclay\ServiceBundle\Entity\Role("Admin", array("ROLE_ADMIN"));
+        $group = new \Maclay\ServiceBundle\Entity\Role("Student", array("ROLE_STUDENT"));
         $em->persist($group);
         $em->flush();
         return $this->redirect($this->generateUrl("maclay_service_login"));

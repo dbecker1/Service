@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Record
 {
+    protected $student;
+    
     /**
      * @var integer
      */

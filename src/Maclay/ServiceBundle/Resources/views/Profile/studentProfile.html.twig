@@ -4,8 +4,11 @@
     {{ render(controller('MaclayServiceBundle:Layout:studentnav')) }}
 {% endblock %}
 
+{% block pagename %}Student Profile{% endblock %}
+
 {% block content %}
     <div class="col-sm-9">
-
+        {% block studentcontent %}
+        {% endblock %}
     </div>
 {% endblock %}

@@ -2,6 +2,13 @@ Maclay\ServiceBundle\Entity\Record:
     type: entity
     table: null
     repositoryClass: Maclay\ServiceBundle\Entity\RecordRepository
+    manyToOne:
+        student:
+            targetEntity: User
+            inversedBy: records
+            joinColumn:
+                name: StudentID
+                referencedColumnName: id
     id:
         id:
             type: integer

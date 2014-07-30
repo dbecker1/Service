@@ -18,6 +18,7 @@ class User extends BaseUser
         $this->parents = new ArrayCollection();
         $this->children = new ArrayCollection();
         $this->clubs = new ArrayCollection();
+        $this->records = new ArrayCollection();
     }
     
     protected $studentinfo;
@@ -25,6 +26,7 @@ class User extends BaseUser
     protected $children;
     protected $clubowner;
     protected $clubs;
+    protected $records;
     /**
      * @var integer
      */
@@ -185,6 +187,11 @@ class User extends BaseUser
     public function getClubs()
     {
         return $this->clubs;
+    }
+    
+    public function getRecords()
+    {
+        return $this->records;
     }
     
     
