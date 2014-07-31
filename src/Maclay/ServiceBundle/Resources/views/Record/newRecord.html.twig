@@ -1,0 +1,10 @@
+{% extends 'MaclayServiceBundle:Profile:studentProfile.html.twig' %}
+
+{% block pagename %}
+    {{parent()}} - New Record
+{% endblock %}
+
+{% block studentcontent %}
+    {{ form(form) }}
+
+{% endblock %}

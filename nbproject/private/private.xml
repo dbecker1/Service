@@ -6,9 +6,9 @@
             <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/config/routing.yml</file>
             <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/public/css/custom/base.css</file>
             <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Profile/studentProfile.html.twig</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Profile/recordSummary.html.twig</file>
             <file>file:/Applications/XAMPP/htdocs/app/Resources/views/layout.html.twig</file>
             <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Layout/studentnav.html.twig</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/RecordController.php</file>
             <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/ProfileController.php</file>
             <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/AccountController.php</file>
         </group>
