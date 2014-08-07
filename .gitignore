@@ -12,3 +12,5 @@ src/FOS
 *.log
 
 app/logs/dev.log
+
+.metadata

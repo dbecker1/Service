@@ -23,3 +23,7 @@ record_create:
 addgroup:
     path: /AddGroup
     defaults: { _controller: MaclayServiceBundle:Account:group }
+    
+default:
+    path: /{controller}/{action}
+    defaults: { _controller: MaclayServiceBundle:Routing:route }

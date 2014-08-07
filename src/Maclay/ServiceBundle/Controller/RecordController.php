@@ -27,7 +27,7 @@ class RecordController extends Controller
     }
     
     public function createRecordAction(Request $request){
-         $em = $this->getDoctrine()->getManager();
+         $user = $this->get("security.context")->getToken()->getUser();
          
          $form = $this->createForm(new RecordType(), new Record());
          
@@ -35,7 +35,15 @@ class RecordController extends Controller
          
          if($form->isValid()){
              $record = $form->getData();
-             return $this->render("MaclayServiceBundle:Record:recordSummary.html.twig");
+             $record->setCurrentGrade($user->getStudentInfo()->getGrade());
+             $now = new \DateTime('now');
+             $record->setDateCreated($now);
+             $record->setStudent($user);
+             
+             $em = $this->getDoctrine()->getManager();
+             $em->persist($record);
+             $em->flush();
+             return $this->redirect($this->generateUrl("default", array("controller" => "Record", "action" => "RecordSummary")));
          }
    }
 }

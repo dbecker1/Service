@@ -362,4 +362,16 @@ class Record
     {
         return $this->approvalStatus;
     }
+    
+    public function setStudent($student)
+    {
+        $this->student = $student;
+        
+        return $this;
+    }
+    
+    public function getStudent()
+    {
+        return $this->student;
+    }
 }
