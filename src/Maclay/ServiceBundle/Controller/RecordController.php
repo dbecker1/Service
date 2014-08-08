@@ -13,7 +13,27 @@ class RecordController extends Controller
     {
         $user = $this->getUser();
         $records = $user->getRecords();
-        return $this->render("MaclayServiceBundle:Record:recordSummary.html.twig", array("user" => $user));
+        $approved = 0;
+        $pending = 0;
+        $denied = 0;
+        foreach($records as $record){
+            $status = $record->getApprovalStatus();
+            if ($status > 0){
+                 $approved += $record->getNumHours();
+            }
+            else if ($status < 0){
+                $denied += $record->getNumHours();
+            }
+            else if($status == 0){
+                $pending += $record->getNumHours();
+            }
+        }
+        $hours = array('pending' => $pending, 'approved' => $approved, 'denied' => $denied);
+        $em = $this->getDoctrine()->getManager();
+        $records = $em->getRepository("MaclayServiceBundle:Record")
+                ->getRecentRecords($this->container->getParameter("recentRecordLength") , $user->getId());
+        $em->flush();
+        return $this->render("MaclayServiceBundle:Record:recordSummary.html.twig", array("user" => $user, "records" => $records, "hours" => $hours));
     }
     
     public function newRecordAction()
@@ -39,11 +59,14 @@ class RecordController extends Controller
              $now = new \DateTime('now');
              $record->setDateCreated($now);
              $record->setStudent($user);
+             $record->setApprovalStatus(0);
              
              $em = $this->getDoctrine()->getManager();
              $em->persist($record);
              $em->flush();
              return $this->redirect($this->generateUrl("default", array("controller" => "Record", "action" => "RecordSummary")));
          }
+         
+         return $this->render("MaclayServiceBundle:Record:newRecord.html.twig", array("form" => $form->createView()));
    }
 }

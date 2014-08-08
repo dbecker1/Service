@@ -29,6 +29,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        applicationDeveloper: %applicationDeveloper%
 
 # Assetic Configuration
 assetic:
@@ -39,6 +41,9 @@ assetic:
         bootstrapjs:
             inputs:
                 - '@MaclayServiceBundle/Resources/public/js/bootstrap/bootstrap.js'
+        bootstrapvalidator:
+            inputs:
+                - '@MaclayServiceBundle/Resources/public/js/bootstrap/bootstrapValidator.js'
     debug:          "%kernel.debug%"
     use_controller: false
     bundles:        [ ]
@@ -83,3 +88,8 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+    
+# Application Configurations
+parameters:
+    recentRecordLength: 5
+    applicationDeveloper: Daniel Becker

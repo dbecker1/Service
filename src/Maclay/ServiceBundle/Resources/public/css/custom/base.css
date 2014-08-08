@@ -99,3 +99,8 @@ select, input, button, textarea{
 form {
     margin-left: 10px;
 }
+
+.error-text ul{
+    color: red;
+    list-style-type: none;
+}

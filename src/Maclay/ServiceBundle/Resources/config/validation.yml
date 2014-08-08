@@ -1,5 +1,5 @@
 
-Maclay\ServiceBundle\Entity\Text:
+Maclay\ServiceBundle\Entity\Record:
     properties:
         dateFrom:
             - Date: ~

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Maclay Community Serivce{% endblock %}</title>
         {% block javascripts %}
-            {% javascripts '@jquery' '@bootstrapjs' %}
+            {% javascripts '@jquery' '@bootstrapjs' '@bootstrapvalidator' %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}
@@ -40,7 +40,15 @@
         </div>
         <footer class="full">
             <br />
-            <p class="text-center login-text">Created by Daniel Becker</p>
+            <p class="text-center login-text">Created by {{applicationDeveloper}}</p>
         </footer>
+        {% block endscripts %}
+        {% endblock %}
+        <script>
+            $(document).ready(function(){
+               $("input").attr("autocomplete", "off"); 
+            });
+            
+        </script>
     </body>
 </html>

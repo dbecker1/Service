@@ -72,7 +72,7 @@ class Record
     private $approverComments;
 
     /**
-     * @var boolean
+     * @var integer
      */
     private $approvalStatus;
 

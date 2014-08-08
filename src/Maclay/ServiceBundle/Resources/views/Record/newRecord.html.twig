@@ -12,16 +12,19 @@
             <div class="col-sm-2">
                 {{form_label(form) }}
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3 form-group">
                 {{form_widget(form) }}
+            </div>
+            <div class="col-sm-5 error-text">
+                {{ form_errors(form) }}
             </div>
         </div>
         <br />
     {% endspaceless %}
-{% endblock %}    
+{% endblock %}   
 
 {% block studentcontent %}
-    <div class="row">
+    <div id="newRecord" class="row">
         {{ form_start(form) }}
             {{ form_row(form.dateFrom, {'label' : 'Date From'})}}
             {{ form_row(form.dateTo, {'label' : 'Date To'})}}
@@ -29,4 +32,39 @@
         {{ form_end(form)}}
     </div>
 
+{% endblock %}
+
+        
+{% block endscripts %} 
+        {#
+        Bootstrap validator. Not necessary for now
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("form").bootstrapValidator({
+                    submitButtons: "button[type='submit']",
+                    message: 'This value is not valid',
+                    feedbackIcons: {
+                        valid: "glyphicon glyphicon-ok",
+                        invalid: "glyphicon glyphicon-remove",
+                        validating: "glyphicon glyphicon-refresh"
+                    },
+                    fields: {
+                        activity: {
+                            selector: "[name='record[activity]']",
+                            message: "The activity is not valid",
+                            validators: {
+                                notEmpty:  {
+                                    message: "The activity can not be empty"
+                                },
+                                stringLength: {
+                                    min: 6,
+                                    max: 30,
+                                    message: "The activity must be more than 6 and less than 30 characters long"
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        </script>#}
 {% endblock %}

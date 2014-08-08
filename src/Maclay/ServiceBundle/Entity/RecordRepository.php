@@ -12,4 +12,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class RecordRepository extends EntityRepository
 {
+    
+    public function getRecentRecords($length, $userId){
+        return $this->getEntityManager()
+                ->createQuery(
+                        "SELECT r, u "
+                        . "FROM MaclayServiceBundle:Record r "
+                        . "JOIN r.student u "
+                        . "WHERE u.id = :id "
+                        . "ORDER BY r.dateCreated DESC"
+                  )
+                ->setMaxResults($length)
+                ->setParameter("id", $userId)
+                ->getResult();
+                  
+    }
 }

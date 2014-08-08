@@ -55,6 +55,6 @@ Maclay\ServiceBundle\Entity\Record:
             length: 255
             column: ApproverComments
         approvalStatus:
-            type: boolean
+            type: integer
             column: ApprovalStatus
     lifecycleCallbacks: {  }

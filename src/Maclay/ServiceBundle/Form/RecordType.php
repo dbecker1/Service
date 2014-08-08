@@ -19,7 +19,7 @@ class RecordType extends AbstractType
             ->add('dateTo', 'date')
             ->add('numHours', 'integer')
             ->add('activity', 'text')
-            ->add('notes', 'textarea')
+            ->add('notes', 'textarea', array("required" => false))
             ->add('organization', 'text')
             ->add('supervisor', 'text')
             ->add('submit', 'submit')

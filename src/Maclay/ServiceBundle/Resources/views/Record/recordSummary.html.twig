@@ -5,6 +5,56 @@
 {% endblock %}
 
 {% block studentcontent %}
-    <h3>Hello There</h3>
-
+    <div class="row">
+        <div class="col-sm-3">
+            <h4>Approved Hours: </h4>
+        </div>
+        <div class="col-sm-3">
+            <h4>{{hours.approved}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <h4>Pending Hours: </h4>
+        </div>
+        <div class="col-sm-3">
+            <h4>{{hours.pending}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <h4>Denied Hours: </h4>
+        </div>
+        <div class="col-sm-3">
+            <h4>{{hours.denied}}</h4>
+        </div>
+    </div>
+    <br />
+    <h4>Recent Records:</h4>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <td>Activity</td>
+                <td>Start Date</td>
+                <td>Number of Hours</td>
+                <td>Approval Status</td>
+            </tr>
+        </thead>
+        <tbody class="table-striped">
+            {% for record in records %}
+                <tr>        
+                    <td>{{record.activity}}</td>
+                    <td>{{record.dateFrom|date('Y-m-d')}}</td>
+                    <td>{{record.numHours}}</td>
+                    {% if record.approvalStatus > 0 %}
+                        <td>APPROVED</td>
+                    {% elseif record.approvalStatus < 0 %}
+                        <td>NOT APPROVED</td>
+                    {% else %}
+                        <td>PENDING</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
