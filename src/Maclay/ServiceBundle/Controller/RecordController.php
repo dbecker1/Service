@@ -79,9 +79,10 @@ class RecordController extends Controller
    }
    
    public function getRecordPartialAction($id){
+       $user = $this->container->get("security.context")->getToken()->getUser();
        $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:Record");
        $record = $repository->findOneById($id);
-       $answer["html"] = $this->render("MaclayServiceBundle:Record:recordPartial.html.twig", array("record" => $record))->getContent();
+       $answer["html"] = $this->render("MaclayServiceBundle:Record:recordPartial.html.twig", array("record" => $record, "user" => $user))->getContent();
        $response = new Response();                                         
        $response->headers->set('Content-type', 'application/json; charset=utf-8');
        $response->setContent(json_encode($answer));
