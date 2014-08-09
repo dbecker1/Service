@@ -38,6 +38,9 @@ assetic:
         jquery:
             inputs:
                 - '@MaclayServiceBundle/Resources/public/js/jquery/jquery-2.1.1.js'
+        jqueryui:
+            inputs:
+                - '@MaclayServiceBundle/Resources/public/js/jquery/jquery-ui.js'
         bootstrapjs:
             inputs:
                 - '@MaclayServiceBundle/Resources/public/js/bootstrap/bootstrap.js'

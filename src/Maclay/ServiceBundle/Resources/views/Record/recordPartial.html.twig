@@ -1,0 +1,102 @@
+<br />
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4" style="color: #0000ff">
+        <p>Date From:</p>
+    </div>
+    <div class="col-sm-6">
+        <p>{{record.dateFrom|date('m/d/Y')}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4" style="color: #0000ff">
+        <p>Date To:</p>
+    </div>
+    <div class="col-sm-6">
+        <p>{{record.dateTo|date('m/d/Y')}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4" style="color: #0000ff">
+        <p>Number of Hours:</p>
+    </div>
+    <div class="col-sm-6">
+        <p>{{record.numHours}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4" style="color: #0000ff">
+        <p>Activity:</p>
+    </div>
+    <div class="col-sm-6">
+        <p>{{record.activity}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4" style="color: #0000ff">
+        <p>Notes:</p>
+    </div>
+    <div class="col-sm-6">
+        <p>{{record.notes}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4" style="color: #0000ff">
+        <p>Organization:</p>
+    </div>
+    <div class="col-sm-6">
+        <p>{{record.organization}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4" style="color: #0000ff">
+        <p>Supervisor:</p>
+    </div>
+    <div class="col-sm-6">
+        <p>{{record.supervisor}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4" style="color: #0000ff">
+        <p>Approval Status:</p>
+    </div>
+    <div class="col-sm-6">
+        {% if record.approvalStatus > 0 %}
+            <p>APPROVED</p>
+        {% elseif record.approvalStatus < 0 %}
+            <p>NOT APPROVED</p>
+        {% else %}
+            <p>PENDING</p>
+        {% endif %}
+    </div>
+</div>
+{% if record.approverComments != null %}
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4" style="color: #0000ff">
+        <p>Approver Comments:</p>
+    </div>
+    <div class="col-sm-6">
+        <p>{{record.approverComments}}</p>
+    </div>
+</div>
+{% endif %}
+{% if record.approvalStatus != 0%}
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4" style="color: #0000ff">
+        <p>Approval Date:</p>
+    </div>
+    <div class="col-sm-6">
+        <p>{{record.approvalDate|date('m/d/Y')}}</p>
+    </div>
+</div>
+{% endif %}
+<br />

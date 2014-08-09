@@ -12,18 +12,14 @@ maclay_service_profile:
     path: /Profile
     defaults: { _controller: MaclayServiceBundle:Profile:profile }
     
-record_new:
-    path: /NewRecord
-    defaults: { _controller: MaclayServiceBundle:Record:newRecord }
-    
-record_create:
-    path: /NewRecord/Create
-    defaults: { _controller: MaclayServiceBundle:Record:createRecord }
-    
 addgroup:
     path: /AddGroup
     defaults: { _controller: MaclayServiceBundle:Account:group }
     
+recordpartial:
+    path: /Record/GetRecordPartial/{id}
+    defaults: { _controller: MaclayServiceBundle:Record:getRecordPartial }
+  
 default:
     path: /{controller}/{action}
     defaults: { _controller: MaclayServiceBundle:Routing:route }

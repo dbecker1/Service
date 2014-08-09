@@ -23,7 +23,7 @@
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <h4>Denied Hours: </h4>
+            <h4>Not Approved Hours: </h4>
         </div>
         <div class="col-sm-3">
             <h4>{{hours.denied}}</h4>
@@ -44,7 +44,7 @@
             {% for record in records %}
                 <tr>        
                     <td>{{record.activity}}</td>
-                    <td>{{record.dateFrom|date('Y-m-d')}}</td>
+                    <td>{{record.dateFrom|date('m/d/Y')}}</td>
                     <td>{{record.numHours}}</td>
                     {% if record.approvalStatus > 0 %}
                         <td>APPROVED</td>

@@ -1,0 +1,66 @@
+{% extends 'MaclayServiceBundle:Profile:studentProfile.html.twig' %}
+
+{% block pagename %}
+    {{parent()}} - Record History
+{% endblock %}
+
+{% block studentcontent %}
+    <div id="popup">
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <td>Start Date</td>
+                <td>End Date</td>
+                <td>Activity</td>
+                <td>Number of Hours</td>
+                <td>Sponsoring Organization</td>
+                <td>Approval Status</td>
+            </tr>
+        </thead>
+        <tbody class="table-striped">
+            {% for row in records %}
+            <tr onclick="recordInfo({{row.id}});">
+                <td>{{row.dateFrom|date('m/d/Y')}}</td>
+                <td>{{row.dateTo|date('m/d/Y')}}</td>
+                <td>{{row.activity}}</td>
+                <td>{{row.numHours}}</td>
+                <td>{{row.organization}}</td>
+                {% if row.approvalStatus > 0 %}
+                    <td>APPROVED</td>
+                {% elseif row.approvalStatus < 0 %}
+                    <td>NOT APPROVED</td>
+                {% else %}
+                    <td>PENDING</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}
+    
+{% block endscripts %}
+    
+    <script>
+        function recordInfo(id){
+            var options = [];
+            options.url = "{{ path("maclay_service_login") }}" + "Record/GetRecordPartial/" + id ;
+            options.success = function(response){
+                $("#popup").html(response.html);
+                $("#popup").dialog({
+                    width: "500px",
+                    title: "Record Details"
+                });
+            };
+            options.error = function(a,b,c){
+                $("#popup").html(a.responseText);
+                $("#popup").dialog({
+                    width: "500px",
+                    title: "Error Details"
+                });
+            };
+            $.ajax(options);
+        };
+    </script>
+{% endblock %}

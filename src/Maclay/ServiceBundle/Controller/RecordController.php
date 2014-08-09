@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Maclay\ServiceBundle\Entity\Record;
 use Maclay\ServiceBundle\Form\RecordType;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class RecordController extends Controller
 {
@@ -40,14 +42,14 @@ class RecordController extends Controller
     {
         $record = new Record();
         $form = $this->createForm(new RecordType(), $record, array(
-            'action' => $this->generateUrl("record_create"),
+            'action' => $this->generateUrl('default', array("controller" => "Record", "action" => "CreateRecord")),
         ));
         
         return $this->render("MaclayServiceBundle:Record:newRecord.html.twig", array("form" => $form->createView()));
     }
     
     public function createRecordAction(Request $request){
-         $user = $this->get("security.context")->getToken()->getUser();
+         $user = $this->getUser();
          
          $form = $this->createForm(new RecordType(), new Record());
          
@@ -68,5 +70,21 @@ class RecordController extends Controller
          }
          
          return $this->render("MaclayServiceBundle:Record:newRecord.html.twig", array("form" => $form->createView()));
+   }
+   
+   public function recordHistoryAction(){
+       $user = $this->getUser();
+       $records = $user->getRecords();
+       return $this->render("MaclayServiceBundle:Record:recordHistory.html.twig", array("records" => $records));
+   }
+   
+   public function getRecordPartialAction($id){
+       $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:Record");
+       $record = $repository->findOneById($id);
+       $answer["html"] = $this->render("MaclayServiceBundle:Record:recordPartial.html.twig", array("record" => $record))->getContent();
+       $response = new Response();                                         
+       $response->headers->set('Content-type', 'application/json; charset=utf-8');
+       $response->setContent(json_encode($answer));
+       return $response;
    }
 }
