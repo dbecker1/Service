@@ -1,9 +1,9 @@
-{% extends 'MaclayServiceBundle:Profile:studentProfile.html.twig' %}
+{% extends 'MaclayServiceBundle:Profile:profile.html.twig' %}
 
 {% form_theme form _self %}
 
 {% block pagename %}
-    {{parent()}} - New Record
+    Student Profile - New Record
 {% endblock %}
     
 {% block form_row %}
@@ -23,7 +23,7 @@
     {% endspaceless %}
 {% endblock %}   
 
-{% block studentcontent %}
+{% block usercontent %}
     <div id="newRecord" class="row">
         {{ form_start(form) }}
             {{ form_row(form.dateFrom, {'label' : 'Date From'})}}

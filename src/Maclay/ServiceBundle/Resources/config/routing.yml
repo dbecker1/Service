@@ -19,7 +19,15 @@ addgroup:
 recordpartial:
     path: /Record/GetRecordPartial/{id}
     defaults: { _controller: MaclayServiceBundle:Record:getRecordPartial }
-  
+    
+approverecord:
+    path: /Record/ApproveRecord/{id}/{approval}
+    defaults: { _controller: MaclayServiceBundle:Record:approveRecord }
+    
+viewStudent:
+    path: /Record/ViewStudent?{id}
+    defaults: { _controller: MaclayServiceBundle:Record:viewStudent }
+
 default:
     path: /{controller}/{action}
     defaults: { _controller: MaclayServiceBundle:Routing:route }

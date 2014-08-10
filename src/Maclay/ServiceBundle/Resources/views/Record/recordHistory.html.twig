@@ -1,10 +1,10 @@
-{% extends 'MaclayServiceBundle:Profile:studentProfile.html.twig' %}
+{% extends 'MaclayServiceBundle:Profile:profile.html.twig' %}
 
 {% block pagename %}
-    {{parent()}} - Record History
+    Student Profile - Record History
 {% endblock %}
 
-{% block studentcontent %}
+{% block usercontent %}
     <div id="popup">
     </div>
     <table class="table table-bordered table-hover">
@@ -45,7 +45,7 @@
     <script>
         function recordInfo(id){
             var options = [];
-            options.url = "{{ path("maclay_service_login") }}" + "Record/GetRecordPartial/" + id ;
+            options.url = "{{ path('default', {'controller' : 'Record', 'action' : 'GetRecordPartial'}) }}" + "/" + id ;
             options.success = function(response){
                 $("#popup").html(response.html);
                 $("#popup").dialog({

@@ -1,15 +1,13 @@
 {% extends '::layout.html.twig' %}
 
 {% block nav %}
-    {{ render(controller('MaclayServiceBundle:Layout:studentnav')) }}
+    {{ render(controller('MaclayServiceBundle:Layout:nav')) }}
 {% endblock %}
-
-{% block pagename %}Student Profile{% endblock %}
 
 {% block content %}
     <div class="col-sm-9">
         <br />
-        {% block studentcontent %}
+        {% block usercontent %}
         {% endblock %}
     </div>
 {% endblock %}

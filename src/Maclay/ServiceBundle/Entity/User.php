@@ -27,6 +27,7 @@ class User extends BaseUser
     protected $clubowner;
     protected $clubs;
     protected $records;
+    protected $approvedHours;
     /**
      * @var integer
      */
@@ -194,5 +195,14 @@ class User extends BaseUser
         return $this->records;
     }
     
+    public function getApprovedHours(){
+        return $this->approvedHours;
+    }
+    
+    public function setApprovedHours($approvedHours){
+        $this->approvedHours = $approvedHours;
+        
+        return $approvedHours;
+    }
     
 }

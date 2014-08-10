@@ -79,13 +79,66 @@ class RecordController extends Controller
    }
    
    public function getRecordPartialAction($id){
-       $user = $this->container->get("security.context")->getToken()->getUser();
        $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:Record");
        $record = $repository->findOneById($id);
-       $answer["html"] = $this->render("MaclayServiceBundle:Record:recordPartial.html.twig", array("record" => $record, "user" => $user))->getContent();
+       $answer["html"] = $this->render("MaclayServiceBundle:Record:recordPartial.html.twig", array("record" => $record))->getContent();
        $response = new Response();                                         
        $response->headers->set('Content-type', 'application/json; charset=utf-8');
        $response->setContent(json_encode($answer));
        return $response;
+   }
+   
+   public function pendingRecordsAction(){
+       $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:Record");
+       $records = $repository->getPendingRecords();
+       
+       return $this->render("MaclayServiceBundle:Record:pendingRecords.html.twig", array("records" => $records));
+   }
+   
+   public function approveRecordAction($id, $approval){
+       $em = $this->getDoctrine()->getManager();
+       $repository = $em->getRepository("MaclayServiceBundle:Record");
+       $record = $repository->findOneById($id);
+       
+       $answer["approved"] = false;
+       $answer["denied"] = false;
+       
+       if ($approval === "true"){
+           $record->setApprovalStatus(1);
+           $answer["approved"] = true;
+       }
+       else if ($approval === "false"){
+           $record->setApprovalStatus(-1);
+           $answer["denied"] = true;
+       }
+       $em->flush();
+       $response = new Response();                                         
+       $response->headers->set('Content-type', 'application/json; charset=utf-8');
+       $response->setContent(json_encode($answer));
+       return $response;
+   }
+   
+   public function studentHistoryAction(){
+       $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:User");
+       $students = $repository->findByRole("ROLE_STUDENT");
+       foreach($students as $student){
+           $numHours = 0;
+           foreach($student->getRecords() as $record){
+               if ($record->getApprovalStatus() > 0){
+                   $numHours += $record->getNumHours();
+               }
+           }
+           $student->setApprovedHours($numHours);
+       }
+               
+       
+       return $this->render("MaclayServiceBundle:Record:studentHistory.html.twig", array("students" => $students));
+   }
+   
+   public function viewStudentAction($id){
+       $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:User");
+       $student = $repository->findOneById($id);
+       $records = $student->getRecords();
+       return $this->render("MaclayServiceBundle:Record:recordHistory.html.twig", array("records" => $records));
    }
 }

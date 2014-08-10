@@ -12,7 +12,6 @@ use Doctrine\ORM\EntityRepository;
  */
 class RecordRepository extends EntityRepository
 {
-    
     public function getRecentRecords($length, $userId){
         return $this->getEntityManager()
                 ->createQuery(
@@ -25,6 +24,16 @@ class RecordRepository extends EntityRepository
                 ->setMaxResults($length)
                 ->setParameter("id", $userId)
                 ->getResult();
-                  
+    }
+    
+    public function getPendingRecords(){
+        return $this->getEntityManager()
+                ->createQuery(
+                        "SELECT r, u "
+                        . "FROM MaclayServiceBundle:Record r "
+                        . "JOIN r.student u "
+                        . "WHERE r.approvalStatus = 0"
+                )
+                ->getResult();
     }
 }

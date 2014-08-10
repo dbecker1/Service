@@ -28,7 +28,10 @@ class LayoutController extends Controller
             );
     }
     
-    public function studentnavAction(){
-        return $this->render("MaclayServiceBundle:Layout:studentnav.html.twig");
+    public function navAction(){
+        $securityContext = $this->container->get('security.context');
+        $isCoordinator = $securityContext->isGranted("ROLE_COORDINATOR");
+        $isStudent = $securityContext->isGranted("ROLE_STUDENT");
+        return $this->render("MaclayServiceBundle:Layout:nav.html.twig", array("isCoordinator" => $isCoordinator, "isStudent" => $isStudent));
     }
 }

@@ -1,0 +1,117 @@
+{% extends 'MaclayServiceBundle:Profile:profile.html.twig' %}
+
+{% block pagename %}
+    Coordinator Profile - Pending Records
+{% endblock %}
+
+{% block usercontent %}
+    <div id="popup">
+    </div>
+    <h4>Pending Records: </h4>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <td>Last Name</td>
+                <td>First Name</td>
+                <td>Start Date</td>
+                <td>Activity</td>
+                <td>Number of Hours</td>
+                <td>Sponsoring Organization</td>
+                <td>Supervisor</td>
+                <td>Approval</td>
+            </tr>
+        </thead>
+        <tbody class="table-striped">
+            {% for row in records %}
+            <tr>
+                <td onclick="recordInfo({{row.id}});">{{row.student.lastName}}</td>
+                <td onclick="recordInfo({{row.id}});">{{row.student.firstName}}</td>
+                <td onclick="recordInfo({{row.id}});">{{row.dateFrom|date("m/d/Y")}}</td>
+                <td onclick="recordInfo({{row.id}});">{{row.activity}}</td>
+                <td onclick="recordInfo({{row.id}});">{{row.numHours}}</td>
+                <td onclick="recordInfo({{row.id}});">{{row.organization}}</td>
+                <td onclick="recordInfo({{row.id}});">{{row.supervisor}}</td>
+                <td><button class="approve">Approve</button><button class="deny">Deny</button><input class="record_id" type="hidden" value="{{row.id}}" ></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}
+    
+{% block endscripts %}
+    
+    <script>
+        function recordInfo(id){
+            var options = [];
+            options.url = "{{ path('default', {'controller' : 'Record', 'action' : 'GetRecordPartial'}) }}" + "/" + id ;
+            options.success = function(response){
+                $("#popup").html(response.html);
+                $("#popup").dialog({
+                    width: "500px",
+                    title: "Record Details"
+                });
+            };
+            options.error = function(a,b,c){
+                $("#popup").html(a.responseText);
+                $("#popup").dialog({
+                    width: "500px",
+                    title: "Error Details"
+                });
+            };
+            $.ajax(options);
+        };
+        
+        $(document).ready(function() {
+            $(".approve").on("click", function(){
+                var id = $(this).parent().children(".record_id").val();
+                var options = [];
+                options.url = "{{ path('default', {'controller' : 'Record', 'action' : 'ApproveRecord'}) }}" + "/" + id + "/" + "true";
+                options.success = function(response) {
+                    success(response);
+                }
+                options.error = function(a,b,c){
+                    $("#popup").html(a.responseText);
+                    $("#popup").dialog({
+                        width: "500px",
+                        title: "Error Details"
+                    });
+                }
+                $.ajax(options);
+            });
+        });
+        
+        $(document).ready(function() {
+            $(".deny").on("click", function(){
+                var id = $(this).parent().children(".record_id").val();
+                var options = [];
+                options.url = "{{ path('default', {'controller' : 'Record', 'action' : 'ApproveRecord'}) }}" + "/" + id + "/" + "false";
+                options.success = function(response) {
+                    success(response);
+                }
+                options.error = function(a,b,c){
+                    $("#popup").html(a.responseText);
+                    $("#popup").dialog({
+                        width: "500px",
+                        title: "Error Details"
+                    });
+                }
+                $.ajax(options);
+            });
+        });
+        
+        
+        function success(response){
+            if (response.approved == true){
+                alert("approved");
+            }
+            else if (response.denied == true){
+                alert("denied");
+            }
+            else {
+                alert("error");
+            }
+        }
+        
+    </script>
+{% endblock %}

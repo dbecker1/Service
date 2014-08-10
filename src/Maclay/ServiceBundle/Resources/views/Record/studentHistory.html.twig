@@ -1,0 +1,28 @@
+{% extends 'MaclayServiceBundle:Profile:profile.html.twig' %}
+
+{% block pagename %}
+    Student Profile - Record Summary
+{% endblock %}
+
+{% block usercontent %}
+    <h4>Students:</h4>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <td>Last Name</td>
+                <td>First Name</td>
+                <td>Number of Approved Hours</td>
+            </tr>
+        </thead>
+        <tbody class="table-striped">
+            {% for student in students %}
+                <tr onclick="window.open('{{path ("viewStudent", {"id" : student.id})}}');">        
+                    <td>{{student.lastName}}</td>
+                    <td>{{student.firstName}}</td>
+                    <td>{{student.approvedHours}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}

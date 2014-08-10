@@ -12,4 +12,26 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+    //incredibly inefficient way to do this... need to find a better way
+    public function findByRole($role){
+        $query = $this->getEntityManager()
+                ->createQuery(
+                        "SELECT u "
+                        . "FROM MaclayServiceBundle:User u "
+                  )
+                ->getResult();
+        
+        foreach($query as $key => $user){
+            $isRole = false;
+            foreach($user->getRoles() as $r){
+                if (strpos($r, $role) !== false){
+                    $isRole = true;
+                }
+            }
+            if ($isRole === false){
+                unset($query[$key]);
+            }
+        }
+        return $query;
+    }
 }

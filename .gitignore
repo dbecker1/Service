@@ -14,3 +14,7 @@ src/FOS
 app/logs/dev.log
 
 .metadata
+
+*.log
+
+app/logs/prod.log
