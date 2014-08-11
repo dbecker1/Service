@@ -44,7 +44,7 @@
     <script>
         function recordInfo(id){
             var options = [];
-            options.url = "{{ path('default', {'controller' : 'Record', 'action' : 'GetRecordPartial'}) }}" + "/" + id ;
+            options.url = "{{ path('default', {'controller' : 'Record', 'action' : 'GetRecordPartial'}) }}" + "/" + id;
             options.success = function(response){
                 $("#popup").html(response.html);
                 $("#popup").dialog({
@@ -68,7 +68,12 @@
                 var options = [];
                 options.url = "{{ path('default', {'controller' : 'Record', 'action' : 'ApproveRecord'}) }}" + "/" + id + "/" + "true";
                 options.success = function(response) {
-                    success(response);
+                    if (response.approved == true){
+                        $("[value='" + id + "']").parent().html("Approved.");
+                    }
+                    else {
+                        alert("error");
+                    }
                 }
                 options.error = function(a,b,c){
                     $("#popup").html(a.responseText);
@@ -87,7 +92,12 @@
                 var options = [];
                 options.url = "{{ path('default', {'controller' : 'Record', 'action' : 'ApproveRecord'}) }}" + "/" + id + "/" + "false";
                 options.success = function(response) {
-                    success(response);
+                    if (response.denied == true){
+                        $("[value='" + id + "']").parent().html("Denied.");
+                    }
+                    else {
+                        alert("error");
+                    }
                 }
                 options.error = function(a,b,c){
                     $("#popup").html(a.responseText);
