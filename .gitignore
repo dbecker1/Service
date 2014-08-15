@@ -18,3 +18,5 @@ app/logs/dev.log
 *.log
 
 app/logs/prod.log
+
+vendor/ircmaxell/password-compat/
