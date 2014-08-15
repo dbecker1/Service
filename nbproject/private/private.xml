@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Record/recordHistory.html.twig</file>
             <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/config/routing.yml</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Entity/User.php</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Entity/RecordRepository.php</file>
-            <file>file:/Applications/XAMPP/htdocs/src/FOS/UserBundle/Model/User.php</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Entity/UserRepository.php</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Entity/StudentInfo.php</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Record/pendingRecords.html.twig</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Record/recordPartial.html.twig</file>
             <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/RecordController.php</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Record/studentHistory.html.twig</file>
         </group>
     </open-files>
 </project-private>
