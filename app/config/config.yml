@@ -96,3 +96,6 @@ swiftmailer:
 parameters:
     recentRecordLength: 5
     applicationDeveloper: Daniel Becker
+    uploadDirectory: "%kernel.root_dir%/../web/uploads/"
+    recordUploadDirectory: "%uploadDirectory%records/"
+    importUploadDirectory: "%uploadDirectory%imports/"

@@ -1,6 +1,3 @@
-parameters:
-    maclay_service.accountservice.class: Maclay\ServiceBundle\Controller\AccountServiceController
-
 services:
-    maclay_service.accountservice:
-        class: "%maclay_service.accountservice.class%"
+    maclay.filecontroller:
+        class: "Maclay\ServiceBundle\Controller\FileController"

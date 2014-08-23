@@ -9,7 +9,11 @@ class ProfileController extends Controller
     public function profileAction()
     {
         $securityContext = $this->container->get("security.context");
-        if($securityContext->isGranted("ROLE_COORDINATOR"))
+        if($securityContext->isGranted("ROLE_ADMIN"))
+        {
+            
+        }
+        else if($securityContext->isGranted("ROLE_COORDINATOR"))
         {
             return $this->redirect($this->generateUrl('default', array("controller" => "Record", "action" => "PendingRecords")));
         }

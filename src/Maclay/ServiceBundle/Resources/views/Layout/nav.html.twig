@@ -5,9 +5,12 @@
             <li><h4><a href="{{ path('default', {'controller' : 'Record', 'action' : 'StudentHistory'}) }}">Student History</a></h4></li>
         {% endif %}
         {% if isStudent %}
-        <li><h4><a href="{{ path('default', {'controller' : 'Record', 'action' : 'RecordSummary'}) }}">Record Summary</a></h4></li>
-        <li><h4><a href="{{ path('default', {'controller' : 'Record', 'action' : 'NewRecord'}) }}">Enter New Record</a></h4></li>
-        <li><h4><a href="{{ path('default', {'controller' : 'Record', 'action' : 'RecordHistory'}) }}">History</a></h4></li>
+            <li><h4><a href="{{ path('default', {'controller' : 'Record', 'action' : 'RecordSummary'}) }}">Record Summary</a></h4></li>
+            <li><h4><a href="{{ path('default', {'controller' : 'Record', 'action' : 'NewRecord'}) }}">Enter New Record</a></h4></li>
+            <li><h4><a href="{{ path('default', {'controller' : 'Record', 'action' : 'RecordHistory'}) }}">History</a></h4></li>
+        {% endif %}
+        {% if isAdmin %}
+            <li><h4><a href="{{ path('default', {'controller' : 'Admin', 'action' : 'UploadStudents'}) }}">Upload Students</a></h4></li>
         {% endif %}
     </ul>
 </div>
