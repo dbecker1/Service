@@ -6,6 +6,8 @@
             <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/AdminController.php</file>
             <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Admin/upload.html.twig</file>
             <file>file:/Applications/XAMPP/htdocs/app/config/config.yml</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/RecordController.php</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Entity/Role.php</file>
         </group>
     </open-files>
 </project-private>

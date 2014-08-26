@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FileController extends Controller
 {
-    public function uploadFileAction($file, $path)
+    public function uploadFileAction($file, $path, $import, $upload)
     {
         try 
         {
@@ -31,18 +31,25 @@ class FileController extends Controller
                 throw new \RuntimeException("Exceeded filesize limit.");
             }
 
-            $finfo = new \finfo(FILEINFO_MIME_TYPE);
-            if (false === $ext = array_search($finfo->file($file["tmp_name"]), array("jpg" => "image/jpeg", "pdf" => "application/pdf"), true)){
-                throw new \RuntimeException("Invalid file format.");
+            $filetypes = array();
+            if($import === TRUE){
+                $filetypes = array("csv" => "text/plain");
             }
-
-            if(!move_uploaded_file($file["tmp_name"], sprintf($path . "%s.%s", rand() . sha1_file($file["tmp_name"]), $ext))){
+            else if ($upload === TRUE) {
+                $filetypes = array("jpg" => "image/jpeg", "pdf" => "application/pdf");
+            }
+            $finfo = new \finfo(FILEINFO_MIME_TYPE);
+            if (false === $ext = array_search($finfo->file($file["tmp_name"]),$filetypes, true)){
+                throw new \RuntimeException("Invalid file format");
+            }
+            $fileName = sprintf("%s.%s", rand() . sha1_file($file["tmp_name"]), $ext);
+            if(!move_uploaded_file($file["tmp_name"], $path . $fileName)){
                 throw new \RuntimeException("Failed to move uploaded file.");
             }
-            return new Response("");
+            return new Response(json_encode(array("error" => "", "fileName" => $fileName)));
         }
         catch (\Exception $ee){
-            return new Response($ee->getMessage());
+            return new Response(json_encode(array("error" => $ee->getMessage(), "fileName" => "")));
         }
     }
 }
