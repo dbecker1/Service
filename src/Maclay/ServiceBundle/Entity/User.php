@@ -49,6 +49,8 @@ class User extends BaseUser
      * @var string
      */
     private $middleName;
+    
+    private $tempPass;
 
 
     /**
@@ -203,6 +205,18 @@ class User extends BaseUser
         $this->approvedHours = $approvedHours;
         
         return $approvedHours;
+    }
+    
+    public function getTempPass()
+    {
+        return $this->tempPass;
+    }
+    
+    public function setTempPass($tempPass)
+    {
+        $this->tempPass = $tempPass;
+        
+        return $tempPass;
     }
     
 }

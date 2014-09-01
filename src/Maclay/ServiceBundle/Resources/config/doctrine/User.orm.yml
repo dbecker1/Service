@@ -85,4 +85,8 @@ Maclay\ServiceBundle\Entity\User:
             type: string
             length: 255
             column: MiddleName
+        tempPass:
+            type: string
+            length: 255
+            column: TempPass
     lifecycleCallbacks: {  }
