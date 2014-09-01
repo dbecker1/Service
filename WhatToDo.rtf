@@ -13,4 +13,13 @@ For prod\
 php app/console assetic:dump\
 php app/console assetic:dump \'97env=prod \'97no-debug\
 \
-COPY /WEB/CONFIG.PHP FROM HTDOCS TO SERVER}
+COPY /WEB/CONFIG.PHP FROM HTDOCS TO SERVER\
+\
+Deployment:\
+\
+	Back up server app folder\
+	php app/console assetic:dump\
+	php app/console assetic:dump \'97env=prod \'97no-debug\
+\
+	Copy FOS/UserBundle/Controller/ChangePasswordController to server\
+	Copy FOS/UserBundle/Resources/views/ChangePassword/change_password.html.twig to server}

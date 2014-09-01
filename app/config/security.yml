@@ -47,4 +47,5 @@ security:
 
     access_control:
         - { path: ^/Admin, role: ROLE_ADMIN }
+        - { path: ^/Record, role: ROLE_USER }
         - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }
