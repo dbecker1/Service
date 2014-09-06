@@ -22,6 +22,7 @@ class RecordType extends AbstractType
             ->add('notes', 'textarea', array("required" => false))
             ->add('organization', 'text')
             ->add('supervisor', 'text')
+            ->add('attachment', 'file', array("required" => false))
             ->add('submit', 'submit')
         ;
     }

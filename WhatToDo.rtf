@@ -4,22 +4,32 @@
 \margl1440\margr1440\vieww10800\viewh8400\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
-\f0\fs24 \cf0 What to do:\
+\f0\fs24 \cf0 Deployment:\
 \
-Assetic not automatically copying files over: php app/console assets:install web \'97symlink\
-\
-For prod\
-\
-php app/console assetic:dump\
-php app/console assetic:dump \'97env=prod \'97no-debug\
-\
-COPY /WEB/CONFIG.PHP FROM HTDOCS TO SERVER\
-\
-Deployment:\
-\
-	Back up server app folder\
+	ON LOCAL MACHINE: \
+	Use Filezilla Back up server app/config/parameters.yml\
 	php app/console assetic:dump\
 	php app/console assetic:dump \'97env=prod \'97no-debug\
+	If changes were made to the database, back it up to a SQL script\
 \
-	Copy FOS/UserBundle/Controller/ChangePasswordController to server\
-	Copy FOS/UserBundle/Resources/views/ChangePassword/change_password.html.twig to server}
+	ON SERVER:\
+	cd html\
+	rm -rf * (deletes all files in directory)\
+	git init (create local repository)\
+	git clone https://github.com/dbecker1/Service.git\
+	cd\
+	cp -r html/Service/* html/\
+	rm -rf Service\
+	rm -rf html/app/cache/*\
+	if no changes were made to FOS: cp -r FOSBackup/UserBundle/* html/src/FOS/UserBundle/\
+\
+	ON LOCAL MACHINE:\
+	Copy web folder to server\
+	Copy backed up app/config/parameters.yml back to server\
+	If changes were made to FOS: Copy FOSUserBundle to server\
+\
+	If changes were made to the database, log in to server phpmyadmin, drop tables in database, and import again from the database backup file \
+\
+	Test website\
+\
+	php app/console assets:install web \'97 symlink}

@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Record
 {
     protected $student;
+    public $attachment;
+    private $attachmentFileName;
     
     /**
      * @var integer
@@ -373,5 +375,17 @@ class Record
     public function getStudent()
     {
         return $this->student;
+    }
+    
+    public function setAttachmentFileName($attachmentFileName)
+    {
+        $this->attachmentFileName = $attachmentFileName;
+        
+        return $this;
+    }
+    
+    public function getAttachmentFileName()
+    {
+        return $this->attachmentFileName;
     }
 }

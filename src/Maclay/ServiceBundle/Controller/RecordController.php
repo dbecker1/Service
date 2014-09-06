@@ -38,17 +38,7 @@ class RecordController extends Controller
         return $this->render("MaclayServiceBundle:Record:recordSummary.html.twig", array("user" => $user, "records" => $records, "hours" => $hours));
     }
     
-    public function newRecordAction()
-    {
-        $record = new Record();
-        $form = $this->createForm(new RecordType(), $record, array(
-            'action' => $this->generateUrl('default', array("controller" => "Record", "action" => "CreateRecord")),
-        ));
-        
-        return $this->render("MaclayServiceBundle:Record:newRecord.html.twig", array("form" => $form->createView()));
-    }
-    
-    public function createRecordAction(Request $request){
+    public function newRecordAction(Request $request){
          $user = $this->getUser();
          
          $form = $this->createForm(new RecordType(), new Record());
@@ -56,20 +46,37 @@ class RecordController extends Controller
          $form->handleRequest($request);
          
          if($form->isValid()){
-             $record = $form->getData();
-             $record->setCurrentGrade($user->getStudentInfo()->getGrade());
-             $now = new \DateTime('now');
-             $record->setDateCreated($now);
-             $record->setStudent($user);
-             $record->setApprovalStatus(0);
-             
-             $em = $this->getDoctrine()->getManager();
-             $em->persist($record);
-             $em->flush();
-             return $this->redirect($this->generateUrl("default", array("controller" => "Record", "action" => "RecordSummary")));
+             try
+             {
+                $path = $this->container->getParameter("recordUploadDirectory");
+                $file = $form["attachment"]->getData();
+                $extension = $file->guessExtension();
+                if (!$extension){
+                    $extension = "bin";
+                }
+                $fileName = $user->getUsername() . rand(1,999999) . "." . $extension;
+                $file->move($path, $fileName);
+                
+                $record = $form->getData();
+                $record->setCurrentGrade($user->getStudentInfo()->getGrade());
+                $now = new \DateTime('now');
+                $record->setDateCreated($now);
+                $record->setStudent($user);
+                $record->setApprovalStatus(0);
+                $record->setAttachmentFileName($fileName);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($record);
+                $em->flush();
+                return $this->redirect($this->generateUrl("default", array("controller" => "Record", "action" => "RecordSummary")));
+             }
+             catch (\Exception $ee)
+             {
+                return $this->render("MaclayServiceBundle:Record:newRecord.html.twig", array("error" => $ee->getMessage(), "form" => $form->createView()));
+             }
          }
          
-         return $this->render("MaclayServiceBundle:Record:newRecord.html.twig", array("form" => $form->createView()));
+         return $this->render("MaclayServiceBundle:Record:newRecord.html.twig", array("error" => "", "form" => $form->createView()));
    }
    
    public function recordHistoryAction(){
@@ -81,7 +88,12 @@ class RecordController extends Controller
    public function getRecordPartialAction($id){
        $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:Record");
        $record = $repository->findOneById($id);
-       $answer["html"] = $this->render("MaclayServiceBundle:Record:recordPartial.html.twig", array("record" => $record))->getContent();
+       $path = "";
+       if ($record->getAttachmentFileName() !== NULL){
+           $path = $this->container->getParameter("recordFileViewLink") . $record->getAttachmentFileName();
+           
+       }
+       $answer["html"] = $this->render("MaclayServiceBundle:Record:recordPartial.html.twig", array("record" => $record, "path" => $path))->getContent();
        $response = new Response();                                         
        $response->headers->set('Content-type', 'application/json; charset=utf-8');
        $response->setContent(json_encode($answer));
