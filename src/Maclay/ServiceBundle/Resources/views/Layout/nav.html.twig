@@ -11,6 +11,7 @@
         {% endif %}
         {% if isAdmin %}
             <li><h4><a href="{{ path('default', {'controller' : 'Admin', 'action' : 'UploadStudents'}) }}">Upload Students</a></h4></li>
+            <li><h4><a href="{{ path('default', {'controller' : 'Admin', 'action' : 'CreateClub'}) }}">Create Club</a></h4></li>
         {% endif %}
             <li><h4><a href="{{ path('default', {'controller' : 'Profile', 'action' : 'ChangePassword'}) }}/change-password">Change Password</a></h4></li>
     </ul>

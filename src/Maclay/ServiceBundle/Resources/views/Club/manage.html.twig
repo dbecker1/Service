@@ -1,0 +1,35 @@
+{% extends 'MaclayServiceBundle:Profile:profile.html.twig' %}
+
+{% block pagename %}
+    Club Sponsor - Manage Club
+{% endblock %}
+
+
+{% block usercontent %}
+    <p>{{ error }}</p>
+    {% for club in clubs %}
+        <h4>{{club.clubName}}</h4>
+
+        <br />
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <td>Last Name</td>
+                    <td>First Name</td>
+                    <td>Number of Approved Hours</td>
+                </tr>
+            </thead>
+            <tbody class="table-striped">
+                {%for member in club.members %}
+                    <tr onclick="window.open('{{path ("viewStudent", {"id" : member.id})}}');">
+                        <td>{{member.lastName}}</td>
+                        <td>{{member.firstName}}</td>
+                        <td>{{member.approvedHours}}</td>
+                    </tr>
+                {% endfor%}
+            </tbody>
+        </table>
+    {% endfor%}
+
+{% endblock %}
+

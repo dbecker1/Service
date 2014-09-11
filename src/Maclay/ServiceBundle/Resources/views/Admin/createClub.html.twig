@@ -1,0 +1,36 @@
+{% extends 'MaclayServiceBundle:Profile:profile.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block pagename %}
+    Admin Profile - Create Club
+{% endblock %}
+    
+{% block form_row %}
+    {% spaceless %}
+        <div class="row">
+            <div class="col-sm-2">
+                {{form_label(form) }}
+            </div>
+            <div class="col-sm-3 form-group">
+                {{form_widget(form) }}
+            </div>
+            <div class="col-sm-5 error-text">
+                {{ form_errors(form) }}
+            </div>
+        </div>
+        <br />
+    {% endspaceless %}
+{% endblock %}   
+
+{% block usercontent %}
+    <div id="newRecord" class="row">
+        <p>{{ error }} </p>
+        {{ form_start(form) }}
+            {{ form_row(form.clubName, {'label' : "Club Name"})}}
+            {{ form_row(form.sponsorEmail, {'label' : "Club Sponsor's Email"})}}
+        {{ form_end(form)}}
+    </div>
+
+{% endblock %}
+

@@ -50,10 +50,12 @@ Maclay\ServiceBundle\Entity\Record:
         approvalDate:
             type: datetime
             column: ApprovalDate
+            nullable: TRUE
         approverComments:
             type: string
             length: 255
             column: ApproverComments
+            nullable: TRUE
         approvalStatus:
             type: integer
             column: ApprovalStatus
@@ -61,4 +63,5 @@ Maclay\ServiceBundle\Entity\Record:
             type: string
             length: 255
             column: AttachmentFileName
+            nullable: TRUE
     lifecycleCallbacks: {  }

@@ -2,21 +2,6 @@ Maclay\ServiceBundle\Entity\User:
     type: entity
     table: null
     repositoryClass: Maclay\ServiceBundle\Entity\UserRepository
-    oneToMany:
-        records:
-            targetEntity: Record
-            mappedBy: student
-    manyToMany:
-        groups:
-            targetEntity: Role
-            joinTable:
-                 name: UserRoles
-                 joinColumns:
-                     UserID:
-                         referencedColumnName: id
-                 inverseJoinColumns:
-                     RoleID: 
-                         referencedColumnName: id
     manyToMany:
         clubs:
             targetEntity: Club
@@ -29,7 +14,19 @@ Maclay\ServiceBundle\Entity\User:
                 inverseJoinColumns:
                     ClubID:
                         referencedColumnName: id
-    manyToMany: 
+        sponsorForClubs:
+            targetEntity: Club
+            mappedBy: sponsors
+        groups:
+            targetEntity: Role
+            joinTable:
+                 name: UserRoles
+                 joinColumns:
+                     UserID:
+                         referencedColumnName: id
+                 inverseJoinColumns:
+                     RoleID: 
+                         referencedColumnName: id
         parents:
             targetEntity: User
             inversedBy: children
@@ -41,31 +38,19 @@ Maclay\ServiceBundle\Entity\User:
                 inverseJoinColumns:
                     ChildID:
                         referencedColumnName: id
-    manyToMany:
         children:
             targetEntity: User
             mappedBy: parents
-    
+        
+    oneToMany:
+        records:
+            targetEntity: Record
+            mappedBy: student
+            
     oneToOne:
         studentinfo:
             targetEntity: StudentInfo
             mappedBy: student
-    
-    oneToOne:
-        clubowner:
-            targetEntity: Club
-            mappedBy: clubsponsor
-    manyToMany:
-        groups:
-            targetEntity: Group
-            joinTable:
-                 name: UserRoles
-                 joinColumns:
-                     UserId:
-                         referencedColumnName: id
-                 inverseJoinColumns:
-                     RoleID: 
-                         referencedColumnName: id
     id:
         id:
             type: integer
@@ -77,16 +62,20 @@ Maclay\ServiceBundle\Entity\User:
             type: string
             length: 255
             column: FirstName
+            nullable: TRUE
         lastName:
             type: string
             length: 255
             column: LastName
+            nullable: TRUE
         middleName:
             type: string
             length: 255
             column: MiddleName
+            nullable: TRUE
         tempPass:
             type: string
             length: 255
             column: TempPass
+            nullable: TRUE
     lifecycleCallbacks: {  }

@@ -4,7 +4,10 @@ namespace Maclay\ServiceBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Maclay\ServiceBundle\Entity\StudentInfo;
+use Maclay\ServiceBundle\Form\ClubType;
+use Maclay\ServiceBundle\Entity\Club;
 
 class AdminController extends Controller
 {
@@ -41,7 +44,7 @@ class AdminController extends Controller
             }
             $userManager = $this->get("fos_user.user_manager");
             $em = $this->getDoctrine()->getManager();
-            $studentGroup = $em->getRepository("MaclayServiceBundle:Role")->find(7);
+            $studentGroup = $em->getRepository("MaclayServiceBundle:Role")->findOneByName("Student");
             foreach($students as $student){
                 if($student === NULL){
                     continue;
@@ -83,7 +86,7 @@ class AdminController extends Controller
             return $this->render("MaclayServiceBundle:Admin:upload.html.twig", array("newUsers" => true, "error" => $ex->getMessage()));
         }
         
-        return $this->render("MaclayServiceBundle:Admin:upload.html.twig", array("newUsers" => true, "error" => "success"));
+        return $this->render("MaclayServiceBundle:Admin:upload.html.twig", array("newUsers" => true, "error" => "Students Successfully Uploaded"));
 
     }
     
@@ -97,5 +100,38 @@ class AdminController extends Controller
             $pass[] = $alphabet[$n];
         }
         return implode($pass);
+    }
+    
+    public function createClubAction(Request $request)
+    {
+        $form = $this->createForm(new ClubType(), new Club());
+         
+        $form->handleRequest($request);
+        
+        try{
+            if($form->isValid())
+            {
+                $club = $form->getData();
+                $email = $form->get("sponsorEmail")->getData();
+                $em = $this->getDoctrine()->getManager();
+                $sponsorGroup = $em->getRepository("MaclayServiceBundle:Role")->findOneByName("ClubSponsor");
+                $userManager = $this->get("fos_user.user_manager");
+                $sponsor = $userManager->findUserByEmail($email);
+                if ($sponsor === NULL){
+                    return $this->render("MaclayServiceBundle:Admin:createClub.html.twig", array("error" => "Sponsor account does not exist", "form" => $form->createView()));
+                }
+                $sponsor->addGroup($sponsorGroup);
+                $club->addSponsor($sponsor);
+                $em->persist($club);
+
+                $em->flush();
+                return $this->render("MaclayServiceBundle:Admin:createClub.html.twig", array("error" => "Club Successly Created", "form" => $form->createView()));
+            }
+        } catch (\Exception $ex) {
+            return $this->render("MaclayServiceBundle:Admin:createClub.html.twig", array("error" => $ex->getMessage(), "form" => $form->createView()));
+        }
+        
+        
+        return $this->render("MaclayServiceBundle:Admin:createClub.html.twig", array("error" => "", "form" => $form->createView()));
     }
 }

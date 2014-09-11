@@ -2,17 +2,22 @@ Maclay\ServiceBundle\Entity\Club:
     type: entity
     table: null
     repositoryClass: Maclay\ServiceBundle\Entity\ClubRepository
-    oneToOne:
-        clubsponsor:
-            targetEntity: User
-            inversedBy: clubowner
-            joinColumn:
-                name: SponsorID
-                referencedColumnName: id
     manyToMany: 
         members:
             targetEntity: User
             mappedBy: clubs
+        sponsors:
+            targetEntity: User
+            inversedBy: sponsorForClubs
+            joinTable:
+                name: ClubSponsors
+                joinColumns:
+                    ClubID:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    SponsorID:
+                        referencedColumnName: id
+    
     id:
         id:
             type: integer
