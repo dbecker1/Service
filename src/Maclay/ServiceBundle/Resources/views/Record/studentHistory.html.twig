@@ -1,0 +1,69 @@
+{% extends 'MaclayServiceBundle:Profile:profile.html.twig' %}
+
+{% block pagename %}
+    Student Profile - Record Summary
+{% endblock %}
+
+{% block usercontent %}
+    <h4>Students:</h4>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Search: <input id="search" type="text" length="50" /> </p>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <td>Last Name</td>
+                <td>First Name</td>
+                <td>Student Number</td>
+                <td>Grade</td>
+                <td>Number of Approved Hours</td>
+            </tr>
+        </thead>
+        <tbody class="table-striped">
+            {% for student in students %}
+                <tr onclick="window.open('{{path ("viewStudent", {"id" : student.id})}}');">        
+                    <td>{{student.lastName}}</td>
+                    <td>{{student.firstName}}</td>
+                    <td>{{student.studentInfo.studentNumber}}</td>
+                    <td class="ignore">{{student.studentInfo.grade}}</td>
+                    <td class="ignore">{{student.approvedHours}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}
+
+    
+{% block endscripts %}
+    
+    <script>
+        $(document).ready(function() {
+            $("#search").on("keyup", function() {
+                var value = $(this).val();
+                
+                $("table tr").each(function(index){
+                    if (index != 0){
+                        var row = $(this);
+                        
+                        var hasValue = false;
+                        
+                        row.children("td").each(function() {
+                            var id = $(this).text().toLowerCase();
+                            
+                            if (!$(this).hasClass("ignore") && id.indexOf(value) > -1) {
+                                hasValue = true;
+                            }
+                        });
+                        
+                        if (hasValue == false) {
+                            $(this).hide();
+                        }
+                        else {
+                            $(this).show();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    
+{% endblock %}
