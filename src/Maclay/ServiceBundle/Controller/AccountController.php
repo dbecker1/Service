@@ -17,13 +17,13 @@ class AccountController extends Controller
         }
     }
     
-    public function groupAction()
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-        
-        $group = new \Maclay\ServiceBundle\Entity\Role("Teacher", array("ROLE_TEACHER"));
-        $em->persist($group);
-        $em->flush();
-        return $this->redirect($this->generateUrl("maclay_service_login"));
-    }
+//    public function groupAction()
+//    {
+//        $em = $this->getDoctrine()->getEntityManager();
+//        
+//        $group = new \Maclay\ServiceBundle\Entity\Role("Teacher", array("ROLE_TEACHER"));
+//        $em->persist($group);
+//        $em->flush();
+//        return $this->redirect($this->generateUrl("maclay_service_login"));
+//    }
 }

@@ -15,10 +15,10 @@
             <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Entity/Club.php</file>
             <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/AdminController.php</file>
             <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Record/newRecord.html.twig</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Entity/User.php</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Admin/createClub.html.twig</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Form/ClubType.php</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/RecordController.php</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/ClubController.php</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/config/doctrine/User.orm.yml</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Club/addMembers.html.twig</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/config/doctrine/Club.orm.yml</file>
         </group>
     </open-files>
 </project-private>

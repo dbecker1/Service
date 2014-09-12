@@ -1,0 +1,15 @@
+{% extends 'MaclayServiceBundle:Profile:profile.html.twig' %}
+
+{% block title %}
+    An Error Occured: {{ status_text }}
+{% endblock %}
+
+
+{% block pagename %}
+    Error!
+{% endblock %}
+    
+{% block usercontent %}
+    <h5>The server returned a "{{ status_code }} {{ status_text }}".</h5>
+
+{% endblock %}

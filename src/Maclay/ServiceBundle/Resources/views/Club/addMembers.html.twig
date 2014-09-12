@@ -1,0 +1,35 @@
+{% extends 'MaclayServiceBundle:Profile:profile.html.twig' %}
+
+{% block pagename %}
+    Club Sponsor - Manage Club
+{% endblock %}
+
+{% form_theme form _self %}
+    
+{% block form_row %}
+    {% spaceless %}
+        <div class="row">
+            <div class="col-sm-2">
+                {{form_label(form) }}
+            </div>
+            <div class="col-sm-3 form-group">
+                {{form_widget(form) }}
+            </div>
+            <div class="col-sm-5 error-text">
+                {{ form_errors(form) }}
+            </div>
+        </div>
+        <br />
+    {% endspaceless %}
+{% endblock %}
+
+{% block usercontent %}
+    {% if error != null %}
+        <p>{{ error }}</p>
+    {% else %}
+        <p>Enter the email address of all new members separated by a comma</p><br />
+    {% endif %}
+    {{ form(form) }}
+
+{% endblock %}
+

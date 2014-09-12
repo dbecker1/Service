@@ -33,6 +33,7 @@ class LayoutController extends Controller
         $isCoordinator = $securityContext->isGranted("ROLE_COORDINATOR");
         $isStudent = $securityContext->isGranted("ROLE_STUDENT");
         $isAdmin = $securityContext->isGranted("ROLE_ADMIN");
-        return $this->render("MaclayServiceBundle:Layout:nav.html.twig", array("isCoordinator" => $isCoordinator, "isStudent" => $isStudent, "isAdmin" => $isAdmin));
+        $isClubSponsor = $securityContext->isGranted("ROLE_CLUBSPONSOR");
+        return $this->render("MaclayServiceBundle:Layout:nav.html.twig", array("isCoordinator" => $isCoordinator, "isStudent" => $isStudent, "isAdmin" => $isAdmin, "isClubSponsor" => $isClubSponsor));
     }
 }

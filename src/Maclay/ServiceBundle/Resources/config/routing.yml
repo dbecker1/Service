@@ -3,6 +3,11 @@ maclay_service_login:
     defaults:   { _controller: MaclayServiceBundle:Account:login }
     methods: [GET]
     
+authentication_failed:
+    path:   /login
+    defaults:   { _controller: MaclayServiceBundle:Account:login }
+    methods: [GET]
+    
 maclay_service_login_full:
     path: /Account/Login
     defaults:   { _controller: MaclayServiceBundle:Account:login }
