@@ -10,7 +10,7 @@ class ProfileController extends Controller
     {
         //Check to see if this is the first time they have signed in
         $user = $this->getUser();
-        if(!empty($user->getTempPass())){
+        if($user->getTempPass()){
             $encoder = $this->get("security.encoder_factory")->getEncoder($user);
             $encodedPass = $encoder->encodePassword($user->getTempPass(), $user->getSalt());
             if ($encodedPass === $user->getPassword()){
