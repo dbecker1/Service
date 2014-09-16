@@ -1,0 +1,564 @@
+-- phpMyAdmin SQL Dump
+-- version 4.1.12
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Sep 16, 2014 at 03:32 AM
+-- Server version: 5.6.16
+-- PHP Version: 5.5.11
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `maclayservice`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `acl_classes`
+--
+
+CREATE TABLE IF NOT EXISTS `acl_classes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `class_type` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_69DD750638A36066` (`class_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `acl_entries`
+--
+
+CREATE TABLE IF NOT EXISTS `acl_entries` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `class_id` int(10) unsigned NOT NULL,
+  `object_identity_id` int(10) unsigned DEFAULT NULL,
+  `security_identity_id` int(10) unsigned NOT NULL,
+  `field_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ace_order` smallint(5) unsigned NOT NULL,
+  `mask` int(11) NOT NULL,
+  `granting` tinyint(1) NOT NULL,
+  `granting_strategy` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `audit_success` tinyint(1) NOT NULL,
+  `audit_failure` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_46C8B806EA000B103D9AB4A64DEF17BCE4289BF4` (`class_id`,`object_identity_id`,`field_name`,`ace_order`),
+  KEY `IDX_46C8B806EA000B103D9AB4A6DF9183C9` (`class_id`,`object_identity_id`,`security_identity_id`),
+  KEY `IDX_46C8B806EA000B10` (`class_id`),
+  KEY `IDX_46C8B8063D9AB4A6` (`object_identity_id`),
+  KEY `IDX_46C8B806DF9183C9` (`security_identity_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `acl_object_identities`
+--
+
+CREATE TABLE IF NOT EXISTS `acl_object_identities` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_object_identity_id` int(10) unsigned DEFAULT NULL,
+  `class_id` int(10) unsigned NOT NULL,
+  `object_identifier` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `entries_inheriting` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_9407E5494B12AD6EA000B10` (`object_identifier`,`class_id`),
+  KEY `IDX_9407E54977FA751A` (`parent_object_identity_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `acl_object_identity_ancestors`
+--
+
+CREATE TABLE IF NOT EXISTS `acl_object_identity_ancestors` (
+  `object_identity_id` int(10) unsigned NOT NULL,
+  `ancestor_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`object_identity_id`,`ancestor_id`),
+  KEY `IDX_825DE2993D9AB4A6` (`object_identity_id`),
+  KEY `IDX_825DE299C671CEA1` (`ancestor_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `acl_security_identities`
+--
+
+CREATE TABLE IF NOT EXISTS `acl_security_identities` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `identifier` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `username` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_8835EE78772E836AF85E0677` (`identifier`,`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Club`
+--
+
+CREATE TABLE IF NOT EXISTS `Club` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ClubName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `Club`
+--
+
+INSERT INTO `Club` (`id`, `ClubName`) VALUES
+(1, 'Key Club');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ClubMembers`
+--
+
+CREATE TABLE IF NOT EXISTS `ClubMembers` (
+  `MemberID` int(11) NOT NULL,
+  `ClubID` int(11) NOT NULL,
+  PRIMARY KEY (`MemberID`,`ClubID`),
+  KEY `IDX_D07D3FBD522B9974` (`MemberID`),
+  KEY `IDX_D07D3FBD23747D08` (`ClubID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `ClubMembers`
+--
+
+INSERT INTO `ClubMembers` (`MemberID`, `ClubID`) VALUES
+(17, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ClubSponsors`
+--
+
+CREATE TABLE IF NOT EXISTS `ClubSponsors` (
+  `ClubID` int(11) NOT NULL,
+  `SponsorID` int(11) NOT NULL,
+  PRIMARY KEY (`ClubID`,`SponsorID`),
+  KEY `IDX_276A85E23747D08` (`ClubID`),
+  KEY `IDX_276A85E94CE1A1A` (`SponsorID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `ClubSponsors`
+--
+
+INSERT INTO `ClubSponsors` (`ClubID`, `SponsorID`) VALUES
+(1, 16);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ParentChildInfo`
+--
+
+CREATE TABLE IF NOT EXISTS `ParentChildInfo` (
+  `ParentID` int(11) NOT NULL,
+  `ChildID` int(11) NOT NULL,
+  PRIMARY KEY (`ParentID`,`ChildID`),
+  KEY `IDX_7C8511A2D2F60E70` (`ParentID`),
+  KEY `IDX_7C8511A2F62E7213` (`ChildID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Record`
+--
+
+CREATE TABLE IF NOT EXISTS `Record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `CurrentGrade` int(11) NOT NULL,
+  `DateFrom` date NOT NULL,
+  `DateTo` date NOT NULL,
+  `NumHours` int(11) NOT NULL,
+  `Activity` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Notes` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Organization` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Supervisor` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `DateCreated` datetime NOT NULL,
+  `ApprovalDate` datetime DEFAULT NULL,
+  `ApproverComments` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ApprovalStatus` int(11) NOT NULL,
+  `StudentID` int(11) DEFAULT NULL,
+  `AttachmentFileName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_9C989AA721208DF3` (`StudentID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `Record`
+--
+
+INSERT INTO `Record` (`id`, `CurrentGrade`, `DateFrom`, `DateTo`, `NumHours`, `Activity`, `Notes`, `Organization`, `Supervisor`, `DateCreated`, `ApprovalDate`, `ApproverComments`, `ApprovalStatus`, `StudentID`, `AttachmentFileName`) VALUES
+(1, 12, '2014-04-03', '2014-04-03', 5, 'This Project', 'I worked hard', 'Maclay', 'Bas', '2014-09-12 18:09:09', NULL, NULL, 1, 17, 'tan325871.pdf');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Role`
+--
+
+CREATE TABLE IF NOT EXISTS `Role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `roles` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:array)',
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_F75B25545E237E06` (`name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `Role`
+--
+
+INSERT INTO `Role` (`id`, `roles`, `name`) VALUES
+(1, 'a:1:{i:0;s:10:"ROLE_ADMIN";}', 'Admin'),
+(2, 'a:1:{i:0;s:12:"ROLE_STUDENT";}', 'Student'),
+(3, 'a:1:{i:0;s:16:"ROLE_COORDINATOR";}', 'Coordinator'),
+(4, 'a:1:{i:0;s:16:"ROLE_CLUBSPONSOR";}', 'ClubSponsor'),
+(5, 'a:1:{i:0;s:12:"ROLE_TEACHER";}', 'Teacher');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `StudentInfo`
+--
+
+CREATE TABLE IF NOT EXISTS `StudentInfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `StudentNumber` int(11) NOT NULL,
+  `GradYear` int(11) NOT NULL,
+  `Grade` int(11) NOT NULL,
+  `Gender` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
+  `StudentID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_36310DE221208DF3` (`StudentID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=58 ;
+
+--
+-- Dumping data for table `StudentInfo`
+--
+
+INSERT INTO `StudentInfo` (`id`, `StudentNumber`, `GradYear`, `Grade`, `Gender`, `StudentID`) VALUES
+(1, 17403, 2015, 12, 'M', 17),
+(2, 15690, 2015, 12, 'F', 18),
+(3, 17253, 2015, 12, 'F', 19),
+(4, 17640, 2015, 12, 'M', 20),
+(5, 17221, 2015, 12, 'M', 21),
+(6, 17283, 2015, 12, 'F', 22),
+(7, 15527, 2015, 12, 'F', 23),
+(8, 15528, 2015, 12, 'F', 24),
+(9, 17599, 2015, 12, 'M', 25),
+(10, 15529, 2015, 12, 'F', 26),
+(11, 15390, 2015, 12, 'F', 27),
+(12, 17250, 2015, 12, 'M', 28),
+(13, 16819, 2015, 12, 'M', 29),
+(14, 17613, 2015, 12, 'M', 30),
+(15, 17216, 2015, 12, 'M', 31),
+(16, 17817, 2015, 12, 'F', 32),
+(17, 15532, 2015, 12, 'F', 33),
+(18, 17300, 2015, 12, 'M', 34),
+(19, 15533, 2015, 12, 'M', 35),
+(20, 15536, 2015, 12, 'M', 36),
+(21, 15710, 2015, 12, 'M', 37),
+(22, 15876, 2015, 12, 'F', 38),
+(27, 15716, 2015, 12, 'F', 43),
+(28, 17652, 2015, 12, 'M', 44),
+(29, 17868, 2015, 12, 'M', 45),
+(30, 16415, 2015, 12, 'M', 46),
+(31, 17554, 2015, 12, 'M', 47),
+(32, 15541, 2015, 12, 'F', 48),
+(33, 16739, 2015, 12, 'M', 49),
+(34, 16049, 2015, 12, 'F', 50),
+(35, 17153, 2015, 12, 'F', 51),
+(36, 16291, 2015, 12, 'M', 52),
+(37, 15543, 2015, 12, 'M', 53),
+(38, 17252, 2015, 12, 'F', 54),
+(39, 15647, 2015, 12, 'F', 55),
+(40, 15863, 2015, 12, 'M', 56),
+(41, 16748, 2015, 12, 'F', 57),
+(42, 17280, 2015, 12, 'M', 58),
+(43, 17667, 2015, 12, 'M', 59),
+(44, 16753, 2015, 12, 'F', 60),
+(45, 17504, 2015, 12, 'M', 61),
+(46, 15724, 2015, 12, 'F', 62),
+(47, 15546, 2015, 12, 'F', 63),
+(48, 17489, 2015, 12, 'M', 64),
+(49, 15407, 2015, 12, 'M', 65),
+(50, 15551, 2015, 12, 'M', 66),
+(51, 16127, 2015, 12, 'M', 67),
+(52, 15555, 2015, 12, 'F', 68),
+(53, 15557, 2015, 12, 'M', 69),
+(54, 16243, 2015, 12, 'M', 70),
+(55, 17661, 2015, 12, 'F', 71),
+(56, 17208, 2015, 12, 'F', 72),
+(57, 15736, 2015, 12, 'F', 73);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `User`
+--
+
+CREATE TABLE IF NOT EXISTS `User` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `FirstName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LastName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MiddleName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `username_canonical` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email_canonical` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  `salt` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `last_login` datetime DEFAULT NULL,
+  `locked` tinyint(1) NOT NULL,
+  `expired` tinyint(1) NOT NULL,
+  `expires_at` datetime DEFAULT NULL,
+  `confirmation_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password_requested_at` datetime DEFAULT NULL,
+  `roles` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:array)',
+  `credentials_expired` tinyint(1) NOT NULL,
+  `credentials_expire_at` datetime DEFAULT NULL,
+  `TempPass` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_2DA1797792FC23A8` (`username_canonical`),
+  UNIQUE KEY `UNIQ_2DA17977A0D96FBF` (`email_canonical`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=75 ;
+
+--
+-- Dumping data for table `User`
+--
+
+INSERT INTO `User` (`id`, `Username`, `Password`, `FirstName`, `LastName`, `MiddleName`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `last_login`, `locked`, `expired`, `expires_at`, `confirmation_token`, `password_requested_at`, `roles`, `credentials_expired`, `credentials_expire_at`, `TempPass`) VALUES
+(11, 'admin', '$2y$13$pqxsjos6yio4ow0kgs0k8u5/0szAg3lmOrYVsAJSGynIXEpYo.qGu', '', '', '', 'admin', 'admin@maclay.org', 'admin@maclay.org', 1, 'pqxsjos6yio4ow0kgs0k8ws04sk0ko0', '2014-09-12 18:03:07', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, ''),
+(15, 'coordinator', '$2y$13$byslwgotuaokgoggc4ckseJynZd6UXjjmcUllKEgppgoV7wVPq/Hq', NULL, NULL, NULL, 'coordinator', 'coordinator@maclay.org', 'coordinator@maclay.org', 1, 'byslwgotuaokgoggc4cksggookkoscw', '2014-09-12 18:28:14', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, NULL),
+(16, 'sponsor', '$2y$13$2cs1a7rysu1wgkwcws0k0OBPPxqeTV00YLPtvoJo3e9DSUGa6koE.', NULL, NULL, NULL, 'sponsor', 'sponsor@maclay.org', 'sponsor@maclay.org', 1, '2cs1a7rysu1wgkwcws0k0cos8wg8088', '2014-09-12 18:14:50', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, NULL),
+(17, 'tan', '$2y$13$hfs1c4bjfvkgsg88kwks4uqNCuAQ5xrFZsrqkvUzD23NG0vPSG9eG', 'Taehyeon', 'An', '', 'tan', 'tan@maclay.org', 'tan@maclay.org', 1, 'hfs1c4bjfvkgsg88kwks48oskw40koo', '2014-09-12 18:06:38', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, ''),
+(18, 'sballard', '$2y$13$aof5ph1gvh4cskwwkw40oeWx9ACJDhfgO4pd6ys9.TIaOCU7E0r62', 'Sarah', 'Ballard', 'Clark', 'sballard', 'sballard@maclay.org', 'sballard@maclay.org', 1, 'aof5ph1gvh4cskwwkw40okg4ggc8k40', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'xA7ObQFN'),
+(19, 'mbass', '$2y$13$j1dm1qdl6pwgskgksws84ebJ3aNG8uaGr5YeQLFtYc8LVnYkMvJne', 'Meredith', 'Bass', 'Alexis', 'mbass', 'mbass@maclay.org', 'mbass@maclay.org', 1, 'j1dm1qdl6pwgskgksws84s844wwkkws', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'QX3F8cS7'),
+(20, 'jbeck', '$2y$13$447o08cc1rk04owgkkcc0eIzRRkDVmz7WkQJW87bprAKcjEFakhTG', 'Jonathan', 'Beck', 'Luke', 'jbeck', 'jbeck@maclay.org', 'jbeck@maclay.org', 1, '447o08cc1rk04owgkkcc0k0gc0scg4o', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'mAU4O7Y3'),
+(21, 'lbickell', '$2y$13$3htyh1v3dt6o0wg04wsg0ui.f6Rb/.HNUv.EfcLhjytnlH/Tk2Tee', 'Luke', 'Bickell', 'Samuel', 'lbickell', 'lbickell@maclay.org', 'lbickell@maclay.org', 1, '3htyh1v3dt6o0wg04wsg00sgcc0kg0o', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'czkRCMnZ'),
+(22, 'ablakely', '$2y$13$7460nbosg4w8soso4gccseLstDka10aeCH1DeTqheLUBvlJ5xtyli', 'Adrian', 'Blakely', 'Denise', 'ablakely', 'ablakely@maclay.org', 'ablakely@maclay.org', 1, '7460nbosg4w8soso4gccskog0cwcgsg', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'dlEe2aRJ'),
+(23, 'eboyd', '$2y$13$2dlbd5ypslj4gc04gk8sce7K9P51/GKpK1V2dWWihKJVA9ive.nLe', 'Emmaline', 'Boyd', 'Marie', 'eboyd', 'eboyd@maclay.org', 'eboyd@maclay.org', 1, '2dlbd5ypslj4gc04gk8scogo4cc444k', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'XLeWOYT2'),
+(24, 'hbradsha', '$2y$13$kyiodfjw7uo48okogcs48uAl7d5GC0kBIpksQEqnTyzzxAiJdmJEC', 'Halle', 'Bradshaw', 'Race', 'hbradsha', 'hbradsha@maclay.org', 'hbradsha@maclay.org', 1, 'kyiodfjw7uo48okogcs48wkc8o8w8o4', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'oEW4CJXE'),
+(25, 'jbranch', '$2y$13$hivyi6xcyi0o04wgscswwezn76wReJtaO7jiGDmPc/QdCaWeblnTK', 'James', 'Branch', 'Elias', 'jbranch', 'jbranch@maclay.org', 'jbranch@maclay.org', 1, 'hivyi6xcyi0o04wgscswwggogoko88s', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, '87mBKApN'),
+(26, 'nbuford', '$2y$13$5ulz7ldr9skc08ksg4g08eeFH23xF0/Xz78wKpxCJE6lBT0ZzxO5W', 'Nicole', 'Buford', 'Rivers', 'nbuford', 'nbuford@maclay.org', 'nbuford@maclay.org', 1, '5ulz7ldr9skc08ksg4g08so8c8wkwsw', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'LUREUAdI'),
+(27, 'jcarnes', '$2y$13$7wr49afn11k4k804sss8ouETiw39LhG5SJEgpT6p9owGIySgBOSey', 'Jordan', 'Carnes', 'Ashley', 'jcarnes', 'jcarnes@maclay.org', 'jcarnes@maclay.org', 1, '7wr49afn11k4k804sss8o4og0808w8w', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'bhtP6dIk'),
+(28, 'jcathcar', '$2y$13$rhwmyvv04w04g0kgsc88cuDwjDabRWbOEvvy6XpWFvXkIZeFl0fz6', 'Jarrett', 'Cathcart', 'Bruce', 'jcathcar', 'jcathcar@maclay.org', 'jcathcar@maclay.org', 1, 'rhwmyvv04w04g0kgsc88c8ckwgg80kw', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'Itea31F2'),
+(29, 'schase', '$2y$13$emmmhyidla80s4g88404weBqfT9hPl2iTsFHqnUgI1uKbuyIz9uAa', 'Stephen', 'Chase', 'Edward', 'schase', 'schase@maclay.org', 'schase@maclay.org', 1, 'emmmhyidla80s4g88404wsc0wkwg84g', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'ZRtziJdT'),
+(30, 'qchen', '$2y$13$khcojd0ybkg8w4sowwwwguCHtCrCa7.EN/SnjKpSTH0GvVlCCDTNO', 'Quan', 'Chen', '', 'qchen', 'qchen@maclay.org', 'qchen@maclay.org', 1, 'khcojd0ybkg8w4sowwwwg4ogo00cog0', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'uUoflrNm'),
+(31, 'pcrapps', '$2y$13$l6wn9exewu848k88owcwceS9AjVm6NuVSWbkC6rZ2dLvKwa.GhakC', 'Porter', 'Crapps', 'Claude', 'pcrapps', 'pcrapps@maclay.org', 'pcrapps@maclay.org', 1, 'l6wn9exewu848k88owcwcgs4kwsgw0k', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'A83wcBGK'),
+(32, 'acriser', '$2y$13$nahv4ikxig0g4ws0wc4coeKXHQXd2IVqBLCTVWlCX9nPWXJOsAV96', 'Anne', 'Criser', 'Marshall', 'acriser', 'acriser@maclay.org', 'acriser@maclay.org', 1, 'nahv4ikxig0g4ws0wc4cokw8w0k8ksc', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'WLKPDfHr'),
+(33, 'ccullito', '$2y$13$cf5u1ou2v54owcwwkk4ocuhKp5yqskw1apWcH7u9XnFfH5/2i554G', 'Cameron', 'Culliton', 'Rae', 'ccullito', 'ccullito@maclay.org', 'ccullito@maclay.org', 1, 'cf5u1ou2v54owcwwkk4oc0w48scccgk', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'Y1R6BWPW'),
+(34, 'YDawoud', '$2y$13$d9y5b05op9w8cg4884ww4exHWntvKHg0lybx.n54E8xkz48nt5TFO', 'Yousef', 'Dawoud', 'Mohamed', 'ydawoud', 'YDawoud@maclay.org', 'ydawoud@maclay.org', 1, 'd9y5b05op9w8cg4884ww4oc40kgwcsw', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'G42RmG5M'),
+(35, 'mdeal', '$2y$13$53805j9eaqw4sowgokooou.y06rYiP9e9mEsigpyP5jYPt2tK.So6', 'Matthew', 'Deal', 'Wilson', 'mdeal', 'mdeal@maclay.org', 'mdeal@maclay.org', 1, '53805j9eaqw4sowgokooo0gwkws0s88', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'EZ9HpGhb'),
+(36, 'jdiamant', '$2y$13$dtt0t1cb15c88cckc4488eV7ne9reP1kvt17PbI5V1GkFzVcFQXLO', 'Jacob', 'Diamantis', 'Ryan', 'jdiamant', 'jdiamant@maclay.org', 'jdiamant@maclay.org', 1, 'dtt0t1cb15c88cckc4488sw8s84skk0', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'hRQLYo3L'),
+(37, 'idimitri', '$2y$13$ohms746rwc0sk4o8w0goseusTPHbwE30vokTz7YgTDv6qDqDKHGaK', 'Ian', 'Dimitri', 'Moreira', 'idimitri', 'idimitri@maclay.org', 'idimitri@maclay.org', 1, 'ohms746rwc0sk4o8w0goss0k0c4cwg8', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'gLHIxnu4'),
+(38, 'hdonalds', '$2y$13$94ws5uo1yyw4w8kg4sow0e7W0lFNTjEkLppU0tXF.3Mt5JFEKkAly', 'Haley', 'Donaldson', 'Claire', 'hdonalds', 'hdonalds@maclay.org', 'hdonalds@maclay.org', 1, '94ws5uo1yyw4w8kg4sow0s0g48oswsw', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'imMuTI8o'),
+(39, 'sduncans', '$2y$13$iuffqr05f14cg8kss8k0oejNunUg4Xt.s4fbiPKy7/WO9N2w.S/Rm', 'Shannon', 'Duncanson', 'Leigh', 'sduncans', 'sduncans@maclay.org', 'sduncans@maclay.org', 1, 'iuffqr05f14cg8kss8k0ogkgcokok0k', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'x7WME3OL'),
+(40, 'jdurranc', '$2y$13$fftaamkj6e0cgoggw0wckuLasTLNA3VKhDHrBv9sjoor6nNCZTTJS', 'Jonathan', 'Durrance', 'Parker', 'jdurranc', 'jdurranc@maclay.org', 'jdurranc@maclay.org', 1, 'fftaamkj6e0cgoggw0wck0gwscw4k4', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'LwmzLgbR'),
+(41, 'aeagen', '$2y$13$eogb8b8ab6og0kk4owwksev834r8wwccQ43MEvL.G6AEJx8BgKLIa', 'Amber', 'Eagen', 'Faith', 'aeagen', 'aeagen@maclay.org', 'aeagen@maclay.org', 1, 'eogb8b8ab6og0kk4owwkssc8kg0kwww', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'SIqfWLa5'),
+(42, 'blerecks', '$2y$13$c5sqefjjwa8so4o4cwc8weptvVuaDiFyL7GGljoTUSZniA3ZK3wxi', 'Blake', 'Ereckson', 'Austin', 'blerecks', 'blerecks@maclay.org', 'blerecks@maclay.org', 1, 'c5sqefjjwa8so4o4cwc8ws0o8wokk0k', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'ZMpIkoXH'),
+(43, 'afoote', '$2y$13$f83xuesvm94ogw0w4c8w0eVV8PKJg2VCtLvx4aomDJc.I4I848/m6', 'Alexa', 'Foote', 'Nicole', 'afoote', 'afoote@maclay.org', 'afoote@maclay.org', 1, 'f83xuesvm94ogw0w4c8w0so8k4s4cs4', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'mJkQC0rd'),
+(44, 'mhgamble', '$2y$13$aeuri584ixkcw4wwwws00Oj92dWNlJ0dNmJf8tWg0gtdGOQ.sRegO', 'Menkara-Hetep', 'Gamble', 'Moadiah', 'mhgamble', 'mhgamble@maclay.org', 'mhgamble@maclay.org', 1, 'aeuri584ixkcw4wwwws00c04gk0wo8s', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'mFDYMEGu'),
+(45, 'ngavalas', '$2y$13$tjxll7r59xc04s84g4488eQbjze2sRyyAGu2X3L3XER4ZtOmeuiMO', 'Nicholas', 'Gavalas', 'Victor', 'ngavalas', 'ngavalas@maclay.org', 'ngavalas@maclay.org', 1, 'tjxll7r59xc04s84g4488s8kg4s088s', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'dXB0zBUn'),
+(46, 'bgrubbs', '$2y$13$k2h58de2i1cc4gokos484uWE78PiL2vAbEic4OcWg4HKs1Ltri9GS', 'Benjamin', 'Grubbs', 'Patrick', 'bgrubbs', 'bgrubbs@maclay.org', 'bgrubbs@maclay.org', 1, 'k2h58de2i1cc4gokos4844ggg4c8k8w', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'ebWppJYC'),
+(47, 'tha', '$2y$13$ps1niduy6qs04sos04so8urWbAgIqvaKNUHsWQSEYqFwujRbl4dje', 'Tae Oh', 'Ha', '', 'tha', 'tha@maclay.org', 'tha@maclay.org', 1, 'ps1niduy6qs04sos04so8wkc84wwogs', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'i9iLZBPc'),
+(48, 'ghanna', '$2y$13$qrl7nvbqzf4cwsgkkwoo4eBzpAlEC2cqr9WFAspHAu56eKVHFcd8O', 'Grace', 'Hanna', 'Ellen', 'ghanna', 'ghanna@maclay.org', 'ghanna@maclay.org', 1, 'qrl7nvbqzf4cwsgkkwoo4kkkcsw0owo', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, '7i0JNx5Q'),
+(49, 'jhansen', '$2y$13$kzl4vz3yec08404w0080wuk4r2DllQz4vpVzRm54WINvqYL0vFZKW', 'Jackson', 'Hansen', 'Smith', 'jhansen', 'jhansen@maclay.org', 'jhansen@maclay.org', 1, 'kzl4vz3yec08404w0080w8go04s80w4', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'kwGJYqX2'),
+(50, 'chanson', '$2y$13$d7jno3m5bj4ko88scco4gOY6Xn.de0I564WaOm1oC.m6lPB0a2oA6', 'Catherine', 'Hanson', 'Kennedy', 'chanson', 'chanson@maclay.org', 'chanson@maclay.org', 1, 'd7jno3m5bj4ko88scco4gcwck8gsww8', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'sJhIi6bq'),
+(51, 'nheinz', '$2y$13$gkehvjsum1c8ww448kksgu18NUaSnX3RBqyrGLC9a0KFrrmYl380G', 'Nicole', 'Heinz', 'Marie', 'nheinz', 'nheinz@maclay.org', 'nheinz@maclay.org', 1, 'gkehvjsum1c8ww448kksg4kk40swo0w', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, '5j2ULHXI'),
+(52, 'mhendon', '$2y$13$nenxmgx0v2844cccc8wswuwdmYsAcYmcsGrHSAJVmih1HQC4OjOQe', 'Michael', 'Hendon', 'Thomas', 'mhendon', 'mhendon@maclay.org', 'mhendon@maclay.org', 1, 'nenxmgx0v2844cccc8wsw4ss4w0ossc', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'QNhtbcbl'),
+(53, 'rhicks', '$2y$13$ae9xp04absw0ksoo8s0gouSpRbuzF6F1ES4W1Iv7AzBPIUt2nkz6G', 'Richard', 'Hicks', 'Dashwood', 'rhicks', 'rhicks@maclay.org', 'rhicks@maclay.org', 1, 'ae9xp04absw0ksoo8s0gowsogo08wwo', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'yIUm0Iei'),
+(54, 'lhigginb', '$2y$13$5scgck600vks08wwg080oe.AFE2R/xrs6v7gQ5f5lPvTM0SeeVFUG', 'Lillian', 'Higginbotham', 'Scott', 'lhigginb', 'lhigginb@maclay.org', 'lhigginb@maclay.org', 1, '5scgck600vks08wwg080okcgc0s4s48', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'hmQqiRIe'),
+(55, 'whobbs', '$2y$13$m99fn305t748wcos4c0s0u.SLaq6s6je7ZkW7WzEup..i.dyzN6yy', 'Whitney', 'Hobbs', 'Elizabeth', 'whobbs', 'whobbs@maclay.org', 'whobbs@maclay.org', 1, 'm99fn305t748wcos4c0s00wkwwskcso', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, '2AZD8LbP'),
+(56, 'pholton', '$2y$13$2pyrag69yscgk4cg44sk4uFLTFlugtomrkRckGHfuYvzFrEZxySjm', 'Paul', 'Holton', 'Evan', 'pholton', 'pholton@maclay.org', 'pholton@maclay.org', 1, '2pyrag69yscgk4cg44sk40k0sc8c4s4', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'piaqlbCK'),
+(57, 'ehouston', '$2y$13$lk4ts73qrbkco0scocwg0unzdrIZYyMDBJFCIrO6.yFKYG5Zh1yCS', 'Elizabeth', 'Houston', 'Caroline', 'ehouston', 'ehouston@maclay.org', 'ehouston@maclay.org', 1, 'lk4ts73qrbkco0scocwg0wgo8wsccc4', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'KnXAX2I5'),
+(58, 'kjordan', '$2y$13$492tu90eh3sw8so4wckkkuoc5t8FWq5v4YUh4tDYXEZe6T7dMV/RS', 'Kam', 'Jordan', 'Matthew', 'kjordan', 'kjordan@maclay.org', 'kjordan@maclay.org', 1, '492tu90eh3sw8so4wckkkwg0g0ssc4w', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'folo7TsZ'),
+(59, 'jjusko', '$2y$13$ha9174i5z400sk8gc0g4keDRmV8Xycq2RcTnrTRXN61qEiVA9Xqbu', 'Jacob', 'Jusko', 'Osborn', 'jjusko', 'jjusko@maclay.org', 'jjusko@maclay.org', 1, 'ha9174i5z400sk8gc0g4kkkkkc0osgs', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'khsjTtZ9'),
+(60, 'jkearce1', '$2y$13$9ydjz4otue8g00w88wgooei0kcv.ymaGjRxGg6q6KorbP2HZLsL9C', 'Juliette', 'Kearce', 'Brook', 'jkearce1', 'jkearce1@maclay.org', 'jkearce1@maclay.org', 1, '9ydjz4otue8g00w88wgooo4go4c4o4k', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'DZqP1SpB'),
+(61, 'mckim', '$2y$13$pteko37ubgg04sow444goeyQiwXJeGD90cttwMvvu9f.u0wxTfDwu', 'Min Chul', 'Kim', '', 'mckim', 'mckim@maclay.org', 'mckim@maclay.org', 1, 'pteko37ubgg04sow444gosgws0kgo04', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, '7d1T5AOa'),
+(62, 'mking', '$2y$13$pxxl9dyf24g0o40cgkwg8ecyFYMft3KjxT.RlhIfCRgiW/logd/Wm', 'Maya', 'King', 'Aliah', 'mking', 'mking@maclay.org', 'mking@maclay.org', 1, 'pxxl9dyf24g0o40cgkwg8gks4kwskso', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'P1oMKICU'),
+(63, 'jkirby', '$2y$13$6ykgi9errmo0owcc8wowgufpd07reVB3IfhcIAirbu/a3jon./31.', 'Jean', 'Kirby', 'Elizabeth', 'jkirby', 'jkirby@maclay.org', 'jkirby@maclay.org', 1, '6ykgi9errmo0owcc8wowg048ogsgkk0', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'PU4AfTzI'),
+(64, 'dkoski', '$2y$13$ne6x8q2d2i8swcs04c8souvwn1XqNLaG523HTw32Vu0eMSkMaS/pe', 'Devaun', 'Koski', 'James Tremblay', 'dkoski', 'dkoski@maclay.org', 'dkoski@maclay.org', 1, 'ne6x8q2d2i8swcs04c8so8so8wksco4', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'IQoAzE2x'),
+(65, 'jlangfor', '$2y$13$mkpc7ki58zk48okc0ck4ceq/0HvzMmBdVNX5rzW7rKySy5QKcDv6G', 'James', 'Langford', 'Luke', 'jlangfor', 'jlangfor@maclay.org', 'jlangfor@maclay.org', 1, 'mkpc7ki58zk48okc0ck4cowcwg0wk0k', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'HThDjXDZ'),
+(66, 'jlavia', '$2y$13$zafuu8k1q684cswsk4gkkuMNTHIkuxxA1Dj9m4yYhP8c9jVdvfMQ6', 'John', 'LaVia IV', 'Thomas', 'jlavia', 'jlavia@maclay.org', 'jlavia@maclay.org', 1, 'zafuu8k1q684cswsk4gkk8ckss0gck', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'NSCoq497'),
+(67, 'blockwood', '$2y$13$2u2uu071beiocc4o80wssekZBex3ujSRZsi4r4qFhQacdh/8gtxAW', 'Brian', 'Lockwood', 'Christopher', 'blockwood', 'blockwood@maclay.org', 'blockwood@maclay.org', 1, '2u2uu071beiocc4o80wssgko8c8cssk', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'P4xWNXum'),
+(68, 'hmahdavi', '$2y$13$l3p7sbl23404wk4wcckk4eyxm8iL8W8w5iPcEZl4PJyOU.ztkiRP6', 'Hannah', 'Mahdavi', 'Elizabeth', 'hmahdavi', 'hmahdavi@maclay.org', 'hmahdavi@maclay.org', 1, 'l3p7sbl23404wk4wcckk4kcwk48ccgw', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'DJN3dFqL'),
+(69, 'jmartin', '$2y$13$hze0x8ogelsscscwckc8keTZSXqFLgH3644m1oTfEe09BlqTJB9XG', 'John', 'Martin', 'Matthew', 'jmartin', 'jmartin@maclay.org', 'jmartin@maclay.org', 1, 'hze0x8ogelsscscwckc8kk0gc0gow8o', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'oyezlIoZ'),
+(70, 'jmasferr', '$2y$13$gaowodm6d7sogcowc0wg4ecMdAYjV2YEcseCyvc0usU2GRsjLWhES', 'Javier', 'Masferrer', 'Enrique', 'jmasferr', 'jmasferr@maclay.org', 'jmasferr@maclay.org', 1, 'gaowodm6d7sogcowc0wg4s8ws8gccsk', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'qQdILdFq'),
+(71, 'mmassengill', '$2y$13$f43eqh3off48w0gw8wok0uYRT6NPnv/4dn5ftU9XSNz.WOEGZy6.m', 'Marlee', 'Massengill', 'Elizabeth', 'mmassengill', 'mmassengill@maclay.org', 'mmassengill@maclay.org', 1, 'f43eqh3off48w0gw8wok04cwskswsgo', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, '73cLPxYj'),
+(72, 'cmenton', '$2y$13$84rx5xmwzn0og4k480cwwurnrHvbJIZiwJOA0RBaT4DAHoaTv3tii', 'Caroline', 'Menton', 'Brevard', 'cmenton', 'cmenton@maclay.org', 'cmenton@maclay.org', 1, '84rx5xmwzn0og4k480cww4cwg0kg4s4', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, '6Bca6sLl'),
+(73, 'mmesser', '$2y$13$e9bfexkxq9wkkc48sckgseK3Cv2IetZjq8vw6Ffs6LsgmjfhAeO2e', 'Marcy', 'Messer', 'Dee', 'mmesser', 'mmesser@maclay.org', 'mmesser@maclay.org', 1, 'e9bfexkxq9wkkc48sckgssg40kwggs8', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'RQL3o0SF'),
+(74, 'mminacc1', '$2y$13$b23apr7pz0o4ookgsokc4eG9fv4CZJpzuGGr8pGdA9fc5o7sZaa2i', 'Madison', 'Minacci', 'Ann', 'mminacc1', 'mminacc1@maclay.org', 'mminacc1@maclay.org', 1, 'b23apr7pz0o4ookgsokc4gs4sgwok8k', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'GWeh0JzY');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `UserRoles`
+--
+
+CREATE TABLE IF NOT EXISTS `UserRoles` (
+  `UserID` int(11) NOT NULL,
+  `RoleID` int(11) NOT NULL,
+  PRIMARY KEY (`UserID`,`RoleID`),
+  KEY `IDX_D2AABFB2631A48FA` (`UserID`),
+  KEY `IDX_D2AABFB28400D876` (`RoleID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `UserRoles`
+--
+
+INSERT INTO `UserRoles` (`UserID`, `RoleID`) VALUES
+(11, 1),
+(15, 3),
+(16, 4),
+(17, 2),
+(18, 2),
+(19, 2),
+(20, 2),
+(21, 2),
+(22, 2),
+(23, 2),
+(24, 2),
+(25, 2),
+(26, 2),
+(27, 2),
+(28, 2),
+(29, 2),
+(30, 2),
+(31, 2),
+(32, 2),
+(33, 2),
+(34, 2),
+(35, 2),
+(36, 2),
+(37, 2),
+(38, 2),
+(39, 2),
+(40, 2),
+(41, 2),
+(42, 2),
+(43, 2),
+(44, 2),
+(45, 2),
+(46, 2),
+(47, 2),
+(48, 2),
+(49, 2),
+(50, 2),
+(51, 2),
+(52, 2),
+(53, 2),
+(54, 2),
+(55, 2),
+(56, 2),
+(57, 2),
+(58, 2),
+(59, 2),
+(60, 2),
+(61, 2),
+(62, 2),
+(63, 2),
+(64, 2),
+(65, 2),
+(66, 2),
+(67, 2),
+(68, 2),
+(69, 2),
+(70, 2),
+(71, 2),
+(72, 2),
+(73, 2),
+(74, 2);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `acl_entries`
+--
+ALTER TABLE `acl_entries`
+  ADD CONSTRAINT `FK_46C8B8063D9AB4A6` FOREIGN KEY (`object_identity_id`) REFERENCES `acl_object_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_46C8B806DF9183C9` FOREIGN KEY (`security_identity_id`) REFERENCES `acl_security_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_46C8B806EA000B10` FOREIGN KEY (`class_id`) REFERENCES `acl_classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `acl_object_identities`
+--
+ALTER TABLE `acl_object_identities`
+  ADD CONSTRAINT `FK_9407E54977FA751A` FOREIGN KEY (`parent_object_identity_id`) REFERENCES `acl_object_identities` (`id`);
+
+--
+-- Constraints for table `acl_object_identity_ancestors`
+--
+ALTER TABLE `acl_object_identity_ancestors`
+  ADD CONSTRAINT `FK_825DE2993D9AB4A6` FOREIGN KEY (`object_identity_id`) REFERENCES `acl_object_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_825DE299C671CEA1` FOREIGN KEY (`ancestor_id`) REFERENCES `acl_object_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `ClubMembers`
+--
+ALTER TABLE `ClubMembers`
+  ADD CONSTRAINT `FK_D07D3FBD23747D08` FOREIGN KEY (`ClubID`) REFERENCES `Club` (`id`),
+  ADD CONSTRAINT `FK_D07D3FBD522B9974` FOREIGN KEY (`MemberID`) REFERENCES `User` (`id`);
+
+--
+-- Constraints for table `ClubSponsors`
+--
+ALTER TABLE `ClubSponsors`
+  ADD CONSTRAINT `FK_276A85E23747D08` FOREIGN KEY (`ClubID`) REFERENCES `Club` (`id`),
+  ADD CONSTRAINT `FK_276A85E94CE1A1A` FOREIGN KEY (`SponsorID`) REFERENCES `User` (`id`);
+
+--
+-- Constraints for table `ParentChildInfo`
+--
+ALTER TABLE `ParentChildInfo`
+  ADD CONSTRAINT `FK_7C8511A2D2F60E70` FOREIGN KEY (`ParentID`) REFERENCES `User` (`id`),
+  ADD CONSTRAINT `FK_7C8511A2F62E7213` FOREIGN KEY (`ChildID`) REFERENCES `User` (`id`);
+
+--
+-- Constraints for table `Record`
+--
+ALTER TABLE `Record`
+  ADD CONSTRAINT `FK_9C989AA721208DF3` FOREIGN KEY (`StudentID`) REFERENCES `User` (`id`);
+
+--
+-- Constraints for table `StudentInfo`
+--
+ALTER TABLE `StudentInfo`
+  ADD CONSTRAINT `FK_36310DE221208DF3` FOREIGN KEY (`StudentID`) REFERENCES `User` (`id`);
+
+--
+-- Constraints for table `UserRoles`
+--
+ALTER TABLE `UserRoles`
+  ADD CONSTRAINT `FK_D2AABFB2631A48FA` FOREIGN KEY (`UserId`) REFERENCES `User` (`id`),
+  ADD CONSTRAINT `FK_D2AABFB28400D876` FOREIGN KEY (`RoleID`) REFERENCES `Role` (`id`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
