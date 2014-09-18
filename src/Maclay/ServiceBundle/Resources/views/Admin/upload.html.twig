@@ -6,6 +6,12 @@
 {% endblock %}
     
 {% block usercontent %}
+    <p>Instructions:</p>
+    <ol>
+        <li>In Power School, export all of the students in the high school and 8th grade into a csv file</li>
+        <li>Upload the file below</li>
+        <li>Be patient! Depending on the volume of students, this process could take a few minutes</li>
+    </ol>
     <p>{{error}}</p>
     {% if newUsers %}
         <form action="{{ path('default', {'controller' : 'Admin', 'action' : 'UploadStudents'}) }}" method="POST"  enctype="multipart/form-data">
