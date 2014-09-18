@@ -50,20 +50,25 @@ class RecordController extends Controller
              {
                 $path = $this->container->getParameter("recordUploadDirectory");
                 $file = $form["attachment"]->getData();
-                $extension = $file->guessExtension();
-                if (!$extension){
-                    $extension = "bin";
-                }
-                $fileName = $user->getUsername() . rand(1,999999) . "." . $extension;
-                $file->move($path, $fileName);
-                
                 $record = $form->getData();
+                if ($file !== NULL){
+                    $extension = $file->guessExtension();
+                    if (!$extension){
+                        $extension = "bin";
+                    }
+                    $fileName = $user->getUsername() . rand(1,999999) . "." . $extension;
+                    $file->move($path, $fileName);
+                    
+                    $record->setAttachmentFileName($fileName);
+                }
+                
+                
                 $record->setCurrentGrade($user->getStudentInfo()->getGrade());
                 $now = new \DateTime('now');
                 $record->setDateCreated($now);
                 $record->setStudent($user);
                 $record->setApprovalStatus(0);
-                $record->setAttachmentFileName($fileName);
+                
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($record);

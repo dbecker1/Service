@@ -18,6 +18,7 @@
                 <td>Number of Hours</td>
                 <td>Sponsoring Organization</td>
                 <td>Supervisor</td>
+                <td>Has Attachment?</td>
                 <td>Approval</td>
             </tr>
         </thead>
@@ -31,6 +32,11 @@
                 <td onclick="recordInfo({{row.id}});">{{row.numHours}}</td>
                 <td onclick="recordInfo({{row.id}});">{{row.organization}}</td>
                 <td onclick="recordInfo({{row.id}});">{{row.supervisor}}</td>
+                {% if row.attachmentFileName != null %}
+                    <td onclick="recordInfo({{row.id}});">Yes</td>
+                {% else %}
+                    <td onclick="recordInfo({{row.id}});">No</td>
+                {% endif %}
                 <td><button class="approve">Approve</button><button class="deny">Deny</button><input class="record_id" type="hidden" value="{{row.id}}" ></td>
             </tr>
             {% endfor %}
