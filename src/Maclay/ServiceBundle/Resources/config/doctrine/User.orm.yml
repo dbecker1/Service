@@ -78,4 +78,7 @@ Maclay\ServiceBundle\Entity\User:
             length: 255
             column: TempPass
             nullable: TRUE
+        isInvited:
+            type: boolean
+            column: IsInvited
     lifecycleCallbacks: {  }

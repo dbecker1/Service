@@ -1,0 +1,16 @@
+{% extends 'MaclayServiceBundle:Profile:profile.html.twig' %}
+
+
+{% block pagename %}
+    Admin Profile - Upload Students
+{% endblock %}
+    
+{% block usercontent %}
+    <p>{{error}}</p>
+    <p>Click below to send an inite email to all of the users who haven't been invited.</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Number of uninvited users: {{ count }}</p>
+    <form action="{{ path('default', {'controller' : 'Admin', 'action' : 'EmailUninvitedUsers'}) }}" method="POST">
+        <input type="submit" value="Send Emails" />
+    </form>
+
+{% endblock %}

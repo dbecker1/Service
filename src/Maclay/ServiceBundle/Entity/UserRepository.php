@@ -34,4 +34,17 @@ class UserRepository extends EntityRepository
         }
         return $query;
     }
+    
+    public function getUninvitedUsers(){
+        $query = $this->getEntityManager()
+                ->createQuery(
+                            "SELECT u"
+                            . " FROM MaclayServiceBundle:User u "
+                            . "WHERE u.isInvited = false"
+                        )
+                ->getResult();
+        
+        return $query;
+        
+    }
 }

@@ -9,7 +9,7 @@ class RoutingController extends Controller
 {
     public function routeAction($controller, $action)
     {
-        $route = "MaclayServiceBundle:" . $controller . ":" . strtolower($action);
+        $route = "MaclayServiceBundle:" . $controller . ":" . lcfirst($action);
 
         return $this->forward($route);
     }

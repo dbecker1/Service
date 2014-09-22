@@ -30,6 +30,7 @@ class User extends BaseUser
     protected $records;
     protected $approvedHours;
     protected $sponsorForClubs;
+    protected $isInvited;
     /**
      * @var integer
      */

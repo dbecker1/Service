@@ -71,6 +71,7 @@ class AdminController extends Controller
                     $user->setMiddleName($student[2]);
                     $user->setLastName($student[0]);
                     $user->addGroup($studentGroup);
+                    $user->setIsInvited(false);
                     $userManager->updateUser($user);
                     $info = new StudentInfo();
                     $info->setGender($student[6]);
@@ -133,5 +134,57 @@ class AdminController extends Controller
         
         
         return $this->render("MaclayServiceBundle:Admin:createClub.html.twig", array("error" => "", "form" => $form->createView()));
+    }
+    
+    public function emailUninvitedUsersAction(Request $request){
+        
+        $em = $this->getDoctrine()->getManager();
+        $uninvitedUsers = $em->getRepository("MaclayServiceBundle:User")->getUninvitedUsers();
+        
+        if ($request->getMethod() == "GET"){
+            return $this->render("MaclayServiceBundle:Admin:emailUninvitedUsers.html.twig", array("count" => count($uninvitedUsers), "error" => ""));
+        }
+        else{
+            try{
+                set_time_limit(600);
+                $transport = \Swift_SmtpTransport::newInstance('smtp.office365.com', 587, "tls")
+                    ->setUsername('maclayservice@maclay.org')
+                    ->setPassword('GoMarauders2014')
+                    ;
+
+                $mailer = \Swift_Mailer::newInstance($transport);
+
+                foreach($uninvitedUsers as $user){
+                    $username = $user->getUsername();
+                    $password = $user->getTempPass();
+                    $name = $user->getFirstName();
+
+                    $body = $this->render("MaclayServiceBundle:Email:inviteUser.html.twig", array("username" => $username, "password" => $password, "name" => $name))->getContent();
+
+                    $message = \Swift_Message::newInstance('Begin Using Maclay Community Service')
+                        ->setFrom("maclayservice@maclay.org")
+                        ->setReplyTo("maclayservice@maclay.org")
+                        ->setTo($user->getEmail())
+                        ->setBody($body, "text/html")
+                        ;
+
+                    $mailer->send($message);
+
+                    $user->setIsInvited(true);
+                    $em->persist($user);
+                }
+
+                $em->flush();
+
+                $uninvitedUsers = $em->getRepository("MaclayServiceBundle:User")->getUninvitedUsers();
+
+                return $this->render("MaclayServiceBundle:Admin:emailUninvitedUsers.html.twig", array("count" => count($uninvitedUsers), "error" => "Users successfully emailed"));
+            }
+            catch (\Exception $ee){
+                return $this->render("MaclayServiceBundle:Admin:emailUninvitedUsers.html.twig", array("count" => count($uninvitedUsers), "error" => $ee->getMessage()));
+            }
+            
+        }
+        
     }
 }

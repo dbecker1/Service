@@ -30,6 +30,7 @@ class User extends BaseUser
     protected $records;
     protected $approvedHours;
     protected $sponsorForClubs;
+    protected $isInvited;
     /**
      * @var integer
      */
@@ -275,5 +276,100 @@ class User extends BaseUser
     public function getSponsorForClubs()
     {
         return $this->sponsorForClubs;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+
+
+    /**
+     * Set isInvited
+     *
+     * @param boolean $isInvited
+     * @return User
+     */
+    public function setIsInvited($isInvited)
+    {
+        $this->isInvited = $isInvited;
+
+        return $this;
+    }
+
+    /**
+     * Get isInvited
+     *
+     * @return boolean 
+     */
+    public function getIsInvited()
+    {
+        return $this->isInvited;
+    }
+
+   
+
+    /**
+     * Add parents
+     *
+     * @param \Maclay\ServiceBundle\Entity\User $parents
+     * @return User
+     */
+    public function addParent(\Maclay\ServiceBundle\Entity\User $parents)
+    {
+        $this->parents[] = $parents;
+
+        return $this;
+    }
+
+    /**
+     * Remove parents
+     *
+     * @param \Maclay\ServiceBundle\Entity\User $parents
+     */
+    public function removeParent(\Maclay\ServiceBundle\Entity\User $parents)
+    {
+        $this->parents->removeElement($parents);
+    }
+
+    /**
+     * Get parents
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getParents()
+    {
+        return $this->parents;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \Maclay\ServiceBundle\Entity\User $children
+     * @return User
+     */
+    public function addChild(\Maclay\ServiceBundle\Entity\User $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Maclay\ServiceBundle\Entity\User $children
+     */
+    public function removeChild(\Maclay\ServiceBundle\Entity\User $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 }
