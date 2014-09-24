@@ -81,4 +81,9 @@ Maclay\ServiceBundle\Entity\User:
         isInvited:
             type: boolean
             column: IsInvited
+        forgotPasswordCode:
+            type: string
+            length: 255
+            column: ForgotPasswordCode
+            nullable: TRUE
     lifecycleCallbacks: {  }

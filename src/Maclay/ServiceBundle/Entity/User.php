@@ -31,6 +31,7 @@ class User extends BaseUser
     protected $approvedHours;
     protected $sponsorForClubs;
     protected $isInvited;
+    protected $forgotPasswordCode;
     /**
      * @var integer
      */
@@ -371,5 +372,28 @@ class User extends BaseUser
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     * Set forgotPasswordCode
+     *
+     * @param string $forgotPasswordCode
+     * @return User
+     */
+    public function setForgotPasswordCode($forgotPasswordCode)
+    {
+        $this->forgotPasswordCode = $forgotPasswordCode;
+
+        return $this;
+    }
+
+    /**
+     * Get forgotPasswordCode
+     *
+     * @return string 
+     */
+    public function getForgotPasswordCode()
+    {
+        return $this->forgotPasswordCode;
     }
 }

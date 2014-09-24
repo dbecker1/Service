@@ -32,6 +32,10 @@ approverecord:
 viewStudent:
     path: /Record/ViewStudent?{id}
     defaults: { _controller: MaclayServiceBundle:Record:viewStudent }
+    
+resetPassword:
+    path: /Account/ResetPassword?{code}
+    defaults: { _controller: MaclayServiceBundle:Account:resetPassword }
 
 default:
     path: /{controller}/{action}
