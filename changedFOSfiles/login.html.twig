@@ -1,0 +1,56 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block title %}Maclay Service Login Page{% endblock %}
+
+{% block pagename %}Login{% endblock %}
+
+{% block fos_user_content %}
+<div class="col-sm-offset-4">
+    {% if error %}
+        <div>{{ error|trans }}</div>
+    {% endif %}
+
+    <form action="{{ path("fos_user_security_check") }}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+        <div class="row">
+            <div class="col-sm-2">
+                <label for="username">{{ 'security.login.username'|trans }}</label>
+            </div>
+            <div class="col-sm-2">
+                <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-2">
+                <label for="password">{{ 'security.login.password'|trans }}</label>
+            </div>
+            <div class="col-sm-2">
+                <input type="password" id="password" name="_password" required="required" />
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-3 col-sm-offset-1">
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-2 col-sm-offset-1" style="text-align: center;">    
+                <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-2 col-sm-offset-1" style="text-align: center;">    
+                <p><a href="{{ path('default', {'controller' : 'Account', 'action' : 'ForgotPassword'}) }}">Forgot Password?</a></p>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock fos_user_content %}
