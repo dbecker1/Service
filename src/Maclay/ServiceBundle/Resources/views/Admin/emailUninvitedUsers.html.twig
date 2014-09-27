@@ -9,15 +9,16 @@
     <p>{{error}}</p>
     <p>Click below to send an inite email to all of the users who haven't been invited.</p>
     <select id="userChoice">
-        <option value="-1">All Users</option>
+        <option value="0">All Users</option>
         <option value="9">Freshmen</option>
         <option value="10">Sophomores</option>
         <option value="11">Juniors</option>
         <option value="12">Seniors</option>
+        <option value="-1">Other Users</option>
     </select>
     <p>&nbsp;&nbsp;&nbsp;&nbsp;Number of uninvited users: <span id="userCount">{{ count }}</span></p>
     <form action="{{ path('default', {'controller' : 'Admin', 'action' : 'EmailUninvitedUsers'}) }}" method="POST">
-        <input type="hidden" id="userGrade" value="-1" />
+        <input type="hidden" id="userGrade" name="userGrade" value="0" />
         <input type="submit" value="Send Emails" />
     </form>
 

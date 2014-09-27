@@ -146,6 +146,28 @@ class AdminController extends Controller
         }
         else{
             try{
+                $grade = $_POST["userGrade"];
+                $emailUsers = array();
+                
+                if ($grade > 0){
+                    foreach($uninvitedUsers as $user){
+                        $studentInfo = $user->getStudentInfo();
+                        if ($studentInfo != NULL && $studentInfo->getGrade() == $grade){
+                            $emailUsers[] = $user;
+                        }
+                    }
+                }
+                else if ($grade == -1){
+                    foreach($uninvitedUsers as $user){
+                        if ($user->getStudentInfo() === NULL){
+                            $emailUsers[] = $user;
+                        }
+                    }
+                }
+                else{
+                    $emailUsers = $uninvitedUsers;
+                }
+                
                 set_time_limit(600);
                 $transport = \Swift_SmtpTransport::newInstance('smtp.office365.com', 587, "tls")
                     ->setUsername('maclayservice@maclay.org')
@@ -154,7 +176,7 @@ class AdminController extends Controller
 
                 $mailer = \Swift_Mailer::newInstance($transport);
 
-                foreach($uninvitedUsers as $user){
+                foreach($emailUsers as $user){
                     $username = $user->getUsername();
                     $password = $user->getTempPass();
                     $name = $user->getFirstName();
@@ -195,17 +217,21 @@ class AdminController extends Controller
         $userCount = 0;
         if ($grade > 0){
             foreach($uninvitedUsers as $user){
-                if ($user->getStudentInfo()->getGrade() == $grade){
+                $studentInfo = $user->getStudentInfo();
+                if ($studentInfo != NULL && $studentInfo->getGrade() == $grade){
                     $userCount++;
                 }
             }
         }
-        else{
+        else if ($grade == -1){
             foreach($uninvitedUsers as $user){
                 if ($user->getStudentInfo() === NULL){
                     $userCount++;
                 }
             }
+        }
+        else{
+            $userCount = count($uninvitedUsers);
         }
         
         $count["count"] = $userCount;
