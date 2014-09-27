@@ -1,6 +1,6 @@
 {% extends 'MaclayServiceBundle:Profile:profile.html.twig' %}
 
-{% block pagename %}
+{#{% block pagename %}
     Admin Profile - Upload Students
 {% endblock %}
     
@@ -30,7 +30,7 @@
                 var grade = $(this).val();
             
                 var options = [];
-                {#options.url = "{{ path('updateCount', {'grade' : 'text'}) }}";#}
+                options.url = "{{ path('updateCount', {'grade' : 'text'}) }}";
                 options.url = options.url.replace("text", grade);
                 options.success = function(response){
                     $("#userCount").html(response.count);
@@ -44,3 +44,4 @@
         });
     </script>
 {% endblock %}
+#}
