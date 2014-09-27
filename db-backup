@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 19, 2014 at 06:15 PM
+-- Generation Time: Sep 25, 2014 at 04:42 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -206,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `StudentInfo` (
   `Grade` int(11) NOT NULL,
   `Gender` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
   `StudentID` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=58 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=59 ;
 
 -- --------------------------------------------------------
 
@@ -236,17 +236,18 @@ CREATE TABLE IF NOT EXISTS `User` (
   `credentials_expired` tinyint(1) NOT NULL,
   `credentials_expire_at` datetime DEFAULT NULL,
   `TempPass` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `IsInvited` tinyint(1) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=75 ;
+  `IsInvited` tinyint(1) NOT NULL,
+  `ForgotPasswordCode` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=76 ;
 
 --
 -- Dumping data for table `User`
 --
 
-INSERT INTO `User` (`id`, `Username`, `Password`, `FirstName`, `LastName`, `MiddleName`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `last_login`, `locked`, `expired`, `expires_at`, `confirmation_token`, `password_requested_at`, `roles`, `credentials_expired`, `credentials_expire_at`, `TempPass`, `IsInvited`) VALUES
-(11, 'admin', '$2y$13$pqxsjos6yio4ow0kgs0k8u5/0szAg3lmOrYVsAJSGynIXEpYo.qGu', '', '', '', 'admin', 'admin@maclay.org', 'admin@maclay.org', 1, 'pqxsjos6yio4ow0kgs0k8ws04sk0ko0', '2014-09-19 18:06:41', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, '', 0),
-(15, 'coordinator', '$2y$13$byslwgotuaokgoggc4ckseJynZd6UXjjmcUllKEgppgoV7wVPq/Hq', NULL, NULL, NULL, 'coordinator', 'coordinator@maclay.org', 'coordinator@maclay.org', 1, 'byslwgotuaokgoggc4cksggookkoscw', '2014-09-12 18:28:14', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, NULL, 0),
-(16, 'sponsor', '$2y$13$2cs1a7rysu1wgkwcws0k0OBPPxqeTV00YLPtvoJo3e9DSUGa6koE.', NULL, NULL, NULL, 'sponsor', 'sponsor@maclay.org', 'sponsor@maclay.org', 1, '2cs1a7rysu1wgkwcws0k0cos8wg8088', '2014-09-12 18:14:50', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, NULL, 0);
+INSERT INTO `User` (`id`, `Username`, `Password`, `FirstName`, `LastName`, `MiddleName`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `last_login`, `locked`, `expired`, `expires_at`, `confirmation_token`, `password_requested_at`, `roles`, `credentials_expired`, `credentials_expire_at`, `TempPass`, `IsInvited`, `ForgotPasswordCode`) VALUES
+(11, 'admin', '$2y$13$pqxsjos6yio4ow0kgs0k8u5/0szAg3lmOrYVsAJSGynIXEpYo.qGu', '', '', '', 'admin', 'admin@maclay.org', 'admin@maclay.org', 1, 'pqxsjos6yio4ow0kgs0k8ws04sk0ko0', '2014-09-23 18:10:48', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, '', 0, NULL),
+(15, 'coordinator', '$2y$13$byslwgotuaokgoggc4ckseJynZd6UXjjmcUllKEgppgoV7wVPq/Hq', NULL, NULL, NULL, 'coordinator', 'coordinator@maclay.org', 'coordinator@maclay.org', 1, 'byslwgotuaokgoggc4cksggookkoscw', '2014-09-12 18:28:14', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, NULL, 0, NULL),
+(16, 'sponsor', '$2y$13$2cs1a7rysu1wgkwcws0k0OBPPxqeTV00YLPtvoJo3e9DSUGa6koE.', NULL, NULL, NULL, 'sponsor', 'sponsor@maclay.org', 'sponsor@maclay.org', 1, '2cs1a7rysu1wgkwcws0k0cos8wg8088', '2014-09-12 18:14:50', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -399,12 +400,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `StudentInfo`
 --
 ALTER TABLE `StudentInfo`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=58;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=59;
 --
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=75;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=76;
 --
 -- Constraints for dumped tables
 --
