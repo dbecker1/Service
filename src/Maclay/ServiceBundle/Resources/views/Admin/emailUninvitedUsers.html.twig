@@ -17,10 +17,10 @@
         <option value="-1">Other Users</option>
     </select>
     <p>&nbsp;&nbsp;&nbsp;&nbsp;Number of uninvited users: <span id="userCount">{{ count }}</span></p>
-    <form action="{{ path('default', {'controller' : 'Admin', 'action' : 'EmailUninvitedUsers'}) }}" method="POST">
+    {#<form action="{{ path('default', {'controller' : 'Admin', 'action' : 'EmailUninvitedUsers'}) }}" method="POST">
         <input type="hidden" id="userGrade" name="userGrade" value="0" />
         <input type="submit" value="Send Emails" />
-    </form>
+    </form>#}
 
 {% endblock %}
     
