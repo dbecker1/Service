@@ -137,7 +137,7 @@ class AdminController extends Controller
     }
     
     public function emailUninvitedUsersAction(Request $request){
-        return $this->render("MaclayServiceBundle:Admin:emailUninvitedUsers.html.twig", array("count" => 4, "error" => "test"));
+        
         $em = $this->getDoctrine()->getManager();
         $uninvitedUsers = $em->getRepository("MaclayServiceBundle:User")->getUninvitedUsers();
         
