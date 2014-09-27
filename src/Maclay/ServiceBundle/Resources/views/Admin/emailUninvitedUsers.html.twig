@@ -5,7 +5,7 @@
 {% endblock %}
     
 {% block usercontent %}
-    {#<p>{{error}}</p>
+    <p>{{error}}</p>
     <p>Click below to send an inite email to all of the users who haven't been invited.</p>
     <select id="userChoice">
         <option value="0">All Users</option>
@@ -19,7 +19,7 @@
     <form action="{{ path('default', {'controller' : 'Admin', 'action' : 'EmailUninvitedUsers'}) }}" method="POST">
         <input type="hidden" id="userGrade" name="userGrade" value="0" />
         <input type="submit" value="Send Emails" />
-    </form>#}
+    </form>
 
 {% endblock %}
     
@@ -30,7 +30,7 @@
                 var grade = $(this).val();
             
                 var options = [];
-                options.url = "{{ path('updateCount', {'grade' : 'text'}) }}";
+                {#options.url = "{{ path('updateCount', {'grade' : 'text'}) }}";#}
                 options.url = options.url.replace("text", grade);
                 options.success = function(response){
                     $("#userCount").html(response.count);
