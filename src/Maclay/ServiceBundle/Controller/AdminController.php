@@ -187,4 +187,32 @@ class AdminController extends Controller
         }
         
     }
+    
+    public function getUninvitedUserCountAction($grade){
+        $em = $this->getDoctrine()->getManager();
+        $uninvitedUsers = $em->getRepository("MaclayServiceBundle:User")->getUninvitedUsers();
+        
+        $userCount = 0;
+        if ($grade > 0){
+            foreach($uninvitedUsers as $user){
+                if ($user->getStudentInfo()->getGrade() == $grade){
+                    $userCount++;
+                }
+            }
+        }
+        else{
+            foreach($uninvitedUsers as $user){
+                if ($user->getStudentInfo() === NULL){
+                    $userCount++;
+                }
+            }
+        }
+        
+        $count["count"] = $userCount;
+        $response = new Response();                                         
+        $response->headers->set('Content-type', 'application/json; charset=utf-8');
+        $response->setContent(json_encode($count));
+        
+        return $response;
+    }
 }

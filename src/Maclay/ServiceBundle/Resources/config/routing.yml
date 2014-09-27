@@ -36,6 +36,10 @@ viewStudent:
 resetPassword:
     path: /Account/ResetPassword?{code}
     defaults: { _controller: MaclayServiceBundle:Account:resetPassword }
+    
+updateCount:
+    path: /Admin/UpdateCount?{grade}
+    defaults: { _controller: MaclayServiceBundle:Admin:getUninvitedUserCount }
 
 default:
     path: /{controller}/{action}
