@@ -169,7 +169,7 @@ class AdminController extends Controller
                 }
                 
                 set_time_limit(600);
-                $transport = \Swift_SmtpTransport::newInstance('smtp.office365.com', 587, "tls")
+                $transport = \Swift_SmtpTransport::newInstance('smtp.office365.com', 25, "tls")
                     ->setUsername('maclayservice@maclay.org')
                     ->setPassword('GoMarauders2014')
                     ;
