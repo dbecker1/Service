@@ -141,12 +141,12 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $uninvitedUsers = $em->getRepository("MaclayServiceBundle:User")->getUninvitedUsers();
         
-        return $this->render("MaclayServiceBundle:Admin:upload.html.twig", array("newUsers" => true, "error" => $request->getMethod()));
-        
         if ($request->getMethod() == "GET"){
+            return $this->render("MaclayServiceBundle:Admin:upload.html.twig", array("newUsers" => true, "error" => "seems correct"));
             return $this->render("MaclayServiceBundle:Admin:emailUninvitedUsers.html.twig", array("count" => count($uninvitedUsers), "error" => ""));
         }
         else{
+            return $this->render("MaclayServiceBundle:Admin:upload.html.twig", array("newUsers" => true, "error" => "nope"));
             try{
                 $grade = $_POST["userGrade"];
                 $emailUsers = array();
