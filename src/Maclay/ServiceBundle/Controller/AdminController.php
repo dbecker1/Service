@@ -169,8 +169,20 @@ class AdminController extends Controller
                 }
                 
                 set_time_limit(600);
-                $transport = \Swift_SmtpTransport::newInstance('localhost');
-
+                
+                if (in_array(@$_SERVER['REMOTE_ADDR'], array(
+                    '127.0.0.1',
+                    '::1',
+                ))) {
+                    $transport = \Swift_SmtpTransport::newInstance('smtp.office365.com', 25, "tls")
+                    ->setUsername('maclayservice@maclay.org')
+                    ->setPassword('GoMarauders2014')
+                    ;
+                }
+                else{
+                    $transport = \Swift_SmtpTransport::newInstance('localhost');
+                }
+                
                 $mailer = \Swift_Mailer::newInstance($transport);
 
                 foreach($emailUsers as $user){
@@ -181,8 +193,8 @@ class AdminController extends Controller
                     $body = $this->render("MaclayServiceBundle:Email:inviteUser.html.twig", array("username" => $username, "password" => $password, "name" => $name))->getContent();
 
                     $message = \Swift_Message::newInstance('Begin Using Maclay Community Service')
-                        ->setFrom("maclayservice@maclay.org")
-                        ->setReplyTo("maclayservice@maclay.org")
+                        ->setFrom(array("maclayservice@maclay.org" => "Maclay School Community Service"))
+                        ->setReplyTo(array("maclayservice@maclay.org" => "Maclay School Community Service"))
                         ->setTo($user->getEmail())
                         ->setBody($body, "text/html")
                         ;
