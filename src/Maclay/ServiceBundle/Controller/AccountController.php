@@ -65,8 +65,8 @@ class AccountController extends Controller
                 $body = $this->render("MaclayServiceBundle:Email:forgotPassword.html.twig", array("name" => $name, "code" => $code))->getContent();
 
                 $message = \Swift_Message::newInstance('Password Reset')
-                    ->setFrom("maclayservice@maclay.org")
-                    ->setReplyTo("maclayservice@maclay.org")
+                    ->setFrom(array("maclayservice@maclay.org" => "Maclay School Community Service"))
+                    ->setReplyTo(array("maclayservice@maclay.org" => "Maclay School Community Service"))
                     ->setTo($user->getEmail())
                     ->setBody($body, "text/html")
                     ;
