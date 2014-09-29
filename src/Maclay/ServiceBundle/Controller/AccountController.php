@@ -44,11 +44,19 @@ class AccountController extends Controller
                 $generator = new SecureRandom();
                 $user->setForgotPasswordCode(bin2hex($generator->nextBytes(20)));
                 
-                $transport = \Swift_SmtpTransport::newInstance('smtp.office365.com', 587, "tls")
+                if (in_array(@$_SERVER['REMOTE_ADDR'], array(
+                    '127.0.0.1',
+                    '::1',
+                ))) {
+                    $transport = \Swift_SmtpTransport::newInstance('smtp.office365.com', 25, "tls")
                     ->setUsername('maclayservice@maclay.org')
                     ->setPassword('GoMarauders2014')
                     ;
-
+                }
+                else{
+                    $transport = \Swift_SmtpTransport::newInstance('localhost');
+                }
+                
                 $mailer = \Swift_Mailer::newInstance($transport);
                 
                 $name = $user->getFirstName();
