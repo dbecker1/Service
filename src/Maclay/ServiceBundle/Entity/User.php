@@ -22,6 +22,10 @@ class User extends BaseUser
         $this->sponsorForClubs = new ArrayCollection();
     }
     
+    public function __toString(){
+        return $this->firstName . " " . $this->lastName;
+    }
+    
     protected $studentinfo;
     protected $parents;
     protected $children;

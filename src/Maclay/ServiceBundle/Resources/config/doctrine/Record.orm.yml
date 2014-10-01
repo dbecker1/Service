@@ -9,6 +9,13 @@ Maclay\ServiceBundle\Entity\Record:
             joinColumn:
                 name: StudentID
                 referencedColumnName: id
+    manyToOne:
+        enteredByClub:
+            targetEntity: Club
+            inversedBy: memberRecords
+            joinColumn: 
+                name: EnteredByClubID
+                referencedColumnName: id
     id:
         id:
             type: integer
