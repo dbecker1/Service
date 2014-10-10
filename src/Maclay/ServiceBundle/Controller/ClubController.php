@@ -4,6 +4,7 @@ namespace Maclay\ServiceBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Maclay\ServiceBundle\Entity\Record;
 use Maclay\ServiceBundle\Form\ClubRecordType;
 
@@ -30,55 +31,46 @@ class ClubController extends Controller
         return $this->render("MaclayServiceBundle:Club:manage.html.twig", array("clubs" => $clubs, "error" => ""));
     }
     
-    public function addClubMembersAction(Request $request){
-        $data = array();
-        $form = $this->createFormBuilder($data)
-                ->add("members", "textarea")
-                ->add("submit", "submit")
-                ->getForm();
+    public function addClubMembersAction(){
+        $user = $this->getUser();
         
-        if ($request->isMethod("POST")){
-            try{
-                $form->handleRequest($request);
-            
-                $data = $form->getData();
-
-                $members = explode(",", $data["members"]);
-                
-                $club = $this->getUser()->getSponsorForClubs()[0];
-                
-                $toBeAddedUsers = array();
-                foreach($members as $memberEmail){
-                    $userManager = $this->get("fos_user.user_manager");
-                    $user = $userManager->findUserByEmail($memberEmail);
-                    if ($user === NULL){
-                        throw new \RuntimeException($memberEmail . " could not be found.");
-                    }
-                    $inClub = false;
-                    foreach($user->getClubs() as $userClub){
-                        if ($userClub->getId() == $club->getId()){
-                            $inClub = true;
-                        }
-                    }
-                    if(!$inClub){
-                        $toBeAddedUsers[] = $user;
-                    }
-                }
-                $em = $this->getDoctrine()->getManager();
-                foreach($toBeAddedUsers as $user){
-                    $user->addClub($club);
-                    $em->persist($user);
-                }
-                $em->flush();
-                
-                return $this->render("MaclayServiceBundle:Club:addMembers.html.twig", array("error" => "Members successfully added", "form" => $form->createView()));
-            } catch (\Exception $ex) {
-                return $this->render("MaclayServiceBundle:Club:addMembers.html.twig", array("error" => $ex->getMessage(), "form" => $form->createView()));
-            }
-            
+        $club = $user->getSponsorForClubs()[0];
+        
+        return $this->render("MaclayServiceBundle:Club:addMembers.html.twig", array("error" => "", "clubId" => $club->getId()));
+    }
+    
+    public function getUsersForClubAction($gender, $grade){
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository("MaclayServiceBundle:User")->getUsersForClub($grade, $gender); 
+        $userArray = array();
+        foreach ($users as $user){
+            $userArray[] = array("id" => $user->getId(), "lastName" => $user->getLastName(), "firstName" => $user->getFirstName());
         }
-        else{
-            return $this->render("MaclayServiceBundle:Club:addMembers.html.twig", array("error" => "", "form" => $form->createView()));
+        $response = new Response(json_encode(array('users' => $userArray)));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+    
+    public function addUserToClubAction($userId, $clubId){
+        try{
+            $em = $this->getDoctrine()->getManager();
+        
+            $user = $em->getRepository("MaclayServiceBundle:User")->findOneById($userId);
+            $club = $em->getRepository("MaclayServiceBundle:Club")->findOneById($clubId);
+
+            $user->addClub($club);
+            $club->addMember($user);
+
+            $em->flush();
+            
+            $response = new Response(json_encode(array("added" => true)));
+            $response->headers->set("Content-Type", "application/json");
+            return $response;
+        }
+        catch (\Exception $ee){
+            $response = new Response(json_encode(array("added" => $ee->getMessage())));
+            $response->headers->set("Content-Type", "application/json");
+            return $response;
         }
     }
     
@@ -125,6 +117,6 @@ class ClubController extends Controller
             }
         }
         
-        return $this->render("MaclayServiceBundle:Club:newRecord.html.twig", array("error" => "no form", "form" => $form->createView()));
+        return $this->render("MaclayServiceBundle:Club:newRecord.html.twig", array("form" => $form->createView()));
     }
 }

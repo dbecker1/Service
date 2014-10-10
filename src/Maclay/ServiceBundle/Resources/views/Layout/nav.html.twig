@@ -16,6 +16,7 @@
         {% endif %}
         {% if isClubSponsor %}
             <li><h4><a href="{{ path('default', {'controller' : 'Club', 'action' : 'ManageClub'}) }}">Manage Club</a></h4></li>
+            <li><h4><a href="{{ path('default', {'controller' : 'Club', 'action' : 'NewRecordForMember'}) }}">Enter Record For Member</a></h4></li>
             <li><h4><a href="{{ path('default', {'controller' : 'Club', 'action' : 'AddClubMembers'}) }}">Add Club Members</a></h4></li>
         {% endif %}
             <li><h4><a href="{{ path('default', {'controller' : 'Profile', 'action' : 'ChangePassword'}) }}/change-password">Change Password</a></h4></li>

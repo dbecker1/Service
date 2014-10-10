@@ -47,4 +47,19 @@ class UserRepository extends EntityRepository
         return $query;
         
     }
+    
+    public function getUsersForClub($grade, $gender){
+        $query = $this->getEntityManager()
+                ->createQuery(
+                            "SELECT u "
+                            . "FROM MaclayServiceBundle:User u "
+                            . "JOIN u.studentinfo s "
+                            . "WHERE s.grade = :grade AND s.gender = :gender"
+                        )
+                ->setParameter("grade", $grade)
+                ->setParameter("gender", $gender)
+                ->getResult();
+        
+        return $query;
+    }
 }

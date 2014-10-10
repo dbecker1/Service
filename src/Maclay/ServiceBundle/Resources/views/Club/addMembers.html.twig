@@ -4,32 +4,94 @@
     Club Sponsor - Manage Club
 {% endblock %}
 
-{% form_theme form _self %}
-    
-{% block form_row %}
-    {% spaceless %}
-        <div class="row">
-            <div class="col-sm-2">
-                {{form_label(form) }}
-            </div>
-            <div class="col-sm-3 form-group">
-                {{form_widget(form) }}
-            </div>
-            <div class="col-sm-5 error-text">
-                {{ form_errors(form) }}
-            </div>
-        </div>
-        <br />
-    {% endspaceless %}
-{% endblock %}
-
 {% block usercontent %}
     {% if error != null %}
-        <p>{{ error }}</p>
+        <p id="error">{{ error }}</p>
     {% else %}
-        <p>Enter the email address of all new members separated by a comma</p><br />
+        <p id="error">Select the grade an gender of the members you would like to add and then click add next to each member's name.</p><br />
     {% endif %}
-    {{ form(form) }}
+        <select id="grade">
+            <option selected="selected" value="null">Select a Grade:</option>
+            <option value="9">Freshmen</option>
+            <option value="10">Sophomores</option>
+            <option value="11">Juniors</option>
+            <option value="12">Seniors</option>
+        </select>
+        <select id="gender">
+            <option selected="selected" value="null">Select a Gender:</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select>
+        <button id="getStudents" type="submit">Get Students</button>
+        <input id="clubId" type="hidden" value="{{ clubId }}" />
+        <br />
+        
+        <br />
+        <table class="table table-bordered table-hover hidden">
+            <thead>
+                <tr>
+                    <td>Add to Club</td>
+                    <td>Last Name</td>
+                    <td>First Name</td>
+                </tr>
+            </thead>
+            <tbody class="tableBody">
+                
+            </tbody>
+        </table>
 
+{% endblock %}
+        
+{% block endscripts %}
+    <script>
+        $(document).ready(function() {
+            $("#getStudents").on("click", function(){
+                var grade = $("#grade").val();
+                var gender = $("#gender").val();
+                var options = [];
+                options.url = "{{ path('getUsersForClub', {'gender' : 'gender', 'grade' : 'grade'}) }}";
+                options.url = options.url.replace("grade", grade);
+                options.url = options.url.replace("gender", gender);
+                options.success = function(response) {
+                    if (response.users != null){
+                        var users = response.users;
+                        $(".tableBody").html("");
+                        $.each(users, function(index, value){
+                            $(".tableBody").append('<tr><td id="add' + value.id + '"><button onclick="addUser(' + value.id + ')">Add</button></td><td>' + value.lastName + '</td><td>' + value.firstName + '</td></tr>')
+                        });
+                        $("table").removeClass("hidden");
+                    }
+                    else {
+                        alert("error");
+                    }
+                };
+                options.error = function(a,b,c){
+                        $("#error").html(a.responseText);
+                };
+                $.ajax(options);
+            });
+        });
+        
+        function addUser(userId) {
+            var clubId = $("#clubId").val();
+            var parent = $("#add" + userId);
+            var options = [];
+            options.url = "{{ path('addUserToClub', {'clubId' : 'clubId', 'userId' : 'userId'}) }}";
+            options.url = options.url.replace("clubId", clubId);
+            options.url = options.url.replace("userId", userId);
+            options.success = function(response){
+                if (response.added == true){
+                    parent.html("Added.")
+                }
+                else{
+                    parent.html("Error adding user to club.");
+                }
+            }
+            options.error = function(a,b,c){
+                $("#error").html(a.responseText);
+            }
+            $.ajax(options);
+        }
+    </script>
 {% endblock %}
 

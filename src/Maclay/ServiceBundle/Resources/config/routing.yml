@@ -40,6 +40,14 @@ resetPassword:
 updateCount:
     path: /Admin/UpdateCount?{grade}
     defaults: { _controller: MaclayServiceBundle:Admin:getUninvitedUserCount }
+    
+getUsersForClub:
+    path: /Club/GetUsersForClub/{gender}/{grade}
+    defaults: { _controller: MaclayServiceBundle:Club:getUsersForClub }
+    
+addUserToClub:
+    path: /Club/AddUserToClub/{clubId}/{userId}
+    defaults: { _controller: MaclayServiceBundle:Club:addUserToClub }
 
 default:
     path: /{controller}/{action}
