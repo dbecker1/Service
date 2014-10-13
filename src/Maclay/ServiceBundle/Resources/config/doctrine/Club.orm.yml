@@ -17,7 +17,7 @@ Maclay\ServiceBundle\Entity\Club:
                 inverseJoinColumns:
                     SponsorID:
                         referencedColumnName: id
-    manyToOne:
+    oneToMany:
         memberRecords:
             targetEntity: Record
             mappedBy: enteredByClub
