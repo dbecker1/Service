@@ -130,4 +130,37 @@ class Club
     {
         return $this->members;
     }
+
+    /**
+     * Add memberRecords
+     *
+     * @param \Maclay\ServiceBundle\Entity\Record $memberRecords
+     * @return Club
+     */
+    public function addMemberRecord(\Maclay\ServiceBundle\Entity\Record $memberRecords)
+    {
+        $this->memberRecords[] = $memberRecords;
+
+        return $this;
+    }
+
+    /**
+     * Remove memberRecords
+     *
+     * @param \Maclay\ServiceBundle\Entity\Record $memberRecords
+     */
+    public function removeMemberRecord(\Maclay\ServiceBundle\Entity\Record $memberRecords)
+    {
+        $this->memberRecords->removeElement($memberRecords);
+    }
+
+    /**
+     * Get memberRecords
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMemberRecords()
+    {
+        return $this->memberRecords;
+    }
 }

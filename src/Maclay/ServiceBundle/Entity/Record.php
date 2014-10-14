@@ -12,7 +12,7 @@ class Record
     protected $student;
     public $attachment;
     private $attachmentFileName;
-    private $enteredByClub;
+    private $enteredByClubId;
     
     /**
      * @var integer
@@ -390,15 +390,15 @@ class Record
         return $this->attachmentFileName;
     }
     
-    public function setEnteredByClub($club)
+    public function setEnteredByClubId($club)
     {
-        $this->enteredByClub = $club;
+        $this->enteredByClubId = $club;
         
         return $this;
     }
     
-    public function getEnteredByClub()
+    public function getEnteredByClubId()
     {
-        return $this->enteredByClub;
+        return $this->enteredByClubId;
     }
 }

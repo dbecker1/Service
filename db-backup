@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 01, 2014 at 06:28 PM
+-- Generation Time: Oct 14, 2014 at 04:25 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -96,16 +96,8 @@ CREATE TABLE IF NOT EXISTS `acl_security_identities` (
 
 CREATE TABLE IF NOT EXISTS `Club` (
 `id` int(11) NOT NULL,
-  `ClubName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `memberRecords_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `Club`
---
-
-INSERT INTO `Club` (`id`, `ClubName`, `memberRecords_id`) VALUES
-(1, 'Key Club', NULL);
+  `ClubName` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -128,13 +120,6 @@ CREATE TABLE IF NOT EXISTS `ClubSponsors` (
   `ClubID` int(11) NOT NULL,
   `SponsorID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `ClubSponsors`
---
-
-INSERT INTO `ClubSponsors` (`ClubID`, `SponsorID`) VALUES
-(1, 16);
 
 -- --------------------------------------------------------
 
@@ -169,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `Record` (
   `ApprovalStatus` int(11) NOT NULL,
   `StudentID` int(11) DEFAULT NULL,
   `AttachmentFileName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -207,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `StudentInfo` (
   `Grade` int(11) NOT NULL,
   `Gender` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
   `StudentID` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=60 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -239,16 +224,16 @@ CREATE TABLE IF NOT EXISTS `User` (
   `TempPass` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `IsInvited` tinyint(1) NOT NULL,
   `ForgotPasswordCode` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=77 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `User`
 --
 
 INSERT INTO `User` (`id`, `Username`, `Password`, `FirstName`, `LastName`, `MiddleName`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `last_login`, `locked`, `expired`, `expires_at`, `confirmation_token`, `password_requested_at`, `roles`, `credentials_expired`, `credentials_expire_at`, `TempPass`, `IsInvited`, `ForgotPasswordCode`) VALUES
-(11, 'admin', '$2y$13$pqxsjos6yio4ow0kgs0k8u5/0szAg3lmOrYVsAJSGynIXEpYo.qGu', '', '', '', 'admin', 'admin@maclay.org', 'admin@maclay.org', 1, 'pqxsjos6yio4ow0kgs0k8ws04sk0ko0', '2014-09-29 16:34:09', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, '', 1, NULL),
+(11, 'admin', '$2y$13$pqxsjos6yio4ow0kgs0k8u5/0szAg3lmOrYVsAJSGynIXEpYo.qGu', '', '', '', 'admin', 'admin@maclay.org', 'admin@maclay.org', 1, 'pqxsjos6yio4ow0kgs0k8ws04sk0ko0', '2014-10-13 18:26:08', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, '', 1, NULL),
 (15, 'coordinator', '$2y$13$byslwgotuaokgoggc4ckseJynZd6UXjjmcUllKEgppgoV7wVPq/Hq', NULL, NULL, NULL, 'coordinator', 'coordinator@maclay.org', 'coordinator@maclay.org', 1, 'byslwgotuaokgoggc4cksggookkoscw', '2014-09-12 18:28:14', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, NULL, 1, NULL),
-(16, 'sponsor', '$2y$13$2cs1a7rysu1wgkwcws0k0OBPPxqeTV00YLPtvoJo3e9DSUGa6koE.', NULL, NULL, NULL, 'sponsor', 'sponsor@maclay.org', 'sponsor@maclay.org', 1, '2cs1a7rysu1wgkwcws0k0cos8wg8088', '2014-10-01 18:14:10', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, NULL, 1, NULL);
+(16, 'sponsor', '$2y$13$2cs1a7rysu1wgkwcws0k0OBPPxqeTV00YLPtvoJo3e9DSUGa6koE.', NULL, NULL, NULL, 'sponsor', 'sponsor@maclay.org', 'sponsor@maclay.org', 1, '2cs1a7rysu1wgkwcws0k0cos8wg8088', '2014-10-10 02:45:33', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -267,8 +252,7 @@ CREATE TABLE IF NOT EXISTS `UserRoles` (
 
 INSERT INTO `UserRoles` (`UserID`, `RoleID`) VALUES
 (11, 1),
-(15, 3),
-(16, 4);
+(15, 3);
 
 --
 -- Indexes for dumped tables
@@ -308,7 +292,7 @@ ALTER TABLE `acl_security_identities`
 -- Indexes for table `Club`
 --
 ALTER TABLE `Club`
- ADD PRIMARY KEY (`id`), ADD KEY `IDX_18DC974CAC637873` (`memberRecords_id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `ClubMembers`
@@ -386,12 +370,12 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `Club`
 --
 ALTER TABLE `Club`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `Record`
 --
 ALTER TABLE `Record`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `Role`
 --
@@ -401,12 +385,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `StudentInfo`
 --
 ALTER TABLE `StudentInfo`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=60;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=77;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- Constraints for dumped tables
 --
@@ -431,12 +415,6 @@ ADD CONSTRAINT `FK_9407E54977FA751A` FOREIGN KEY (`parent_object_identity_id`) R
 ALTER TABLE `acl_object_identity_ancestors`
 ADD CONSTRAINT `FK_825DE2993D9AB4A6` FOREIGN KEY (`object_identity_id`) REFERENCES `acl_object_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `FK_825DE299C671CEA1` FOREIGN KEY (`ancestor_id`) REFERENCES `acl_object_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `Club`
---
-ALTER TABLE `Club`
-ADD CONSTRAINT `FK_18DC974CAC637873` FOREIGN KEY (`memberRecords_id`) REFERENCES `Record` (`id`);
 
 --
 -- Constraints for table `ClubMembers`

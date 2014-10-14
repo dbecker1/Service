@@ -15,10 +15,12 @@ class Club
     {
         $this->members = new ArrayCollection();
         $this->sponsors = new ArrayCollection();
+        $this->memberRecords = new ArrayCollection();
     }
     
     protected $sponsors;
     protected $members;
+    protected $memberRecords;
     /**
      * @var integer
      */
