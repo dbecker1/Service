@@ -37,6 +37,17 @@
 
         
 {% block endscripts %} 
+        <script>
+            $(document).ready(function(){
+                var d = new Date();
+                $("#record_dateFrom_year").val(d.getFullYear());
+                $("#record_dateFrom_month").val(d.getMonth());
+                $("#record_dateFrom_day").val(d.getDay());
+                $("#record_dateTo_year").val(d.getFullYear());
+                $("#record_dateTo_month").val(d.getMonth());
+                $("#record_dateTo_day").val(d.getDay());
+            });
+        </script>
         {#
         Bootstrap validator. Not necessary for now
         <script type="text/javascript">
