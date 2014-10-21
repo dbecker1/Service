@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Maclay\ServiceBundle\Entity\StudentInfo;
 use Maclay\ServiceBundle\Form\ClubType;
 use Maclay\ServiceBundle\Entity\Club;
+use Maclay\ServiceBundle\Entity\Record;
 
 class AdminController extends Controller
 {
@@ -249,5 +250,116 @@ class AdminController extends Controller
         $response->setContent(json_encode($count));
         
         return $response;
+    }
+    
+    public function importPreviousRecordsAction(){
+        $file;
+        try
+        {
+            $file = $_FILES["file"];
+        } 
+        catch (\Exception $ex) 
+        {
+            return $this->render("MaclayServiceBundle:Admin:importPreviousRecords.html.twig");
+        }
+        
+        $path = $this->container->getParameter("importUploadDirectory");
+        $error = json_decode($this->forward("maclay.filecontroller:uploadFileAction", array('file' => $file, "path" => $path, "import" => true, "upload" => false))->getContent(), true);
+        if (strlen($error["error"]) > 0){
+            return $this->render("MaclayServiceBundle:Admin:upload.html.twig", array("error" => $error["error"]));
+        }
+        
+        try{
+            set_time_limit(600);
+            $records = array();
+            if (($handle = fopen($path . $error["fileName"], "r")) !== FALSE) {
+                while(($data = fgetcsv($handle, 1000, ",")) !== FALSE){
+                    $records[] = $data;
+                }
+                fclose($handle);
+            }
+            else{
+                throw new \RuntimeException("Unable to open file for parsing");
+            }
+            
+            $em = $this->getDoctrine()->getManager();
+            $userRepo = $em->getRepository("MaclayServiceBundle:User");
+            $failedUsers = array();
+            foreach($records as $record){
+                try{
+                    $student = $userRepo->getUserByStudentNumber($record[1])[0];
+                    $counts = array();
+                    try{
+                        $counts[] = $record[2];
+                        $counts[] = $record[3];
+                        $counts[] = $record[4];
+                        $counts[] = $record[5];
+                    }
+                    catch (\Exception $ee){
+                        
+                    }
+                    
+                    $grade = 9;
+                    $studentGrade = $student->getStudentinfo()->getGrade();
+                    foreach($counts as $count){
+                        if ($count == 0){
+                            $grade++;
+                            continue;
+                        }
+                        $studentRecord = new Record();
+                        $studentRecord->setCurrentGrade($grade);
+                        if($studentGrade - $grade == 3){
+                            $studentRecord->setDateFrom(new \DateTime("10-01-2011"));
+                            $studentRecord->setDateTo(new \DateTime("5-01-2012"));
+                        }
+                        else if ($studentGrade - $grade == 2){
+                            $studentRecord->setDateFrom(new \DateTime("10-01-2012"));
+                            $studentRecord->setDateTo(new \DateTime("5-01-2013"));
+                        }
+                        else if ($studentGrade - $grade == 1) {
+                            $studentRecord->setDateFrom(new \DateTime("10-01-2013"));
+                            $studentRecord->setDateTo(new \DateTime("5-01-2014"));
+                        }
+                        else {
+                            $studentRecord->setDateFrom(new \DateTime("10-01-2014"));
+                            $studentRecord->setDateTo(new \DateTime("5-01-2015"));
+                        }
+                        $studentRecord->setNumHours($count);
+                        $studentRecord->setActivity($grade . "th Grade Hours");
+                        $studentRecord->setNotes("This record contains all of the service hours from the given grade.");
+                        $studentRecord->setOrganization("Maclay");
+                        $studentRecord->setSupervisor("Heather Bas");
+                        $now = new \DateTime("now");
+                        $studentRecord->setDateCreated($now);
+                        $studentRecord->setApprovalDate($now);
+                        $studentRecord->setApprovalStatus(1);
+                        $studentRecord->setStudent($student);
+                        
+                        $em->persist($studentRecord);
+                        
+                        $grade++;
+                    }
+                }
+                catch (\Exception $ee){
+                    $failedUsers[] = $ee->getMessage();
+                }
+            }
+            $em->flush();
+            
+            if (count($failedUsers) > 0){
+                $error = "Import succeeded except for the following users: ";
+                foreach($failedUsers as $failedUser){
+                    $error = $error . $failedUser . ", ";
+                }
+                return $this->render("MaclayServiceBundle:Admin:importPreviousRecords.html.twig", array("error" => $error));
+            }
+            
+            return $this->render("MaclayServiceBundle:Admin:importPreviousRecords.html.twig", array("error" => "Success."));
+        }
+        catch(\Exception $ee){
+            return $this->render("MaclayServiceBundle:Admin:importPreviousRecords.html.twig", array("error" => $ee->getMessage()));
+        }
+         
+        
     }
 }

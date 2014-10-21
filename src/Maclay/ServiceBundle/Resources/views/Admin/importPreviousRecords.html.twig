@@ -1,0 +1,17 @@
+{% extends 'MaclayServiceBundle:Profile:profile.html.twig' %}
+
+{% block pagename %}
+    Admin - Import Previous Records
+{% endblock %}
+
+{% block usercontent %}
+    <div id="newRecord" class="row">
+        <p>{{ error|default('Instructions: Click the button below to attach a CSV file containing the totals of the previous records for each student.') }} </p>
+        <form action="{{ path('default', {'controller' : 'Admin', 'action' : 'ImportPreviousRecords'}) }}" method="POST"  enctype="multipart/form-data">
+            <input type="file" name="file"/>
+            <input type="submit" />
+        </form>
+    </div>
+
+{% endblock %}
+

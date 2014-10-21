@@ -9,8 +9,7 @@ Maclay\ServiceBundle\Entity\Record:
             joinColumn:
                 name: StudentID
                 referencedColumnName: id
-    manyToOne:
-        enteredByClubId:
+        enteredByClub:
             targetEntity: Club
             inversedBy: memberRecords
             joinColumn: 

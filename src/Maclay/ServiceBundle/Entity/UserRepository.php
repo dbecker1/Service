@@ -62,4 +62,19 @@ class UserRepository extends EntityRepository
         
         return $query;
     }
+    
+    public function getUserByStudentNumber($number){
+        $query = $this->getEntityManager()
+                ->createQuery(
+                            "SELECT u "
+                            . "FROM MaclayServiceBundle:User u "
+                            . "JOIN u.studentinfo s "
+                            . "WHERE s.studentNumber = :number"
+                        )
+                ->setParameter("number", $number)
+                ->setMaxResults(1)
+                ->execute();
+        
+        return $query;
+    }
 }
