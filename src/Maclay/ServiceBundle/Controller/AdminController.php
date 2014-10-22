@@ -257,6 +257,9 @@ class AdminController extends Controller
         try
         {
             $file = $_FILES["file"];
+            if (!isset($file["error"]) || is_array($file["error"])){
+                throw new \RuntimeException("");
+            }
         } 
         catch (\Exception $ex) 
         {
@@ -266,7 +269,7 @@ class AdminController extends Controller
         $path = $this->container->getParameter("importUploadDirectory");
         $error = json_decode($this->forward("maclay.filecontroller:uploadFileAction", array('file' => $file, "path" => $path, "import" => true, "upload" => false))->getContent(), true);
         if (strlen($error["error"]) > 0){
-            return $this->render("MaclayServiceBundle:Admin:upload.html.twig", array("error" => $error["error"]));
+            return $this->render("MaclayServiceBundle:Admin:importPreviousRecords.html.twig", array("error" => $error["error"]));
         }
         
         try{
