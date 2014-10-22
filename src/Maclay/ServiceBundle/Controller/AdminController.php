@@ -288,9 +288,13 @@ class AdminController extends Controller
             $em = $this->getDoctrine()->getManager();
             $userRepo = $em->getRepository("MaclayServiceBundle:User");
             $failedUsers = array();
+            
             foreach($records as $record){
                 try{
                     $student = $userRepo->getUserByStudentNumber($record[1])[0];
+                    if ($student === NULL){
+                        throw new \RuntimeException("");
+                    }
                     $counts = array();
                     try{
                         $counts[] = $record[2];
@@ -344,7 +348,7 @@ class AdminController extends Controller
                     }
                 }
                 catch (\Exception $ee){
-                    $failedUsers[] = $ee->getMessage();
+                    $failedUsers[] = $record[0];
                 }
             }
             $em->flush();
