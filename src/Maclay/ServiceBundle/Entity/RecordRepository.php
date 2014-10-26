@@ -42,10 +42,10 @@ class RecordRepository extends EntityRepository
                 ->createQuery(
                         "SELECT r "
                         . "FROM MaclayServiceBundle:Record r "
-                        . "WHERE r.student = :student AND r.grade = :grade"
+                        . "WHERE r.student = :student AND r.currentGrade = :currentGrade"
                         )
                 ->setParameter("student", $student)
-                ->setParameter("grade", $grade)
+                ->setParameter("currentGrade", $grade)
                 ->getResult();
     }
 }

@@ -323,16 +323,13 @@ class AdminController extends Controller
                             continue;
                         }
                         if ($updates){
-                            $studentRecord = $recordRepo->getRecordByGrade($student, $grade)[0];
-                            if ($studentRecord == NULL){
-                                return $this->render("MaclayServiceBundle:Admin:importPreviousRecords.html.twig", array("error" => "failed"));
-                                break;
+                            $studentRecords = $recordRepo->getRecordByGrade($student, $grade);
+                            if ($studentRecords != NULL){
+                                $studentRecord = $studentRecords[0];
+                                $studentRecord->setNumHours($studentRecord->getNumHours() + $count);
+                                $grade++;
+                                continue;
                             }
-                            else{
-                                return $this->render("MaclayServiceBundle:Admin:importPreviousRecords.html.twig", array("error" => "succeeded"));
-                                $studentRecord->setNumHours($studentRecord->getNumHours + $count);
-                            }
-                            continue;
                         }
                         $studentRecord = new Record();
                         $studentRecord->setCurrentGrade($grade);
@@ -369,6 +366,7 @@ class AdminController extends Controller
                     }
                 }
                 catch (\Exception $ee){
+                    throw new \RuntimeException($ee->getMessage());
                     $failedUsers[] = $record[0];
                 }
             }
