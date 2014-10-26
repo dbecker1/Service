@@ -11,6 +11,10 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/AdminController.php</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Entity/Record.php</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Entity/RecordRepository.php</file>
+        </group>
     </open-files>
 </project-private>

@@ -120,9 +120,23 @@ class AdminController extends Controller
                 $userManager = $this->get("fos_user.user_manager");
                 $sponsor = $userManager->findUserByEmail($email);
                 if ($sponsor === NULL){
-                    return $this->render("MaclayServiceBundle:Admin:createClub.html.twig", array("error" => "Sponsor account does not exist", "form" => $form->createView()));
+                    $sponsor = $userManager->createUser();
+                    $sponsor->setUsername(substr($email, 0,strpos($email, "@")));
+                    $randomPass = $this->randomPassword();
+                    $sponsor->setPlainPassword($randomPass);
+                    $sponsor->setTempPass($randomPass);
+                    $sponsor->setEnabled(1);
+                    $sponsor->setEmail($email);
+                    $sponsor->setFirstName("");
+                    $sponsor->setMiddleName("");
+                    $sponsor->setLastName("");
+                    $sponsor->addGroup($sponsorGroup);
+                    $sponsor->setIsInvited(false);
+                    $userManager->updateUser($sponsor);
                 }
-                $sponsor->addGroup($sponsorGroup);
+                else{
+                    $sponsor->addGroup($sponsorGroup);
+                }
                 $club->addSponsor($sponsor);
                 $em->persist($club);
 
@@ -175,7 +189,7 @@ class AdminController extends Controller
                     '127.0.0.1',
                     '::1',
                 ))) {
-                    $transport = \Swift_SmtpTransport::newInstance('smtp.office365.com', 25, "tls")
+                    $transport = \Swift_SmtpTransport::newInstance('smtp.office365.com', 587, "tls")
                     ->setUsername('maclayservice@maclay.org')
                     ->setPassword('GoMarauders2014')
                     ;
@@ -191,7 +205,11 @@ class AdminController extends Controller
                     $password = $user->getTempPass();
                     $name = $user->getFirstName();
 
-                    $body = $this->render("MaclayServiceBundle:Email:inviteUser.html.twig", array("username" => $username, "password" => $password, "name" => $name))->getContent();
+                    $isOther = false;
+                    if ($user->getStudentInfo() === NULL){
+                        $isOther = true;
+                    }
+                    $body = $this->render("MaclayServiceBundle:Email:inviteUser.html.twig", array("username" => $username, "password" => $password, "name" => $name, "isOther" => $isOther))->getContent();
 
                     $message = \Swift_Message::newInstance('Begin Using Maclay Community Service')
                         ->setFrom(array("maclayservice@maclay.org" => "Maclay School Community Service"))

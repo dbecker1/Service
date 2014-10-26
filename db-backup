@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.1.12
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 21, 2014 at 06:33 PM
--- Server version: 5.6.20
--- PHP Version: 5.5.15
+-- Generation Time: Oct 27, 2014 at 12:36 AM
+-- Server version: 5.6.16
+-- PHP Version: 5.5.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,8 +27,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `acl_classes` (
-`id` int(10) unsigned NOT NULL,
-  `class_type` varchar(200) COLLATE utf8_unicode_ci NOT NULL
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `class_type` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_69DD750638A36066` (`class_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -38,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `acl_classes` (
 --
 
 CREATE TABLE IF NOT EXISTS `acl_entries` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `class_id` int(10) unsigned NOT NULL,
   `object_identity_id` int(10) unsigned DEFAULT NULL,
   `security_identity_id` int(10) unsigned NOT NULL,
@@ -48,7 +50,13 @@ CREATE TABLE IF NOT EXISTS `acl_entries` (
   `granting` tinyint(1) NOT NULL,
   `granting_strategy` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `audit_success` tinyint(1) NOT NULL,
-  `audit_failure` tinyint(1) NOT NULL
+  `audit_failure` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_46C8B806EA000B103D9AB4A64DEF17BCE4289BF4` (`class_id`,`object_identity_id`,`field_name`,`ace_order`),
+  KEY `IDX_46C8B806EA000B103D9AB4A6DF9183C9` (`class_id`,`object_identity_id`,`security_identity_id`),
+  KEY `IDX_46C8B806EA000B10` (`class_id`),
+  KEY `IDX_46C8B8063D9AB4A6` (`object_identity_id`),
+  KEY `IDX_46C8B806DF9183C9` (`security_identity_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -58,11 +66,14 @@ CREATE TABLE IF NOT EXISTS `acl_entries` (
 --
 
 CREATE TABLE IF NOT EXISTS `acl_object_identities` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `parent_object_identity_id` int(10) unsigned DEFAULT NULL,
   `class_id` int(10) unsigned NOT NULL,
   `object_identifier` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `entries_inheriting` tinyint(1) NOT NULL
+  `entries_inheriting` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_9407E5494B12AD6EA000B10` (`object_identifier`,`class_id`),
+  KEY `IDX_9407E54977FA751A` (`parent_object_identity_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -73,7 +84,10 @@ CREATE TABLE IF NOT EXISTS `acl_object_identities` (
 
 CREATE TABLE IF NOT EXISTS `acl_object_identity_ancestors` (
   `object_identity_id` int(10) unsigned NOT NULL,
-  `ancestor_id` int(10) unsigned NOT NULL
+  `ancestor_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`object_identity_id`,`ancestor_id`),
+  KEY `IDX_825DE2993D9AB4A6` (`object_identity_id`),
+  KEY `IDX_825DE299C671CEA1` (`ancestor_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -83,9 +97,11 @@ CREATE TABLE IF NOT EXISTS `acl_object_identity_ancestors` (
 --
 
 CREATE TABLE IF NOT EXISTS `acl_security_identities` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `identifier` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `username` tinyint(1) NOT NULL
+  `username` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_8835EE78772E836AF85E0677` (`identifier`,`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -95,16 +111,10 @@ CREATE TABLE IF NOT EXISTS `acl_security_identities` (
 --
 
 CREATE TABLE IF NOT EXISTS `Club` (
-`id` int(11) NOT NULL,
-  `ClubName` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `Club`
---
-
-INSERT INTO `Club` (`id`, `ClubName`) VALUES
-(3, 'Key Club');
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ClubName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -114,7 +124,10 @@ INSERT INTO `Club` (`id`, `ClubName`) VALUES
 
 CREATE TABLE IF NOT EXISTS `ClubMembers` (
   `MemberID` int(11) NOT NULL,
-  `ClubID` int(11) NOT NULL
+  `ClubID` int(11) NOT NULL,
+  PRIMARY KEY (`MemberID`,`ClubID`),
+  KEY `IDX_D07D3FBD522B9974` (`MemberID`),
+  KEY `IDX_D07D3FBD23747D08` (`ClubID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -125,15 +138,11 @@ CREATE TABLE IF NOT EXISTS `ClubMembers` (
 
 CREATE TABLE IF NOT EXISTS `ClubSponsors` (
   `ClubID` int(11) NOT NULL,
-  `SponsorID` int(11) NOT NULL
+  `SponsorID` int(11) NOT NULL,
+  PRIMARY KEY (`ClubID`,`SponsorID`),
+  KEY `IDX_276A85E23747D08` (`ClubID`),
+  KEY `IDX_276A85E94CE1A1A` (`SponsorID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `ClubSponsors`
---
-
-INSERT INTO `ClubSponsors` (`ClubID`, `SponsorID`) VALUES
-(3, 16);
 
 -- --------------------------------------------------------
 
@@ -143,7 +152,10 @@ INSERT INTO `ClubSponsors` (`ClubID`, `SponsorID`) VALUES
 
 CREATE TABLE IF NOT EXISTS `ParentChildInfo` (
   `ParentID` int(11) NOT NULL,
-  `ChildID` int(11) NOT NULL
+  `ChildID` int(11) NOT NULL,
+  PRIMARY KEY (`ParentID`,`ChildID`),
+  KEY `IDX_7C8511A2D2F60E70` (`ParentID`),
+  KEY `IDX_7C8511A2F62E7213` (`ChildID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -153,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `ParentChildInfo` (
 --
 
 CREATE TABLE IF NOT EXISTS `Record` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `CurrentGrade` int(11) NOT NULL,
   `DateFrom` date NOT NULL,
   `DateTo` date NOT NULL,
@@ -168,7 +180,10 @@ CREATE TABLE IF NOT EXISTS `Record` (
   `ApprovalStatus` int(11) NOT NULL,
   `StudentID` int(11) DEFAULT NULL,
   `AttachmentFileName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `EnteredByClubID` int(11) DEFAULT NULL
+  `EnteredByClubID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_9C989AA721208DF3` (`StudentID`),
+  KEY `IDX_9C989AA7B3A469DF` (`EnteredByClubID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
 
 -- --------------------------------------------------------
@@ -178,9 +193,11 @@ CREATE TABLE IF NOT EXISTS `Record` (
 --
 
 CREATE TABLE IF NOT EXISTS `Role` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `roles` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:array)',
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_F75B25545E237E06` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
@@ -201,12 +218,14 @@ INSERT INTO `Role` (`id`, `roles`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `StudentInfo` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `StudentNumber` int(11) NOT NULL,
   `GradYear` int(11) NOT NULL,
   `Grade` int(11) NOT NULL,
   `Gender` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
-  `StudentID` int(11) DEFAULT NULL
+  `StudentID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_36310DE221208DF3` (`StudentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -216,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `StudentInfo` (
 --
 
 CREATE TABLE IF NOT EXISTS `User` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `Username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `Password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `FirstName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -238,17 +257,19 @@ CREATE TABLE IF NOT EXISTS `User` (
   `credentials_expire_at` datetime DEFAULT NULL,
   `TempPass` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `IsInvited` tinyint(1) NOT NULL,
-  `ForgotPasswordCode` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17 ;
+  `ForgotPasswordCode` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_2DA1797792FC23A8` (`username_canonical`),
+  UNIQUE KEY `UNIQ_2DA17977A0D96FBF` (`email_canonical`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `User`
 --
 
 INSERT INTO `User` (`id`, `Username`, `Password`, `FirstName`, `LastName`, `MiddleName`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `last_login`, `locked`, `expired`, `expires_at`, `confirmation_token`, `password_requested_at`, `roles`, `credentials_expired`, `credentials_expire_at`, `TempPass`, `IsInvited`, `ForgotPasswordCode`) VALUES
-(11, 'admin', '$2y$13$pqxsjos6yio4ow0kgs0k8u5/0szAg3lmOrYVsAJSGynIXEpYo.qGu', '', '', '', 'admin', 'admin@maclay.org', 'admin@maclay.org', 1, 'pqxsjos6yio4ow0kgs0k8ws04sk0ko0', '2014-10-21 18:23:09', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, '', 1, NULL),
-(15, 'coordinator', '$2y$13$byslwgotuaokgoggc4ckseJynZd6UXjjmcUllKEgppgoV7wVPq/Hq', NULL, NULL, NULL, 'coordinator', 'coordinator@maclay.org', 'coordinator@maclay.org', 1, 'byslwgotuaokgoggc4cksggookkoscw', '2014-10-14 16:34:03', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, NULL, 1, NULL),
-(16, 'sponsor', '$2y$13$2cs1a7rysu1wgkwcws0k0OBPPxqeTV00YLPtvoJo3e9DSUGa6koE.', NULL, NULL, NULL, 'sponsor', 'sponsor@maclay.org', 'sponsor@maclay.org', 1, '2cs1a7rysu1wgkwcws0k0cos8wg8088', '2014-10-14 18:41:06', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, NULL, 1, NULL);
+(11, 'admin', '$2y$13$pqxsjos6yio4ow0kgs0k8u5/0szAg3lmOrYVsAJSGynIXEpYo.qGu', '', '', '', 'admin', 'admin@maclay.org', 'admin@maclay.org', 1, 'pqxsjos6yio4ow0kgs0k8ws04sk0ko0', '2014-10-27 00:27:04', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, '', 1, NULL),
+(15, 'coordinator', '$2y$13$byslwgotuaokgoggc4ckseJynZd6UXjjmcUllKEgppgoV7wVPq/Hq', NULL, NULL, NULL, 'coordinator', 'coordinator@maclay.org', 'coordinator@maclay.org', 1, 'byslwgotuaokgoggc4cksggookkoscw', '2014-10-14 16:34:03', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -258,7 +279,10 @@ INSERT INTO `User` (`id`, `Username`, `Password`, `FirstName`, `LastName`, `Midd
 
 CREATE TABLE IF NOT EXISTS `UserRoles` (
   `UserID` int(11) NOT NULL,
-  `RoleID` int(11) NOT NULL
+  `RoleID` int(11) NOT NULL,
+  PRIMARY KEY (`UserID`,`RoleID`),
+  KEY `IDX_D2AABFB2631A48FA` (`UserID`),
+  KEY `IDX_D2AABFB28400D876` (`RoleID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -267,146 +291,8 @@ CREATE TABLE IF NOT EXISTS `UserRoles` (
 
 INSERT INTO `UserRoles` (`UserID`, `RoleID`) VALUES
 (11, 1),
-(15, 3),
-(16, 4);
+(15, 3);
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `acl_classes`
---
-ALTER TABLE `acl_classes`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQ_69DD750638A36066` (`class_type`);
-
---
--- Indexes for table `acl_entries`
---
-ALTER TABLE `acl_entries`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQ_46C8B806EA000B103D9AB4A64DEF17BCE4289BF4` (`class_id`,`object_identity_id`,`field_name`,`ace_order`), ADD KEY `IDX_46C8B806EA000B103D9AB4A6DF9183C9` (`class_id`,`object_identity_id`,`security_identity_id`), ADD KEY `IDX_46C8B806EA000B10` (`class_id`), ADD KEY `IDX_46C8B8063D9AB4A6` (`object_identity_id`), ADD KEY `IDX_46C8B806DF9183C9` (`security_identity_id`);
-
---
--- Indexes for table `acl_object_identities`
---
-ALTER TABLE `acl_object_identities`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQ_9407E5494B12AD6EA000B10` (`object_identifier`,`class_id`), ADD KEY `IDX_9407E54977FA751A` (`parent_object_identity_id`);
-
---
--- Indexes for table `acl_object_identity_ancestors`
---
-ALTER TABLE `acl_object_identity_ancestors`
- ADD PRIMARY KEY (`object_identity_id`,`ancestor_id`), ADD KEY `IDX_825DE2993D9AB4A6` (`object_identity_id`), ADD KEY `IDX_825DE299C671CEA1` (`ancestor_id`);
-
---
--- Indexes for table `acl_security_identities`
---
-ALTER TABLE `acl_security_identities`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQ_8835EE78772E836AF85E0677` (`identifier`,`username`);
-
---
--- Indexes for table `Club`
---
-ALTER TABLE `Club`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `ClubMembers`
---
-ALTER TABLE `ClubMembers`
- ADD PRIMARY KEY (`MemberID`,`ClubID`), ADD KEY `IDX_D07D3FBD522B9974` (`MemberID`), ADD KEY `IDX_D07D3FBD23747D08` (`ClubID`);
-
---
--- Indexes for table `ClubSponsors`
---
-ALTER TABLE `ClubSponsors`
- ADD PRIMARY KEY (`ClubID`,`SponsorID`), ADD KEY `IDX_276A85E23747D08` (`ClubID`), ADD KEY `IDX_276A85E94CE1A1A` (`SponsorID`);
-
---
--- Indexes for table `ParentChildInfo`
---
-ALTER TABLE `ParentChildInfo`
- ADD PRIMARY KEY (`ParentID`,`ChildID`), ADD KEY `IDX_7C8511A2D2F60E70` (`ParentID`), ADD KEY `IDX_7C8511A2F62E7213` (`ChildID`);
-
---
--- Indexes for table `Record`
---
-ALTER TABLE `Record`
- ADD PRIMARY KEY (`id`), ADD KEY `IDX_9C989AA721208DF3` (`StudentID`), ADD KEY `IDX_9C989AA7B3A469DF` (`EnteredByClubID`);
-
---
--- Indexes for table `Role`
---
-ALTER TABLE `Role`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQ_F75B25545E237E06` (`name`);
-
---
--- Indexes for table `StudentInfo`
---
-ALTER TABLE `StudentInfo`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQ_36310DE221208DF3` (`StudentID`);
-
---
--- Indexes for table `User`
---
-ALTER TABLE `User`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQ_2DA1797792FC23A8` (`username_canonical`), ADD UNIQUE KEY `UNIQ_2DA17977A0D96FBF` (`email_canonical`);
-
---
--- Indexes for table `UserRoles`
---
-ALTER TABLE `UserRoles`
- ADD PRIMARY KEY (`UserID`,`RoleID`), ADD KEY `IDX_D2AABFB2631A48FA` (`UserID`), ADD KEY `IDX_D2AABFB28400D876` (`RoleID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `acl_classes`
---
-ALTER TABLE `acl_classes`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `acl_entries`
---
-ALTER TABLE `acl_entries`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `acl_object_identities`
---
-ALTER TABLE `acl_object_identities`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `acl_security_identities`
---
-ALTER TABLE `acl_security_identities`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `Club`
---
-ALTER TABLE `Club`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `Record`
---
-ALTER TABLE `Record`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
---
--- AUTO_INCREMENT for table `Role`
---
-ALTER TABLE `Role`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT for table `StudentInfo`
---
-ALTER TABLE `StudentInfo`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `User`
---
-ALTER TABLE `User`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- Constraints for dumped tables
 --
@@ -415,63 +301,63 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 -- Constraints for table `acl_entries`
 --
 ALTER TABLE `acl_entries`
-ADD CONSTRAINT `FK_46C8B8063D9AB4A6` FOREIGN KEY (`object_identity_id`) REFERENCES `acl_object_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `FK_46C8B806DF9183C9` FOREIGN KEY (`security_identity_id`) REFERENCES `acl_security_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `FK_46C8B806EA000B10` FOREIGN KEY (`class_id`) REFERENCES `acl_classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_46C8B8063D9AB4A6` FOREIGN KEY (`object_identity_id`) REFERENCES `acl_object_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_46C8B806DF9183C9` FOREIGN KEY (`security_identity_id`) REFERENCES `acl_security_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_46C8B806EA000B10` FOREIGN KEY (`class_id`) REFERENCES `acl_classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `acl_object_identities`
 --
 ALTER TABLE `acl_object_identities`
-ADD CONSTRAINT `FK_9407E54977FA751A` FOREIGN KEY (`parent_object_identity_id`) REFERENCES `acl_object_identities` (`id`);
+  ADD CONSTRAINT `FK_9407E54977FA751A` FOREIGN KEY (`parent_object_identity_id`) REFERENCES `acl_object_identities` (`id`);
 
 --
 -- Constraints for table `acl_object_identity_ancestors`
 --
 ALTER TABLE `acl_object_identity_ancestors`
-ADD CONSTRAINT `FK_825DE2993D9AB4A6` FOREIGN KEY (`object_identity_id`) REFERENCES `acl_object_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `FK_825DE299C671CEA1` FOREIGN KEY (`ancestor_id`) REFERENCES `acl_object_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_825DE2993D9AB4A6` FOREIGN KEY (`object_identity_id`) REFERENCES `acl_object_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_825DE299C671CEA1` FOREIGN KEY (`ancestor_id`) REFERENCES `acl_object_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `ClubMembers`
 --
 ALTER TABLE `ClubMembers`
-ADD CONSTRAINT `FK_D07D3FBD23747D08` FOREIGN KEY (`ClubID`) REFERENCES `Club` (`id`),
-ADD CONSTRAINT `FK_D07D3FBD522B9974` FOREIGN KEY (`MemberID`) REFERENCES `User` (`id`);
+  ADD CONSTRAINT `FK_D07D3FBD23747D08` FOREIGN KEY (`ClubID`) REFERENCES `Club` (`id`),
+  ADD CONSTRAINT `FK_D07D3FBD522B9974` FOREIGN KEY (`MemberID`) REFERENCES `User` (`id`);
 
 --
 -- Constraints for table `ClubSponsors`
 --
 ALTER TABLE `ClubSponsors`
-ADD CONSTRAINT `FK_276A85E23747D08` FOREIGN KEY (`ClubID`) REFERENCES `Club` (`id`),
-ADD CONSTRAINT `FK_276A85E94CE1A1A` FOREIGN KEY (`SponsorID`) REFERENCES `User` (`id`);
+  ADD CONSTRAINT `FK_276A85E23747D08` FOREIGN KEY (`ClubID`) REFERENCES `Club` (`id`),
+  ADD CONSTRAINT `FK_276A85E94CE1A1A` FOREIGN KEY (`SponsorID`) REFERENCES `User` (`id`);
 
 --
 -- Constraints for table `ParentChildInfo`
 --
 ALTER TABLE `ParentChildInfo`
-ADD CONSTRAINT `FK_7C8511A2D2F60E70` FOREIGN KEY (`ParentID`) REFERENCES `User` (`id`),
-ADD CONSTRAINT `FK_7C8511A2F62E7213` FOREIGN KEY (`ChildID`) REFERENCES `User` (`id`);
+  ADD CONSTRAINT `FK_7C8511A2D2F60E70` FOREIGN KEY (`ParentID`) REFERENCES `User` (`id`),
+  ADD CONSTRAINT `FK_7C8511A2F62E7213` FOREIGN KEY (`ChildID`) REFERENCES `User` (`id`);
 
 --
 -- Constraints for table `Record`
 --
 ALTER TABLE `Record`
-ADD CONSTRAINT `FK_9C989AA721208DF3` FOREIGN KEY (`StudentID`) REFERENCES `User` (`id`),
-ADD CONSTRAINT `FK_9C989AA7B3A469DF` FOREIGN KEY (`EnteredByClubID`) REFERENCES `Club` (`id`);
+  ADD CONSTRAINT `FK_9C989AA721208DF3` FOREIGN KEY (`StudentID`) REFERENCES `User` (`id`),
+  ADD CONSTRAINT `FK_9C989AA7B3A469DF` FOREIGN KEY (`EnteredByClubID`) REFERENCES `Club` (`id`);
 
 --
 -- Constraints for table `StudentInfo`
 --
 ALTER TABLE `StudentInfo`
-ADD CONSTRAINT `FK_36310DE221208DF3` FOREIGN KEY (`StudentID`) REFERENCES `User` (`id`);
+  ADD CONSTRAINT `FK_36310DE221208DF3` FOREIGN KEY (`StudentID`) REFERENCES `User` (`id`);
 
 --
 -- Constraints for table `UserRoles`
 --
 ALTER TABLE `UserRoles`
-ADD CONSTRAINT `FK_D2AABFB2631A48FA` FOREIGN KEY (`UserID`) REFERENCES `User` (`id`),
-ADD CONSTRAINT `FK_D2AABFB28400D876` FOREIGN KEY (`RoleID`) REFERENCES `Role` (`id`);
+  ADD CONSTRAINT `FK_D2AABFB2631A48FA` FOREIGN KEY (`UserID`) REFERENCES `User` (`id`),
+  ADD CONSTRAINT `FK_D2AABFB28400D876` FOREIGN KEY (`RoleID`) REFERENCES `Role` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

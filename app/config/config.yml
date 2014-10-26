@@ -100,3 +100,4 @@ parameters:
     recordUploadDirectory: "%uploadDirectory%records/"
     importUploadDirectory: "%uploadDirectory%imports/"
     recordFileViewLink: "/web/uploads/records/"
+    recordFormDownloadLink: "/web/uploads/recordForm.pdf"

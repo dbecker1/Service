@@ -24,6 +24,16 @@
 {% endblock %}   
 
 {% block usercontent %}
+        <p>Instructions</p>
+        <ul>
+            <li>Print out service hour form (link in left sidebar)</li>
+            <li>Fill out service hour form</li>
+            <li>Scan or take a picture of the service hour form</li>
+            <li>Fill out the informaiton below and upload the form</li>
+            <li>NOTE: Failure to attach the service hour form may result in your service hours being denied</li>
+        </ul>
+        <br />
+        <br />
     <div id="newRecord" class="row">
         <p>{{ error }} </p>
         {{ form_start(form) }}
@@ -42,10 +52,10 @@
                 var d = new Date();
                 $("#record_dateFrom_year").val(d.getFullYear());
                 $("#record_dateFrom_month").val(d.getMonth());
-                $("#record_dateFrom_day").val(d.getDay());
+                $("#record_dateFrom_day").val(d.getDate());
                 $("#record_dateTo_year").val(d.getFullYear());
                 $("#record_dateTo_month").val(d.getMonth());
-                $("#record_dateTo_day").val(d.getDay());
+                $("#record_dateTo_day").val(d.getDate());
             });
         </script>
         {#

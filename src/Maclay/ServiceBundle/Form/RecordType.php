@@ -15,8 +15,8 @@ class RecordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateFrom', 'date')
-            ->add('dateTo', 'date')
+            ->add('dateFrom', 'date', array("format" => "MMM/d/y"))
+            ->add('dateTo', 'date', array("format" => "MMM/d/y"))
             ->add('numHours', 'integer')
             ->add('activity', 'text')
             ->add('notes', 'textarea', array("required" => false))

@@ -23,8 +23,8 @@ class ClubRecordType extends AbstractType
     {
         $builder
             ->add('student', 'entity', array("class" => "MaclayServiceBundle:User", "choices" => $this->students))
-            ->add('dateFrom', 'date')
-            ->add('dateTo', 'date')
+            ->add('dateFrom', 'date', array("format" => "MMM/d/y"))
+            ->add('dateTo', 'date', array("format" => "MMM/d/y"))
             ->add('numHours', 'integer')
             ->add('activity', 'text')
             ->add('notes', 'textarea', array("required" => false))
