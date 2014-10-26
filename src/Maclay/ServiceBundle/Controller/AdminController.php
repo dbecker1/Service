@@ -274,6 +274,14 @@ class AdminController extends Controller
         
         try{
             set_time_limit(600);
+            $updates = false;
+            try{
+                $check = $_POST["updates"] == "checked";
+                $updates = true;
+            }
+            catch (\Exception $ee){
+                $updates = false;
+            }
             $records = array();
             if (($handle = fopen($path . $error["fileName"], "r")) !== FALSE) {
                 while(($data = fgetcsv($handle, 1000, ",")) !== FALSE){
@@ -287,6 +295,7 @@ class AdminController extends Controller
             
             $em = $this->getDoctrine()->getManager();
             $userRepo = $em->getRepository("MaclayServiceBundle:User");
+            $recordRepo = $em->getRepository("MaclayServiceBundle:Record");
             $failedUsers = array();
             
             foreach($records as $record){
@@ -311,6 +320,18 @@ class AdminController extends Controller
                     foreach($counts as $count){
                         if ($count == 0){
                             $grade++;
+                            continue;
+                        }
+                        if ($updates){
+                            $studentRecord = $recordRepo->getRecordByGrade($student, $grade)[0];
+                            if ($studentRecord == NULL){
+                                return $this->render("MaclayServiceBundle:Admin:importPreviousRecords.html.twig", array("error" => "failed"));
+                                break;
+                            }
+                            else{
+                                return $this->render("MaclayServiceBundle:Admin:importPreviousRecords.html.twig", array("error" => "succeeded"));
+                                $studentRecord->setNumHours($studentRecord->getNumHours + $count);
+                            }
                             continue;
                         }
                         $studentRecord = new Record();

@@ -8,6 +8,7 @@
     <div id="newRecord" class="row">
         <p>{{ error|default('Instructions: Click the button below to attach a CSV file containing the totals of the previous records for each student.') }} </p>
         <form action="{{ path('default', {'controller' : 'Admin', 'action' : 'ImportPreviousRecords'}) }}" method="POST"  enctype="multipart/form-data">
+            <p>Check if records are additions: <input type="checkbox" name="updates" value="checked" /></p>
             <input type="file" name="file"/>
             <input type="submit" />
         </form>
