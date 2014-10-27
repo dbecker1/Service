@@ -1,36 +1,36 @@
 {% extends 'MaclayServiceBundle:Profile:profile.html.twig' %}
 
-{% block pagename %}
-    Change Password
-{% endblock %}
-
 {% form_theme form _self %}
+
+{% block pagename %}
+    Admin - Create School Admins
+{% endblock %}
     
 {% block form_row %}
     {% spaceless %}
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 {{form_label(form) }}
             </div>
             <div class="col-sm-3 form-group">
                 {{form_widget(form) }}
             </div>
-            <div class="col-sm-2 error-text">
+            <div class="col-sm-5 error-text">
                 {{ form_errors(form) }}
             </div>
         </div>
         <br />
     {% endspaceless %}
-{% endblock %}
+{% endblock %}   
 
 {% block usercontent %}
     <div class="row">
-        <div class="col-sm-9">
-            <p>{{ error|default("Please enter a new password to continue.") }}</p>
-            <br /> 
-            {{ form(form) }}
-        </div>
+        <p>Enter the email addresses of the admin accounts you would like to create separated by commas.</p>
+        <p>{{ error|default('') }} </p>
+        <br />
+        {{ form(form) }}
     </div>
+
 
 {% endblock %}
 

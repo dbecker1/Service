@@ -34,7 +34,8 @@ class LayoutController extends Controller
         $isStudent = $securityContext->isGranted("ROLE_STUDENT");
         $isAdmin = $securityContext->isGranted("ROLE_ADMIN");
         $isClubSponsor = $securityContext->isGranted("ROLE_CLUBSPONSOR");
+        $isSchoolAdmin = $securityContext->isGranted("ROLE_SCHOOLADMIN");
         $downloadLink = $this->container->getParameter("recordFormDownloadLink");
-        return $this->render("MaclayServiceBundle:Layout:nav.html.twig", array("isCoordinator" => $isCoordinator, "isStudent" => $isStudent, "isAdmin" => $isAdmin, "isClubSponsor" => $isClubSponsor, "downloadLink" => $downloadLink));
+        return $this->render("MaclayServiceBundle:Layout:nav.html.twig", array("isSchoolAdmin" => $isSchoolAdmin, "isCoordinator" => $isCoordinator, "isStudent" => $isStudent, "isAdmin" => $isAdmin, "isClubSponsor" => $isClubSponsor, "downloadLink" => $downloadLink));
     }
 }

@@ -412,4 +412,50 @@ class AdminController extends Controller
          
         
     }
+    
+    public function createSchoolAdminsAction(Request $request){
+        $data = array();
+        
+        $form = $this->createFormBuilder($data)
+                ->add("emailAddresses", "textarea")
+                ->add("submit", "submit")
+                ->getForm();
+        
+        $form->handleRequest($request);
+        
+        if ($form->isValid()){
+            try{
+                $data = $form->getData();
+                $em = $this->getDoctrine()->getManager();
+                $userManager = $this->get("fos_user.user_manager");
+                $adminGroup = $em->getRepository("MaclayServiceBundle:Role")->findOneByName("SchoolAdmin");
+                foreach(explode(",", $data["emailAddresses"]) as $email){
+                    $admin = $userManager->findUserByEmail($email);
+                    if ($admin === NULL){
+                        $admin = $userManager->createUser();
+                        $admin->setUsername(substr($email, 0,strpos($email, "@")));
+                        $randomPass = $this->randomPassword();
+                        $admin->setPlainPassword($randomPass);
+                        $admin->setTempPass($randomPass);
+                        $admin->setEnabled(1);
+                        $admin->setEmail($email);
+                        $admin->setFirstName("");
+                        $admin->setMiddleName("");
+                        $admin->setLastName("");
+                        $admin->addGroup($adminGroup);
+                        $admin->setIsInvited(false);
+                    }
+                    else{
+                        $admin->addGroup($adminGroup);
+                    }
+                    $userManager->updateUser($admin);
+                }
+
+                return $this->render("MaclayServiceBundle:Admin:createSchoolAdmins.html.twig", array("form" => $form->createView(), "error" => "School Admins successfully created."));
+            } catch(\Exception $ee){
+                return $this->render("MaclayServiceBundle:Admin:createSchoolAdmins.html.twig", array("form" => $form->createView(), "error" => $ee->getMessage()));
+            }
+        }
+        return $this->render("MaclayServiceBundle:Admin:createSchoolAdmins.html.twig", array("form" => $form->createView()));
+    }
 }

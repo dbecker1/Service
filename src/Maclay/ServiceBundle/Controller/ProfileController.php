@@ -40,6 +40,10 @@ class ProfileController extends Controller
         {
             return $this->redirect($this->generateUrl('default', array("controller" => "Club", "action" => "ManageClub")));
         }
+         else if($securityContext->isGranted("ROLE_SCHOOLADMIN"))
+        {
+            return $this->redirect($this->generateUrl('default', array("controller" => "Record", "action" => "StudentHistory")));
+        }
         return $this->render("MaclayServiceBundle:Profile:profile.html.twig");
     }
     
