@@ -2,11 +2,18 @@
     <head></head>
     <body>
         <p>{{ name }},</p>
-        <p>Welcome to the new Maclay School Community Service System. Below are your login credentials:</p>
+        <p>Welcome to the new Maclay School Community Service System. 
+            {% if isOther == false %}
+            You will be able to use this system to keep track of your service hours electronically. 
+            {% endif %}
+            Below are your login credentials:</p>
         <p>Username: {{ username }} <br />Password: {{ password }}</p>
         {% if isOther == true %}
         <p>Log in to add members to you club and begin tracking their service hours.</p>
         {% endif %}
         <p>Click <a href="{{ url('maclay_service_login') }}">here</a> to access your account</p>
+        <p>If you have any questions, feel free to email me at <a href="mailto:{{ emailLink }}">{{ emailLink }}</a></p>
+        <p>Thanks,</p>
+        <p>{{ developerName }}</p>
     </body>
 </html>

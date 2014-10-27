@@ -114,30 +114,34 @@ class AdminController extends Controller
             if($form->isValid())
             {
                 $club = $form->getData();
-                $email = $form->get("sponsorEmail")->getData();
+                $emails = $form->get("sponsorEmail")->getData();
                 $em = $this->getDoctrine()->getManager();
                 $sponsorGroup = $em->getRepository("MaclayServiceBundle:Role")->findOneByName("ClubSponsor");
+                $sponsors = explode(",", $emails);
                 $userManager = $this->get("fos_user.user_manager");
-                $sponsor = $userManager->findUserByEmail($email);
-                if ($sponsor === NULL){
-                    $sponsor = $userManager->createUser();
-                    $sponsor->setUsername(substr($email, 0,strpos($email, "@")));
-                    $randomPass = $this->randomPassword();
-                    $sponsor->setPlainPassword($randomPass);
-                    $sponsor->setTempPass($randomPass);
-                    $sponsor->setEnabled(1);
-                    $sponsor->setEmail($email);
-                    $sponsor->setFirstName("");
-                    $sponsor->setMiddleName("");
-                    $sponsor->setLastName("");
-                    $sponsor->addGroup($sponsorGroup);
-                    $sponsor->setIsInvited(false);
-                    $userManager->updateUser($sponsor);
+                foreach ($sponsors as $sponsorEmail){
+                    $sponsor = $userManager->findUserByEmail($sponsorEmail);
+                    if ($sponsor === NULL){
+                        $sponsor = $userManager->createUser();
+                        $sponsor->setUsername(substr($sponsorEmail, 0,strpos($sponsorEmail, "@")));
+                        $randomPass = $this->randomPassword();
+                        $sponsor->setPlainPassword($randomPass);
+                        $sponsor->setTempPass($randomPass);
+                        $sponsor->setEnabled(1);
+                        $sponsor->setEmail($sponsorEmail);
+                        $sponsor->setFirstName("");
+                        $sponsor->setMiddleName("");
+                        $sponsor->setLastName("");
+                        $sponsor->addGroup($sponsorGroup);
+                        $sponsor->setIsInvited(false);
+                        $userManager->updateUser($sponsor);
+                    }
+                    else{
+                        $sponsor->addGroup($sponsorGroup);
+                    }
+                    $club->addSponsor($sponsor);
                 }
-                else{
-                    $sponsor->addGroup($sponsorGroup);
-                }
-                $club->addSponsor($sponsor);
+                
                 $em->persist($club);
 
                 $em->flush();
@@ -185,13 +189,15 @@ class AdminController extends Controller
                 
                 set_time_limit(600);
                 
+                $container = $this->container;
+                
                 if (in_array(@$_SERVER['REMOTE_ADDR'], array(
                     '127.0.0.1',
                     '::1',
                 ))) {
                     $transport = \Swift_SmtpTransport::newInstance('smtp.office365.com', 587, "tls")
-                    ->setUsername('maclayservice@maclay.org')
-                    ->setPassword('GoMarauders2014')
+                    ->setUsername($container->getParameter("emailAddress"))
+                    ->setPassword($container->getParameter("emailPassword"))
                     ;
                 }
                 else{
@@ -209,11 +215,11 @@ class AdminController extends Controller
                     if ($user->getStudentInfo() === NULL){
                         $isOther = true;
                     }
-                    $body = $this->render("MaclayServiceBundle:Email:inviteUser.html.twig", array("username" => $username, "password" => $password, "name" => $name, "isOther" => $isOther))->getContent();
+                    $body = $this->render("MaclayServiceBundle:Email:inviteUser.html.twig", array("username" => $username, "password" => $password, "name" => $name, "isOther" => $isOther, "developerName" => $container->getParameter("applicationDeveloper"), "emailLink" => $container->getParameter("emailAddress")))->getContent();
 
                     $message = \Swift_Message::newInstance('Begin Using Maclay Community Service')
-                        ->setFrom(array("maclayservice@maclay.org" => "Maclay School Community Service"))
-                        ->setReplyTo(array("maclayservice@maclay.org" => "Maclay School Community Service"))
+                        ->setFrom(array($container->getParameter("emailAddress") => "Maclay School Community Service"))
+                        ->setReplyTo(array($container->getParameter("emailAddress") => "Maclay School Community Service"))
                         ->setTo($user->getEmail())
                         ->setBody($body, "text/html")
                         ;
