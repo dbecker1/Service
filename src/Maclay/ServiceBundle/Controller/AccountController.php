@@ -128,6 +128,49 @@ class AccountController extends Controller
         }
     }
     
+    public function changePasswordAction(Request $request){
+        $data = array();
+        $form = $this->createFormBuilder($data)
+                ->add("oldPassword", "password")
+                ->add("newPassword", "password")
+                ->add("confirmNewPassword", "password")
+                ->add("submit", "submit")
+                ->getForm();
+        
+        $form->handleRequest($request);
+        
+        if($form->isValid()){
+            $userManager = $this->container->get('fos_user.user_manager');
+
+            $user = $userManager->findUserByUsername($this->getUser()->getUsername());
+            
+            $data = $form->getData();
+                
+            try{
+                $encoder_service = $this->get('security.encoder_factory');
+                $encoder = $encoder_service->getEncoder($user);
+                $encoded_pass = $encoder->encodePassword($data["oldPassword"], $user->getSalt());
+
+                if ($user->getPassword() != $encoded_pass)
+                    throw new \RuntimeException("Old password is incorrect.");
+
+                if (!StringUtils::equals($data["newPassword"], $data["confirmNewPassword"]))
+                    throw new \RuntimeException("New passwords do not match");
+                
+                $user->setPlainPassword($data["newPassword"]);
+                
+                $userManager->updateUser($user);
+                
+                return $this->redirect($this->generateUrl('default', array("controller" => "Record", "action" => "RecordSummary")));
+            }
+            catch(\Exception $ee){
+                return $this->render("MaclayServiceBundle:Account:changePassword.html.twig", array("form" => $form->createView(), "error" => $ee->getMessage()));
+            }
+            
+        }
+        return $this->render("MaclayServiceBundle:Account:changePassword.html.twig", array("form" => $form->createView()));
+    }
+    
 //    public function groupAction()
 //    {
 //        $em = $this->getDoctrine()->getEntityManager();

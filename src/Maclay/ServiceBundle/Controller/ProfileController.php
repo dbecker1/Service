@@ -14,7 +14,7 @@ class ProfileController extends Controller
             $encoder = $this->get("security.encoder_factory")->getEncoder($user);
             $encodedPass = $encoder->encodePassword($user->getTempPass(), $user->getSalt());
             if ($encodedPass === $user->getPassword()){
-                return $this->redirect($this->generateUrl('default', array("controller" => "Profile", "action" => "ChangePassword")) . "/change-password");
+                return $this->redirect($this->generateUrl('default', array("controller" => "Account", "action" => "ChangePassword")));
             }
             else {
                 $user->setTempPass("");
