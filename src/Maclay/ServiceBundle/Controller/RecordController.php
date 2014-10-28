@@ -158,4 +158,17 @@ class RecordController extends Controller
        $records = $student->getRecords();
        return $this->render("MaclayServiceBundle:Record:recordHistory.html.twig", array("records" => $records));
    }
+   
+   public function printRecordAction($id){
+       $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:Record");
+       $record = $repository->getRecordAndStudentById($id)[0];
+       $club = $record->getEnteredByClub();
+       if ($club === NULL){
+           return $this->render("MaclayServiceBundle:Record:printRecord.html.twig", array("record" => $record));
+       }
+       else {
+           return $this->render("MaclayServiceBundle:Record:printRecord.html.twig", array("record" => $record, "clubName" => $club->getClubName()));
+       }
+       
+   }
 }

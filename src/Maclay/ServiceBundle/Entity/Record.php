@@ -392,13 +392,13 @@ class Record
     
     public function setEnteredByClub($club)
     {
-        $this->enteredByClubId = $club;
+        $this->enteredByClub = $club;
         
         return $this;
     }
     
     public function getEnteredByClub()
     {
-        return $this->enteredByClubId;
+        return $this->enteredByClub;
     }
 }

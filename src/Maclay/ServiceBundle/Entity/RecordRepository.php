@@ -48,4 +48,17 @@ class RecordRepository extends EntityRepository
                 ->setParameter("currentGrade", $grade)
                 ->getResult();
     }
+    
+    public function getRecordAndStudentById($id){
+        return $this->getEntityManager()
+                ->createQuery(
+                        "SELECT r, u, s "
+                        . "FROM MaclayServiceBundle:Record r "
+                        . "JOIN r.student u "
+                        . "JOIN u.studentinfo s "
+                        . "WHERE r.id = :id"
+                        )
+                ->setParameter("id", $id)
+                ->getResult();
+    }
 }

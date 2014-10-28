@@ -48,6 +48,10 @@ getUsersForClub:
 addUserToClub:
     path: /Club/AddUserToClub/{clubId}/{userId}
     defaults: { _controller: MaclayServiceBundle:Club:addUserToClub }
+    
+printRecord:
+    path: /Record/PrintRecord/{id}
+    defaults: { _controller: MaclayServiceBundle:Record:printRecord }
 
 default:
     path: /{controller}/{action}

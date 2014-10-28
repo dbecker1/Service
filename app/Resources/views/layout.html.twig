@@ -18,7 +18,9 @@
     </head>
     <body class="blue">
         <header>
+            {% block titlebar %}
             {{ render(controller('MaclayServiceBundle:Layout:titlebar')) }}
+            {% endblock %}
         </header>
         <div id="content-container">
             <div class="container">
