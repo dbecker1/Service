@@ -77,7 +77,9 @@ class ClubController extends Controller
     public function newRecordForMemberAction(Request $request){
         $user = $this->getUser();
         
-        $students = $user->getSponsorForClubs()[0]->getMembers();
+        $club = $user->getSponsorForClubs()[0];
+        
+        $students = $club->getMembers();
         
         $form = $this->createForm(new ClubRecordType($students), new Record());
         
@@ -105,7 +107,7 @@ class ClubController extends Controller
                 $now = new \DateTime('now');
                 $record->setDateCreated($now);
                 $record->setApprovalStatus(0);
-
+                $record->setEnteredByClub($club);
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($record);
