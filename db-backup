@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 27, 2014 at 12:36 AM
+-- Generation Time: Oct 29, 2014 at 01:39 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -209,7 +209,7 @@ INSERT INTO `Role` (`id`, `roles`, `name`) VALUES
 (2, 'a:1:{i:0;s:12:"ROLE_STUDENT";}', 'Student'),
 (3, 'a:1:{i:0;s:16:"ROLE_COORDINATOR";}', 'Coordinator'),
 (4, 'a:1:{i:0;s:16:"ROLE_CLUBSPONSOR";}', 'ClubSponsor'),
-(5, 'a:1:{i:0;s:12:"ROLE_TEACHER";}', 'Teacher');
+(5, 'a:1:{i:0;s:16:"ROLE_SCHOOLADMIN";}', 'SchoolAdmin');
 
 -- --------------------------------------------------------
 

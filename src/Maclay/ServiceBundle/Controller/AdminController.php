@@ -278,6 +278,7 @@ class AdminController extends Controller
     
     public function importPreviousRecordsAction(){
         $file;
+        ini_set('auto_detect_line_endings', true);
         try
         {
             $file = $_FILES["file"];
@@ -324,7 +325,8 @@ class AdminController extends Controller
             
             foreach($records as $record){
                 try{
-                    $student = $userRepo->getUserByStudentNumber($record[1])[0];
+                    $students = $userRepo->getUserByStudentNumber($record[1]);
+                    $student = $students[0];
                     if ($student === NULL){
                         throw new \RuntimeException("");
                     }
@@ -390,7 +392,6 @@ class AdminController extends Controller
                     }
                 }
                 catch (\Exception $ee){
-                    throw new \RuntimeException($ee->getMessage());
                     $failedUsers[] = $record[0];
                 }
             }
