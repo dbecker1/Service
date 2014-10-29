@@ -178,7 +178,7 @@ class AdminController extends Controller
                 }
                 else if ($grade == -1){
                     foreach($uninvitedUsers as $user){
-                        if ($user->getStudentInfo() === NULL){
+                        if ($user->hasRole("ROLE_STUDENT" == false)){
                             $emailUsers[] = $user;
                         }
                     }
@@ -215,7 +215,11 @@ class AdminController extends Controller
                     if ($user->getStudentInfo() === NULL){
                         $isOther = true;
                     }
-                    $body = $this->render("MaclayServiceBundle:Email:inviteUser.html.twig", array("username" => $username, "password" => $password, "name" => $name, "isOther" => $isOther, "developerName" => $container->getParameter("applicationDeveloper"), "emailLink" => $container->getParameter("emailAddress")))->getContent();
+                    
+                    $isStudent = $user->hasRole("ROLE_STUDENT");
+                    $isSchoolAdmin = $user->hasRole("ROLE_SCHOOLADMIN");
+                    $isClubSponsor = $user->hasRole("ROLE_COORDINATOR");
+                    $body = $this->render("MaclayServiceBundle:Email:inviteUser.html.twig", array("username" => $username, "password" => $password, "name" => $name, "isClubSponsor" => $isClubSponsor, "isSchoolAdmin" => $isSchoolAdmin, "isStudent" => $isStudent, "developerName" => $container->getParameter("applicationDeveloper"), "emailLink" => $container->getParameter("emailAddress")))->getContent();
 
                     $message = \Swift_Message::newInstance('Begin Using Maclay Community Service')
                         ->setFrom(array($container->getParameter("emailAddress") => "Maclay School Community Service"))
