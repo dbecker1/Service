@@ -232,8 +232,6 @@ class AdminController extends Controller
 
                     $user->setIsInvited(true);
                     $em->persist($user);
-                    
-                    sleep(4);
                 }
 
                 $em->flush();
