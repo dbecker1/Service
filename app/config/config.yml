@@ -103,3 +103,8 @@ parameters:
     recordFormDownloadLink: "/web/uploads/recordForm.pdf"
     emailAddress: maclayservice@maclay.org
     emailPassword: GoMarauders2014
+    schoolYearStart: 08/18/2014
+    q1End: 10/17/2014
+    q2End: 10/20/2014
+    q3End: 03/13/2014
+    q4End: 05/29/2014

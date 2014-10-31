@@ -11,6 +11,16 @@
         <h4>{{club.clubName}}</h4>
 
         <br />
+        <p>Select quarter to narrow down record totals:
+            <select id="quarterSelect" onChange="update()">
+                <option value="0">Overall Totals</option>
+                <option value="1">1st Quarter</option>
+                <option value="2">2nd Quarter</option>
+                <option value="3">3rd Quarter</option>
+                <option value="4">4th Quarter</option>
+            </select>
+            <button id="export">Export To CSV</button>
+        </p>
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
@@ -33,3 +43,26 @@
 
 {% endblock %}
 
+{% block endscripts %}
+        <script>
+            function update(){
+                var quarter = $("#quarterSelect").val();
+                var url = "{{ path("manageClub", {"quarter" : "0"}) }}";
+                url = url.replace("0", quarter);
+                window.location.href = url;
+            }
+            
+            $(document).ready(function(){
+                $("#quarterSelect").val({{ quarter }});
+            });
+            
+            $(document).ready(function(){
+                $("#export").on("click", function(){
+                    var quarter = $("#quarterSelect").val();
+                    var url = "{{ path("manageClub", {"quarter" : "0", "export" : "true"}) }}";
+                    url = url.replace("0", quarter);
+                    window.location.href = url;
+                });
+            });
+        </script>
+{% endblock %}

@@ -52,6 +52,10 @@ addUserToClub:
 printRecord:
     path: /Record/PrintRecord/{id}
     defaults: { _controller: MaclayServiceBundle:Record:printRecord }
+    
+manageClub:
+    path: /Club/ManageClub/{quarter}/{export}
+    defaults: { _controller: MaclayServiceBundle:Club:manageClub, export: false }
 
 default:
     path: /{controller}/{action}

@@ -12,11 +12,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Record/recordHistory.html.twig</file>
             <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/config/routing.yml</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Record/pendingRecords.html.twig</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Record/recordPartial.html.twig</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/RecordController.php</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Club/manage.html.twig</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/ClubController.php</file>
+            <file>file:/Applications/XAMPP/htdocs/app/config/config.yml</file>
         </group>
     </open-files>
 </project-private>
