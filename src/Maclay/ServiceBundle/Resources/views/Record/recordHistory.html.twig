@@ -45,7 +45,9 @@
     <script>
         function recordInfo(id){
             var options = [];
-            options.url = "{{ path('default', {'controller' : 'Record', 'action' : 'GetRecordPartial'}) }}" + "/" + id;
+            options.url = "{{ path('recordpartial', {'id' : 'studentId', 'isSponsor' : 'isSponsorTrue'}) }}";
+            options.url = options.url.replace("studentId", id);
+            options.url = options.url.replace("isSponsorTrue", {{ isSponsor|default("false") }});
             options.success = function(response){
                 $("#popup").html(response.html);
                 $("#popup").dialog({
@@ -62,5 +64,7 @@
             };
             $.ajax(options);
         };
-    </script>
+       
+   
+</script>
 {% endblock %}

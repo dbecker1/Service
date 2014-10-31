@@ -86,13 +86,22 @@
         <p>Approval Status:</p>
     </div>
     <div class="col-sm-6">
+        <p>
         {% if record.approvalStatus > 0 %}
-            <p>APPROVED</p>
+            <span class="status">APPROVED</span>
+            {% if isSponsor == 1 %}
+                <button value="{{ record.id }}" class="change approved">Change Status</button>
+            {% endif %}
         {% elseif record.approvalStatus < 0 %}
-            <p>NOT APPROVED</p>
+            <span class="status">NOT APPROVED</span>
+            {% if isSponsor == 1 %}
+                <button value="{{ record.id }}" class="change denied">Change Status</button>
+            {% endif %}
         {% else %}
-            <p>PENDING</p>
+            <span class="status">PENDING</span>
         {% endif %}
+        
+        </p>
     </div>
 </div>
 {% if record.approverComments != null %}
@@ -137,3 +146,37 @@
     </div>
 </div>
 <br />
+
+<script>
+     $(document).ready(function(){
+        $(".change").on("click", function(){
+                var id = $(this).val();
+                var options = [];
+                if($(this).hasClass("approved")){
+                    options.url = "{{ path('default', {'controller' : 'Record', 'action' : 'ApproveRecord'}) }}" + "/" + id + "/" + "false";
+                }
+                else{
+                    options.url = "{{ path('default', {'controller' : 'Record', 'action' : 'ApproveRecord'}) }}" + "/" + id + "/" + "true";
+                }
+                options.success = function(response) {
+                    if (response.denied == true){
+                        $(".status").html("NOT APPROVED");
+                    }
+                    else if (response.approved == true) {
+                        $(".status").html("APPROVED");
+                    }
+                    else {
+                        alert("error");
+                    }
+                }
+                options.error = function(a,b,c){
+                    $("#popup").html(a.responseText);
+                    $("#popup").dialog({
+                        width: "500px",
+                        title: "Error Details"
+                    });
+                }
+                $.ajax(options);
+            });
+    });
+</script>
