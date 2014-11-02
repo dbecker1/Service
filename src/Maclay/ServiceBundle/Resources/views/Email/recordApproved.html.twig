@@ -1,0 +1,29 @@
+<html>
+    <head></head>
+    <body>
+        <p>{{ name }},</p>
+        <p>The following community service record has been approved:</p>
+        <table>
+            <tr>
+                <td>Activity:</td>
+                <td>{{ record.activity }}</td>
+            </tr>
+            <tr>
+                <td>Number of Hours:</td>
+                <td>{{ record.numHours }}</td>
+            </tr>
+            <tr>
+                <td>Date From:</td>
+                <td>{{ record.dateFrom|date('m/d/Y') }}</td>
+            </tr>
+            <tr>
+                <td>Date To:</td>
+                <td>{{ record.dateTo|date('m/d/Y') }}</td>
+            </tr>
+            <tr>
+                <td>Organization:</td>
+                <td>{{ record.organization }}</td>
+            </tr>
+        </table>
+    </body>
+</html>

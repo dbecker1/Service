@@ -129,6 +129,38 @@ class RecordController extends Controller
            $answer["denied"] = true;
        }
        $em->flush();
+       
+       try{
+           $student = $record->getStudent();
+           
+           if (in_array(@$_SERVER['REMOTE_ADDR'], array(
+                '127.0.0.1',
+                '::1',
+            ))) {
+                $transport = \Swift_SmtpTransport::newInstance('smtp.office365.com', 587, "tls")
+                ->setUsername('maclayservice@maclay.org')
+                ->setPassword('GoMarauders2014')
+                ;
+            }
+            else{
+                $transport = \Swift_SmtpTransport::newInstance('localhost');
+            }
+
+            $mailer = \Swift_Mailer::newInstance($transport);
+
+            $body = $this->render("MaclayServiceBundle:Email:recordApproved.html.twig", array("name" => $student->getFirstName(), "record" => $record))->getContent();
+
+            $message = \Swift_Message::newInstance('Record Approved')
+                ->setFrom(array("maclayservice@maclay.org" => "Maclay School Community Service"))
+                ->setReplyTo(array("maclayservice@maclay.org" => "Maclay School Community Service"))
+                ->setTo($student->getEmail())
+                ->setBody($body, "text/html")
+                ;
+
+            $mailer->send($message);
+       } catch (\Exception $ex) {
+           throw $ex;
+       }
        $response = new Response();                                         
        $response->headers->set('Content-type', 'application/json; charset=utf-8');
        $response->setContent(json_encode($answer));
