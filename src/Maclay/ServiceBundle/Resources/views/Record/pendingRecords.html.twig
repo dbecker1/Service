@@ -50,7 +50,7 @@
     <script>
         function recordInfo(id){
             var options = [];
-            options.url = "{{ path('recordPartial', {'id' : 'IdHere', 'isSponsor' : 'true'}) }}";
+            options.url = "{{ path('recordpartial', {'id' : 'IdHere', 'isSponsor' : 'true'}) }}";
             options.url = options.url.replace("IdHere", id);
             options.success = function(response){
                 $("#popup").html(response.html);
