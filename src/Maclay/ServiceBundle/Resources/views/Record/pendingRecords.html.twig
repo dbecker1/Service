@@ -50,7 +50,7 @@
     <script>
         function recordInfo(id){
             var options = [];
-            options.url = "{{ path('default', {'controller' : 'Record', 'action' : 'GetRecordPartial'}) }}" + "/" + id;
+            options.url = "{{ path('default', {'controller' : 'Record', 'action' : 'GetRecordPartial'}) }}" + "/" + id + "true";
             options.success = function(response){
                 $("#popup").html(response.html);
                 $("#popup").dialog({
