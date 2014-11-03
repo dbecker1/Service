@@ -13,6 +13,7 @@
             <tr>
                 <td>Last Name</td>
                 <td>First Name</td>
+                <td>Grade</td>
                 <td>Start Date</td>
                 <td>Activity</td>
                 <td>Number of Hours</td>
@@ -27,6 +28,7 @@
             <tr>
                 <td onclick="recordInfo({{row.id}});">{{row.student.lastName}}</td>
                 <td onclick="recordInfo({{row.id}});">{{row.student.firstName}}</td>
+                <td onclick="recordInfo({{row.id}});">{{row.student.studentinfo.grade}}</td>
                 <td onclick="recordInfo({{row.id}});">{{row.dateFrom|date("m/d/Y")}}</td>
                 <td onclick="recordInfo({{row.id}});">{{row.activity}}</td>
                 <td onclick="recordInfo({{row.id}});">{{row.numHours}}</td>
