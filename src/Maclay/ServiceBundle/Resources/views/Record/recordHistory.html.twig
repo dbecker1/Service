@@ -7,6 +7,9 @@
 {% block usercontent %}
     <div id="popup">
     </div>
+    {% if name|default(false) %}
+        <h4>Student: {{name}}</h4>
+    {% endif %}
     <table class="table table-bordered table-hover">
         <thead>
             <tr>

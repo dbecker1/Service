@@ -188,8 +188,9 @@ class RecordController extends Controller
        $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:User");
        $student = $repository->findOneById($id);
        $records = $student->getRecords();
+       $name = $student->getFirstName() . " " . $student->getLastName();
        $isSponsor = $this->getUser()->hasRole("ROLE_COORDINATOR");
-       return $this->render("MaclayServiceBundle:Record:recordHistory.html.twig", array("records" => $records, "isSponsor" => $isSponsor));
+       return $this->render("MaclayServiceBundle:Record:recordHistory.html.twig", array("records" => $records, "isSponsor" => $isSponsor, "name" => $name));
    }
    
    public function printRecordAction($id){

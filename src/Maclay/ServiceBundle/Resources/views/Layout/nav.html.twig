@@ -15,8 +15,10 @@
             <li><h4><a href="{{ path('default', {'controller' : 'Admin', 'action' : 'UploadStudents'}) }}">Upload Students</a></h4></li>
             <li><h4><a href="{{ path('default', {'controller' : 'Admin', 'action' : 'ImportPreviousRecords'}) }}">Import Previous Records</a></h4></li>
             <li><h4><a href="{{ path('default', {'controller' : 'Admin', 'action' : 'EmailUninvitedUsers'}) }}">Email Uninvited Users</a></h4></li>
-            <li><h4><a href="{{ path('default', {'controller' : 'Admin', 'action' : 'CreateClub'}) }}">Create Club</a></h4></li>
             <li><h4><a href="{{ path('default', {'controller' : 'Admin', 'action' : 'CreateSchoolAdmins'}) }}">Create School Admins</a></h4></li>
+        {% endif %}
+        {% if isCoordinator or isAdmin %}
+            <li><h4><a href="{{ path('default', {'controller' : 'Admin', 'action' : 'CreateClub'}) }}">Create Club</a></h4></li>
         {% endif %}
         {% if isClubSponsor %}
             <li><h4><a href="{{ path('default', {'controller' : 'Club', 'action' : 'ManageClub'}) }}">Manage Club</a></h4></li>
