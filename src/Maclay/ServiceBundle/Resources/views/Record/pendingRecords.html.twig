@@ -34,12 +34,14 @@
                 <td onclick="recordInfo({{row.id}});">{{row.numHours}}</td>
                 <td onclick="recordInfo({{row.id}});">{{row.organization}}</td>
                 <td onclick="recordInfo({{row.id}});">{{row.supervisor}}</td>
-                {% if row.attachmentFileName != null %}
+                {% if (row.attachmentFileName != null) %}
                     <td onclick="recordInfo({{row.id}});">Yes</td>
+                {% elseif row.enteredByClub != null %}
+                    <td onclick="recordInfo({{row.id}});">{{row.enteredByClub.clubName}}</td>
                 {% else %}
-                    <td onclick="recordInfo({{row.id}});">No</td>
+                    <td id="{{row.id}}-attachment"><button class="email" value={{row.id}}>Email</button></td>
                 {% endif %}
-                <td><button class="approve">Approve</button><button class="deny">Deny</button><input class="record_id" type="hidden" value="{{row.id}}" ></td>
+                <td id="{{row.id}}-approval"><button class="approve">Approve</button><button class="deny">Deny</button><input class="record_id" type="hidden" value="{{row.id}}" ></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -78,7 +80,7 @@
                 options.url = "{{ path('default', {'controller' : 'Record', 'action' : 'ApproveRecord'}) }}" + "/" + id + "/" + "true";
                 options.success = function(response) {
                     if (response.approved == true){
-                        $("[value='" + id + "']").parent().html("Approved.");
+                        $("#" + id + "-approval").html("Approved.");
                     }
                     else {
                         alert("error");
@@ -102,7 +104,7 @@
                 options.url = "{{ path('default', {'controller' : 'Record', 'action' : 'ApproveRecord'}) }}" + "/" + id + "/" + "false";
                 options.success = function(response) {
                     if (response.denied == true){
-                        $("[value='" + id + "']").parent().html("Denied.");
+                        $("#" + id + "-approval").html("Denied.");
                     }
                     else {
                         alert("error");
@@ -131,6 +133,31 @@
                 alert("error");
             }
         }
+        
+        $(document).ready(function(){
+            $(".email").on("click", function(){
+                var id = $(this).val();
+                var options = [];
+                options.url = "{{ path('recordEmail', {'id' : 'IdHere'}) }}";
+                options.url = options.url.replace("IdHere", id);
+                options.success = function(response) {
+                    if (response.error == "sent"){
+                        $("#" + id + "-attachment").html("Email Sent.");
+                    }
+                    else {
+                        alert(response.error);
+                    }
+                }
+                options.error = function(a,b,c){
+                    $("#popup").html(a.responseText);
+                    $("#popup").dialog({
+                        width: "500px",
+                        title: "Error Details"
+                    });
+                }
+                $.ajax(options);
+            });
+        });
         
     </script>
 {% endblock %}

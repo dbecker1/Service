@@ -130,37 +130,40 @@ class RecordController extends Controller
        }
        $em->flush();
        
-       try{
-           $student = $record->getStudent();
-           
-           if (in_array(@$_SERVER['REMOTE_ADDR'], array(
-                '127.0.0.1',
-                '::1',
-            ))) {
-                $transport = \Swift_SmtpTransport::newInstance('smtp.office365.com', 587, "tls")
-                ->setUsername('maclayservice@maclay.org')
-                ->setPassword('GoMarauders2014')
-                ;
+       if ($approval === "true"){
+           try{
+                $student = $record->getStudent();
+
+                if (in_array(@$_SERVER['REMOTE_ADDR'], array(
+                     '127.0.0.1',
+                     '::1',
+                 ))) {
+                     $transport = \Swift_SmtpTransport::newInstance('smtp.office365.com', 587, "tls")
+                     ->setUsername('maclayservice@maclay.org')
+                     ->setPassword('GoMarauders2014')
+                     ;
+                 }
+                 else{
+                     $transport = \Swift_SmtpTransport::newInstance('localhost');
+                 }
+
+                 $mailer = \Swift_Mailer::newInstance($transport);
+
+                 $body = $this->render("MaclayServiceBundle:Email:recordApproved.html.twig", array("name" => $student->getFirstName(), "record" => $record))->getContent();
+
+                 $message = \Swift_Message::newInstance('Record Approved')
+                     ->setFrom(array("maclayservice@maclay.org" => "Maclay School Community Service"))
+                     ->setReplyTo(array("maclayservice@maclay.org" => "Maclay School Community Service"))
+                     ->setTo($student->getEmail())
+                     ->setBody($body, "text/html")
+                     ;
+
+                 $mailer->send($message);
+            } catch (\Exception $ex) {
+                throw $ex;
             }
-            else{
-                $transport = \Swift_SmtpTransport::newInstance('localhost');
-            }
-
-            $mailer = \Swift_Mailer::newInstance($transport);
-
-            $body = $this->render("MaclayServiceBundle:Email:recordApproved.html.twig", array("name" => $student->getFirstName(), "record" => $record))->getContent();
-
-            $message = \Swift_Message::newInstance('Record Approved')
-                ->setFrom(array("maclayservice@maclay.org" => "Maclay School Community Service"))
-                ->setReplyTo(array("maclayservice@maclay.org" => "Maclay School Community Service"))
-                ->setTo($student->getEmail())
-                ->setBody($body, "text/html")
-                ;
-
-            $mailer->send($message);
-       } catch (\Exception $ex) {
-           throw $ex;
        }
+       
        $response = new Response();                                         
        $response->headers->set('Content-type', 'application/json; charset=utf-8');
        $response->setContent(json_encode($answer));
@@ -204,5 +207,49 @@ class RecordController extends Controller
            return $this->render("MaclayServiceBundle:Record:printRecord.html.twig", array("record" => $record, "clubName" => $club->getClubName()));
        }
        
+   }
+   
+   public function recordEmailAction($id){
+       $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:Record");
+       $record = $repository->findOneById($id); 
+       $student = $record->getStudent();
+       
+       $response = new Response();                                         
+       $response->headers->set('Content-type', 'application/json; charset=utf-8');
+       
+       try{
+            if (in_array(@$_SERVER['REMOTE_ADDR'], array(
+                '127.0.0.1',
+                '::1',
+            ))) {
+                $transport = \Swift_SmtpTransport::newInstance('smtp.office365.com', 587, "tls")
+                ->setUsername('maclayservice@maclay.org')
+                ->setPassword('GoMarauders2014')
+                ;
+            }
+            else{
+                $transport = \Swift_SmtpTransport::newInstance('localhost');
+            }
+
+            $mailer = \Swift_Mailer::newInstance($transport);
+
+            $body = $this->render("MaclayServiceBundle:Email:recordEmail.html.twig", array("name" => $student->getFirstName(), "record" => $record))->getContent();
+
+            $message = \Swift_Message::newInstance('Missing Attachment.')
+                ->setFrom(array("maclayservice@maclay.org" => "Maclay School Community Service"))
+                ->setReplyTo(array("maclayservice@maclay.org" => "Maclay School Community Service"))
+                ->setTo($student->getEmail())
+                ->setBody($body, "text/html")
+                ;
+
+            $mailer->send($message);
+            
+            $answer["error"] = "sent";
+       } catch (\Exception $ee){
+           $answer["error"] = $ee->getMessage();
+       }
+       
+       $response->setContent(json_encode($answer));
+       return $response;
    }
 }

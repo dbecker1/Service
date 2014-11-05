@@ -56,6 +56,10 @@ printRecord:
 manageClub:
     path: /Club/ManageClub/{quarter}/{export}
     defaults: { _controller: MaclayServiceBundle:Club:manageClub, export: false }
+    
+recordEmail:
+    path: /Record/RecordEmail/{id}
+    defaults: { _controller: MaclayServiceBundle:Record:recordEmail }
 
 default:
     path: /{controller}/{action}

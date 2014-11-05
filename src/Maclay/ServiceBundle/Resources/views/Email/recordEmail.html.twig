@@ -1,0 +1,32 @@
+<html>
+    <head></head>
+    <body>
+        <p>{{ name }},</p>
+        <p>Thank you for entering your community service record. Since you did not upload an attachment, your record will not be approved until you submit the form physically to Mrs. Bas.</p>
+        <p>Here is the record: </p>
+        <table>
+            <tr>
+                <td>Activity:</td>
+                <td>{{ record.activity }}</td>
+            </tr>
+            <tr>
+                <td>Number of Hours:</td>
+                <td>{{ record.numHours }}</td>
+            </tr>
+            <tr>
+                <td>Date From:</td>
+                <td>{{ record.dateFrom|date('m/d/Y') }}</td>
+            </tr>
+            <tr>
+                <td>Date To:</td>
+                <td>{{ record.dateTo|date('m/d/Y') }}</td>
+            </tr>
+            <tr>
+                <td>Organization:</td>
+                <td>{{ record.organization }}</td>
+            </tr>
+        </table>
+        <p>Thanks,</p>
+        <p>Maclay School Community Service</p>
+    </body>
+</html>
