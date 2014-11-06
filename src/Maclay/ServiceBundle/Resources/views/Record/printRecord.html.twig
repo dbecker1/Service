@@ -5,44 +5,44 @@
 {% block content %}
     <div class="col-xs-11">
         <div class="row">
-            <div class="col-xs-3"><h3>Student Name: </h3></div>
-            <div class="col-xs-5" style="border-bottom: 1px solid black;"><h3>{{ record.student.firstName }} {{ record.student.lastName }}</h3></div>
+            <div class="col-xs-3"><h4>Student Name: </h4></div>
+            <div class="col-xs-5" style="border-bottom: 1px solid black;"><h4>{{ record.student.firstName }} {{ record.student.lastName }}</h4></div>
         </div>
         <br />
         <div class="row">
-            <div class="col-xs-3"><h3>Current Grade: </h3></div>
-            <div class="col-xs-2" style="border-bottom: 1px solid black;"><h3>{{ record.student.studentinfo.grade }}</h3></div>
+            <div class="col-xs-3"><h4>Current Grade: </h4></div>
+            <div class="col-xs-2" style="border-bottom: 1px solid black;"><h4>{{ record.student.studentinfo.grade }}</h4></div>
             
-            <div class="col-xs-4"><h3>Expected Graduation Year: </h3></div>
-            <div class="col-xs-1" style="border-bottom: 1px solid black;"><h3>{{ record.student.studentinfo.gradYear }}</h3></div>
+            <div class="col-xs-4"><h4>Expected Graduation Year: </h4></div>
+            <div class="col-xs-1" style="border-bottom: 1px solid black;"><h4>{{ record.student.studentinfo.gradYear }}</h4></div>
         </div>
         <br />
         <div class="row">
-            <div class="col-xs-3"><h3>Date of Service: </h3></div>
-            <div class="col-xs-2" style="border-bottom: 1px solid black;"><h3>{{ record.dateFrom|date("m/d/Y") }}</h3></div>
+            <div class="col-xs-3"><h4>Date of Service: </h4></div>
+            <div class="col-xs-2" style="border-bottom: 1px solid black;"><h4>{{ record.dateFrom|date("m/d/Y") }}</h4></div>
             
-            <div class="col-xs-4"><h3>Number of Hours: </h3></div>
-            <div class="col-xs-1" style="border-bottom: 1px solid black;"><h3>{{ record.numHours }}</h3></div>
+            <div class="col-xs-4"><h4>Number of Hours: </h4></div>
+            <div class="col-xs-1" style="border-bottom: 1px solid black;"><h4>{{ record.numHours }}</h4></div>
         </div>
         <br />
         <div class="row">
-            <div class="col-xs-2"><h3>Activity: </h3></div>
-            <div class="col-xs-8" style="border-bottom: 1px solid black;"><h3>{{ record.activity }}</h3></div>
+            <div class="col-xs-2"><h4>Activity: </h4></div>
+            <div class="col-xs-8" style="border-bottom: 1px solid black;"><h4>{{ record.activity }}</h4></div>
         </div>
         <br />
         <div class="row">
-            <div class="col-xs-4"><h3>Sponsoring Organization: </h3></div>
-            <div class="col-xs-6" style="border-bottom: 1px solid black;"><h3>{{ record.organization }}</h3></div>
+            <div class="col-xs-4"><h4>Sponsoring Organization: </h4></div>
+            <div class="col-xs-6" style="border-bottom: 1px solid black;"><h4>{{ record.organization }}</h4></div>
         </div>
         <br />
         <div class="row">
-            <div class="col-xs-4"><h3>Supervisor's Name: </h3></div>
-            <div class="col-xs-6" style="border-bottom: 1px solid black;"><h3>{{ record.supervisor }}</h3></div>
+            <div class="col-xs-4"><h4>Supervisor's Name: </h4></div>
+            <div class="col-xs-6" style="border-bottom: 1px solid black;"><h4>{{ record.supervisor }}</h4></div>
         </div>
         <br />
         <div class="row">
-            <div class="col-xs-4"><h3>Entered By Club: </h3></div>
-            <div class="col-xs-6" style="border-bottom: 1px solid black;"><h3>{{ clubName|default("N/A") }}</h3></div>
+            <div class="col-xs-4"><h4>Entered By Club: </h4></div>
+            <div class="col-xs-6" style="border-bottom: 1px solid black;"><h4>{{ clubName|default("N/A") }}</h4></div>
         </div>
     </div>
 {% endblock %}
