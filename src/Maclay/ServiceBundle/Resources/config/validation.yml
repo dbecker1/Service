@@ -18,4 +18,18 @@ Maclay\ServiceBundle\Entity\Record:
             - NotBlank: { message: "Organization is required" }
         supervisor:
             - NotBlank: { message: "Supervisor is required" }
+Maclay\ServiceBundle\Model\ClubBatchRecord:
+    properties:
+        dateFrom:
+            - Date: { message: "Must be a valid date" }
+            - NotBlank: { message: "Date From is required" }
+        dateTo:
+            - Date: { message: "Must be a valid date" }
+            - NotBlank: { message: "Date To is required" }   
+        activity:
+            - NotBlank: { message: "Activity is required" }
+        organization:
+            - NotBlank: { message: "Organization is required" }
+        supervisor:
+            - NotBlank: { message: "Supervisor is required" }
             

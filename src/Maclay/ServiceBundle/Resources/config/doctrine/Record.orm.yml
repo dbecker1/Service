@@ -70,4 +70,8 @@ Maclay\ServiceBundle\Entity\Record:
             length: 255
             column: AttachmentFileName
             nullable: TRUE
+        emailIsSent:
+            type: boolean
+            nullable: TRUE
+            column: EmailIsSent
     lifecycleCallbacks: {  }

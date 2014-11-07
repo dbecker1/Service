@@ -41,7 +41,12 @@ class RecordController extends Controller
     public function newRecordAction(Request $request){
          $user = $this->getUser();
          
-         $form = $this->createForm(new RecordType(), new Record());
+         $now = new \DateTime('now');
+         $record = new Record();
+         $record->setDateFrom($now);
+         $record->setDateTo($now);
+         
+         $form = $this->createForm(new RecordType(), $record);
          
          $form->handleRequest($request);
          
@@ -245,6 +250,9 @@ class RecordController extends Controller
             $mailer->send($message);
             
             $answer["error"] = "sent";
+            
+            $record->setEmailIsSent(true);
+            $this->getDoctrine()->getManager()->flush();
        } catch (\Exception $ee){
            $answer["error"] = $ee->getMessage();
        }
