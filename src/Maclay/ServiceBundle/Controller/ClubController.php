@@ -201,10 +201,63 @@ class ClubController extends Controller
             $student->setLastName($member->getLastName());
             $student->setFirstName($member->getFirstName());
             $student->setStudentNumber($member->getStudentinfo()->getStudentNumber());
+            $student->setNumHours(0);
             $batchRecord->addStudentHours($student);
         }
         
         $form = $this->createForm(new ClubBatchRecordType(), $batchRecord);
+        
+        $form->handleRequest($request);
+        
+        if ($form->isValid()){
+            try{
+                $batchRecord = $form->getData();
+
+                $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:User");
+                $em = $this->getDoctrine()->getManager();
+
+                foreach ($batchRecord->getStudentHours() as $studentHour){
+                    if ($studentHour->getNumHours() == 0)
+                        continue;
+                    $user = $repository->getUserByStudentNumber($studentHour->getStudentNumber())[0];
+                    $record = new Record();
+                    $record->setActivity($batchRecord->getActivity());
+                    $record->setCurrentGrade($user->getStudentInfo()->getGrade());
+                    $record->setDateCreated($now);
+                    $record->setDateFrom($batchRecord->getDateFrom());
+                    $record->setDateTo($batchRecord->getDateTo());
+                    $record->setEnteredByClub($club);
+                    $record->setNotes($batchRecord->getNotes());
+                    $record->setNumHours($studentHour->getNumHours());
+                    $record->setOrganization($batchRecord->getOrganization());
+                    $record->setStudent($user);
+                    $record->setSupervisor($batchRecord->getSupervisor());
+                    $record->setApprovalStatus(0);
+                    $em->persist($record);
+                }
+
+                $em->flush();
+                
+                $batchRecord = new ClubBatchRecord();
+                $batchRecord->setDateFrom($now);
+                $batchRecord->setDateTo($now);
+
+                foreach($club->getMembers() as $member){
+                    $student = new StudentHours();
+                    $student->setLastName($member->getLastName());
+                    $student->setFirstName($member->getFirstName());
+                    $student->setStudentNumber($member->getStudentinfo()->getStudentNumber());
+                    $student->setNumHours(0);
+                    $batchRecord->addStudentHours($student);
+                }
+
+                $form = $this->createForm(new ClubBatchRecordType(), $batchRecord);
+                
+                return $this->render("MaclayServiceBundle:Club:batchRecord.html.twig", array("error" => "Records Successfully Created", "form" => $form->createView()));
+            } catch(\Exception $ee){
+                return $this->render("MaclayServiceBundle:Club:batchRecord.html.twig", array("error" => $ee->getMessage(), "form" => $form->createView()));
+            }
+        }
         
         return $this->render("MaclayServiceBundle:Club:batchRecord.html.twig", array("form" => $form->createView()));
     }

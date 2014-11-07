@@ -1,38 +1,39 @@
 {% extends 'MaclayServiceBundle:Profile:profile.html.twig' %}
 
 {% block pagename %}
-    Club Sponsor - Batch Enter Records
+    Club Sponsor - Batch Enter Record
 {% endblock %}
     
 {% block usercontent %}
-    <p>{{ error|default("") }} </p>
+    {{ form_start(form) }}
+    <p>{{ error|default("") }} {{ form_errors(form) }} </p>
     <div class="row">
-        <div class="col-sm-2 col-sm-offset-1"><label>Date From</label></div>
+        <div class="col-sm-2"><label>Date From</label></div>
         <div class="col-sm-3 form-group">{{form_widget(form.dateFrom) }}</div>
         <div class="col-sm-5 error-text">{{ form_errors(form.dateFrom) }}</div>
     </div>
     <div class="row">
-        <div class="col-sm-2 col-sm-offset-1"><label>Date To</label></div>
+        <div class="col-sm-2"><label>Date To</label></div>
         <div class="col-sm-3 form-group">{{form_widget(form.dateTo) }}</div>
         <div class="col-sm-5 error-text">{{ form_errors(form.dateTo) }}</div>
     </div>
     <div class="row">
-        <div class="col-sm-2 col-sm-offset-1">{{form_label(form.activity) }}</div>
+        <div class="col-sm-2">{{form_label(form.activity) }}</div>
         <div class="col-sm-3 form-group">{{form_widget(form.activity) }}</div>
         <div class="col-sm-5 error-text">{{ form_errors(form.activity) }}</div>
     </div>
     <div class="row">
-        <div class="col-sm-2 col-sm-offset-1">{{form_label(form.notes) }}</div>
+        <div class="col-sm-2">{{form_label(form.notes) }}</div>
         <div class="col-sm-3 form-group">{{form_widget(form.notes) }}</div>
         <div class="col-sm-5 error-text">{{ form_errors(form.notes) }}</div>
     </div>
     <div class="row">
-        <div class="col-sm-2 col-sm-offset-1">{{form_label(form.organization) }}</div>
+        <div class="col-sm-2">{{form_label(form.organization) }}</div>
         <div class="col-sm-3 form-group">{{form_widget(form.organization) }}</div>
         <div class="col-sm-5 error-text">{{ form_errors(form.organization) }}</div>
     </div>
     <div class="row">
-        <div class="col-sm-2 col-sm-offset-1">{{form_label(form.supervisor) }}</div>
+        <div class="col-sm-2">{{form_label(form.supervisor) }}</div>
         <div class="col-sm-3 form-group">{{form_widget(form.supervisor) }}</div>
         <div class="col-sm-5 error-text">{{ form_errors(form.supervisor) }}</div>
     </div>
@@ -50,11 +51,14 @@
                 <tr>
                     <td>{{ form_widget(student.lastName, {'attr': {'class': 'studentLastName'}}) }}</td>
                     <td>{{form_widget(student.firstName, {'attr': {'class': 'studentFirstName'}})}}</td>
-                    <td>{{form_widget(student.numHours)}}{{form_widget(student.studentNumber)}}</td>
+                    <td>{{form_widget(student.numHours, {'attr': {'class': 'studentNumHours'}})}}{{form_widget(student.studentNumber) }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    {{ form_row(form.submit, {'attr': {'class': 'submitForm'}}) }}
+    {{ form_end(form) }}
+    <br />
 {% endblock %}
     
 {% block endscripts %}
@@ -71,6 +75,15 @@
                     $(this).parent().append($(this).val());
                     $(this).hide();
                 }
+            });
+            $(".submitForm").on("click", function(e){
+                $(".studentNumHours").each(function(){
+                    if ($(this).val() < 0){
+                        e.preventDefault();
+                        alert("Number of hours can not be negative");
+                        return false;
+                    }
+                });
             });
         });
     </script>
