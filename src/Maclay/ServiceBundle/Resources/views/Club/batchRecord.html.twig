@@ -47,7 +47,7 @@
         </thead>
         <tbody class="table-striped studentHours">
             {% for student in form.studentHours %}
-                <tr>
+                <tr class="studentHourRow" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}">
                     <td>{{ form_widget(student.lastName, {'attr': {'class': 'studentLastName'}}) }}</td>
                     <td>{{form_widget(student.firstName, {'attr': {'class': 'studentFirstName'}})}}</td>
                     <td>{{form_widget(student.numHours)}}{{form_widget(student.studentNumber)}}</td>
@@ -55,6 +55,7 @@
             {% endfor %}
         </tbody>
     </table>
+    <a href="#" class="add_student">Add a student</a>
 {% endblock %}
     
 {% block endscripts %}
@@ -72,6 +73,15 @@
                     $(this).hide();
                 }
             });
+        });
+        
+        
+        $(document).ready(function(){
+            var collectionHolder = $(".studentHourRow");
+            var prototype = collectionHolder.attr('data-prototype');
+            var form = prototype.replace(/__name__/g, collectionHolder.children().length / 3);
+
+            collectionHolder.append(form);
         });
     </script>
 {% endblock %}
