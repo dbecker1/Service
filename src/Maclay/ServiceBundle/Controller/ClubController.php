@@ -147,7 +147,12 @@ class ClubController extends Controller
         
         $students = $club->getMembers();
         
-        $form = $this->createForm(new ClubRecordType($students), new Record());
+        $now = new \DateTime('now');
+        $record = new Record();
+        $record->setDateFrom($now);
+        $record->setDateTo($now);
+        
+        $form = $this->createForm(new ClubRecordType($students), $record);
         
         $form->handleRequest($request);
         

@@ -36,6 +36,8 @@
                 <td onclick="recordInfo({{row.id}});">{{row.supervisor}}</td>
                 {% if (row.attachmentFileName != null) %}
                     <td onclick="recordInfo({{row.id}});">Yes</td>
+                {% elseif (row.emailIsSent == true) %}
+                    <td onclick="recordInfo({{row.id}});">Email Sent.</td>
                 {% elseif row.enteredByClub != null %}
                     <td onclick="recordInfo({{row.id}});">{{row.enteredByClub.clubName}}</td>
                 {% else %}

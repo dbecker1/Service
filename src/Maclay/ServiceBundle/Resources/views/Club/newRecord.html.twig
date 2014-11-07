@@ -33,20 +33,4 @@
             {{ form_row(form.numHours, {'label' : 'Number of Hours'})}}
         {{ form_end(form)}}
     </div>
-
-{% endblock %}
-        
-{% block endscripts %}
-        <script>
-            $(document).ready(function(){
-                var d = new Date();
-                $("#record_dateFrom_year").val(d.getFullYear());
-                $("#record_dateFrom_month").val(d.getMonth());
-                $("#record_dateFrom_day").val(d.getDate());
-                $("#record_dateTo_year").val(d.getFullYear());
-                $("#record_dateTo_month").val(d.getMonth());
-                $("#record_dateTo_day").val(d.getDate());
-            });
-        </script>
-        
 {% endblock %}

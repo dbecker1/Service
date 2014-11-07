@@ -13,6 +13,7 @@ class Record
     public $attachment;
     private $attachmentFileName;
     private $enteredByClub;
+    private $emailIsSent;
     
     /**
      * @var integer
@@ -400,5 +401,15 @@ class Record
     public function getEnteredByClub()
     {
         return $this->enteredByClub;
+    }
+    
+    public function setEmailIsSent($emailIsSent){
+        $this->emailIsSent = $emailIsSent;
+        
+        return $this;
+    }
+    
+    public function getEmailIsSent(){
+        return $this->emailIsSent;
     }
 }
