@@ -7,6 +7,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Maclay\ServiceBundle\Entity\Record;
 use Maclay\ServiceBundle\Form\ClubRecordType;
+use Maclay\ServiceBundle\Model\ClubBatchRecord;
+use Maclay\ServiceBundle\Model\StudentHours;
+use Maclay\ServiceBundle\Form\ClubBatchRecordType;
+use Maclay\ServiceBundle\Form\StudentHoursType;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ClubController extends Controller
@@ -182,5 +186,26 @@ class ClubController extends Controller
         }
         
         return $this->render("MaclayServiceBundle:Club:newRecord.html.twig", array("form" => $form->createView()));
+    }
+    
+    public function batchEnterRecordAction(Request $request){
+        $batchRecord = new ClubBatchRecord();
+        $now = new \DateTime("now");
+        $batchRecord->setDateFrom($now);
+        $batchRecord->setDateTo($now);
+        
+        $club = $this->getUser()->getSponsorForClubs()[0];
+        
+        foreach($club->getMembers() as $member){
+            $student = new StudentHours();
+            $student->setLastName($member->getLastName());
+            $student->setFirstName($member->getFirstName());
+            $student->setStudentNumber($member->getStudentinfo()->getStudentNumber());
+            $batchRecord->addStudentHours($student);
+        }
+        
+        $form = $this->createForm(new ClubBatchRecordType(), $batchRecord);
+        
+        return $this->render("MaclayServiceBundle:Club:batchRecord.html.twig", array("form" => $form->createView()));
     }
 }
