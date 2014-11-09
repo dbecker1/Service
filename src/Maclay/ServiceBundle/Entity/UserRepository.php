@@ -77,4 +77,17 @@ class UserRepository extends EntityRepository
         
         return $query;
     }
+    
+    public function getStudentsByLastName($lastName){
+        $query = $this->getEntityManager()
+                ->createQuery(
+                            "SELECT u "
+                            . "FROM MaclayServiceBundle:User u "
+                            . "WHERE u. lastName = :lastName"
+                        )
+                ->setParameter("lastName", $lastName)
+                ->getResult();
+        
+        return $query;
+    }
 }

@@ -21,7 +21,7 @@ class ClubBatchRecordType extends AbstractType
             ->add('organization', 'text')
             ->add('notes', 'textarea', array("required" => false))
             ->add('supervisor', 'text')
-            ->add('studentHours', 'collection', array('type' => new StudentHoursType()))
+            ->add('studentHours', 'collection', array('type' => new StudentHoursType(), "allow_add" => true))
             ->add('submit', 'submit')
         ;
     }
