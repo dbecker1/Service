@@ -266,4 +266,17 @@ class ClubController extends Controller
         
         return $this->render("MaclayServiceBundle:Club:batchRecord.html.twig", array("form" => $form->createView()));
     }
+    
+    public function getStudentsByLastNameAction($lastName){
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository("MaclayServiceBundle:User")->getStudentsByLastName($lastName);
+        $result = array();
+        foreach ($users as $student){
+            $result[] = array("firstName" => $student->getFirstName(), "studentNumber" => $student->getStudentinfo()->getStudentNumber());
+        }
+        
+        $response = new Response(json_encode($result));
+        $response->headers->set("Content-Type", "application/json");
+        return $response;
+    }
 }

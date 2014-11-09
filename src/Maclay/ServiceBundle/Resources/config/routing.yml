@@ -60,6 +60,10 @@ manageClub:
 recordEmail:
     path: /Record/RecordEmail/{id}
     defaults: { _controller: MaclayServiceBundle:Record:recordEmail }
+    
+getStudentsByLastName:
+    path: /Club/GetStudentsByLastName/{lastName}
+    defaults: { _controller: MaclayServiceBundle:Club:getStudentsByLastName }
 
 default:
     path: /{controller}/{action}

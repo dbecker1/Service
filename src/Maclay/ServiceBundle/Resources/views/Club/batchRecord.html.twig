@@ -46,9 +46,9 @@
                 <td>Number of Hours</td>
             </tr>
         </thead>
-        <tbody class="table-striped studentHours">
+        <tbody class="table-striped studentHours"  data-prototype="{% filter escape %}{% include 'MaclayServiceBundle:Club:studentHoursPrototype.html.twig' with {'form': form.studentHours.vars.prototype} %}{% endfilter %}">
             {% for student in form.studentHours %}
-                <tr class="studentHourRow" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}">
+                <tr>
                     <td>{{ form_widget(student.lastName, {'attr': {'class': 'studentLastName'}}) }}</td>
                     <td>{{form_widget(student.firstName, {'attr': {'class': 'studentFirstName'}})}}</td>
                     <td>{{form_widget(student.numHours, {'attr': {'class': 'studentNumHours'}})}}{{form_widget(student.studentNumber) }}</td>
@@ -56,13 +56,10 @@
             {% endfor %}
         </tbody>
     </table>
-<<<<<<< HEAD
     <a href="#" class="add_student">Add a student</a>
-=======
     {{ form_row(form.submit, {'attr': {'class': 'submitForm'}}) }}
     {{ form_end(form) }}
     <br />
->>>>>>> FETCH_HEAD
 {% endblock %}
     
 {% block endscripts %}
@@ -93,11 +90,13 @@
         
         
         $(document).ready(function(){
-            var collectionHolder = $(".studentHourRow");
-            var prototype = collectionHolder.attr('data-prototype');
-            var form = prototype.replace(/__name__/g, collectionHolder.children().length / 3);
+            $(".add_student").on("click", function(){
+                var collectionHolder = $(".studentHours");
+                var prototype = collectionHolder.attr('data-prototype');
+                var form = prototype.replace(/__name__/g, collectionHolder.children().length);
 
-            collectionHolder.append(form);
+                collectionHolder.append(form);
+            });
         });
     </script>
 {% endblock %}

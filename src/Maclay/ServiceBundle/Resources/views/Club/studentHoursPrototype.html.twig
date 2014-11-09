@@ -1,0 +1,29 @@
+<tr>
+    <td>{{form_widget(form.lastName, {'attr': {'class': 'studentLastName'}})}}</td>
+    <td class="dropdownCell"><select class="firstNameDropdown"></select></td>
+    <td>{{form_widget(form.numHours, {'attr': {'class': 'studentNumHours'}})}}{{form_widget(form.studentNumber) }}<a href="#" class="remove_student"> X</a></td>
+    <script>
+        $(document).ready(function(){
+            $(".remove_student").on("click", function(){
+                $(this).parent().parent().remove();
+            });
+            $(".studentLastName").on("blur", function(){
+                
+                var options = [];
+                var lastName = $(this).val();
+                options.url = "{{ path('getStudentsByLastName', {'lastName' : 'LastNameHere'}) }}";
+                options.url = options.url.replace("LastNameHere", lastName);
+                options.success = function(response){
+                    var results = response;
+                    for (i = 0; i < results.length; i++){
+                        $(".firstNameDropdown").html('<option value="' + results[i]["studentNumber"] + '">' + results[i]["firstName"] + '</option');
+                    }
+                };
+                options.error = function(a,b,c){
+                    alert("error");
+                };
+                $.ajax(options);
+            });
+        });
+    </script>
+</tr>
