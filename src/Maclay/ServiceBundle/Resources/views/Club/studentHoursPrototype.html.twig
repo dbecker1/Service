@@ -1,7 +1,7 @@
 <tr>
     <td>{{form_widget(form.lastName, {'attr': {'class': 'studentLastName'}})}}</td>
     <td class="dropdownCell"><select class="firstNameDropdown"></select></td>
-    <td>{{form_widget(form.numHours, {'attr': {'class': 'studentNumHours'}})}}{{form_widget(form.studentNumber) }}<a href="#" class="remove_student"> X</a></td>
+    <td class="finalcell">{{form_widget(form.numHours, {'attr': {'class': 'studentNumHours'}})}}{{form_widget(form.studentNumber, {'attr': {'class': 'studentNumber'}})}}<a href="#" class="remove_student"> X</a></td>
     <script>
         $(document).ready(function(){
             $(".remove_student").on("click", function(){
@@ -16,13 +16,18 @@
                 options.success = function(response){
                     var results = response;
                     for (i = 0; i < results.length; i++){
-                        $(".firstNameDropdown").html('<option value="' + results[i]["studentNumber"] + '">' + results[i]["firstName"] + '</option');
+                        $(".firstNameDropdown").addClass("firstNameDropdown" + results[i]["studentNumber"]).removeClass("firstNameDropdown")
+                        $(".firstNameDropdown" + results[i]["studentNumber"]).html('<option value="' + results[i]["studentNumber"] + '">' + results[i]["firstName"] + '</option');
+                        $(".firstNameDropdown" + results[i]["studentNumber"]).parent().parent().children(".finalcell").children("studentNumber").val(results[i]["studentNumber"]);
                     }
                 };
                 options.error = function(a,b,c){
                     alert("error");
                 };
                 $.ajax(options);
+            });
+            $("select").on("change", function(){
+                $(this).parent().parent().children(".finalCell").children("studentNumber").val($(this).val());
             });
         });
     </script>

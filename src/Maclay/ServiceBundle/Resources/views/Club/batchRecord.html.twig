@@ -56,7 +56,7 @@
             {% endfor %}
         </tbody>
     </table>
-    <a href="#" class="add_student">Add a student</a>
+    {#<a href="#" class="add_student">Add a student</a>#}
     {{ form_row(form.submit, {'attr': {'class': 'submitForm'}}) }}
     {{ form_end(form) }}
     <br />
@@ -89,7 +89,7 @@
         });
         
         
-        $(document).ready(function(){
+       {# $(document).ready(function(){
             $(".add_student").on("click", function(){
                 var collectionHolder = $(".studentHours");
                 var prototype = collectionHolder.attr('data-prototype');
@@ -97,6 +97,6 @@
 
                 collectionHolder.append(form);
             });
-        });
+        });#}
     </script>
 {% endblock %}
