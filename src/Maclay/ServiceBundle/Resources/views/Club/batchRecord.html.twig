@@ -46,7 +46,7 @@
                 <td>Number of Hours</td>
             </tr>
         </thead>
-        <tbody class="table-striped studentHours"  data-prototype="{% filter escape %}{% include 'MaclayServiceBundle:Club:studentHoursPrototype.html.twig' with {'form': form.studentHours.vars.prototype} %}{% endfilter %}">
+        <tbody class="table-striped studentHours"  data-prototype="{% filter escape %}{% include 'MaclayServiceBundle:Club:studentHoursPrototype.html.twig' with {'form': form.studentHours.vars.prototype, "id" : "IDHERE"} %}{% endfilter %}">
             {% for student in form.studentHours %}
                 <tr>
                     <td>{{ form_widget(student.lastName, {'attr': {'class': 'studentLastName'}}) }}</td>
@@ -56,7 +56,7 @@
             {% endfor %}
         </tbody>
     </table>
-    {#<a href="#" class="add_student">Add a student</a>#}
+    <a href="#" class="add_student">Add a student</a>
     {{ form_row(form.submit, {'attr': {'class': 'submitForm'}}) }}
     {{ form_end(form) }}
     <br />
@@ -89,14 +89,18 @@
         });
         
         
-       {# $(document).ready(function(){
+       $(document).ready(function(){
             $(".add_student").on("click", function(){
                 var collectionHolder = $(".studentHours");
                 var prototype = collectionHolder.attr('data-prototype');
                 var form = prototype.replace(/__name__/g, collectionHolder.children().length);
+                var id =  {{ random() }} * collectionHolder.children().length;
+                while(form.indexOf("IDHERE") > 0){
+                    form = form.replace("IDHERE", id)
+                }
 
                 collectionHolder.append(form);
             });
-        });#}
+        });
     </script>
 {% endblock %}

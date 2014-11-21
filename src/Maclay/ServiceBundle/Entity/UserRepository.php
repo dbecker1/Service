@@ -83,7 +83,7 @@ class UserRepository extends EntityRepository
                 ->createQuery(
                             "SELECT u "
                             . "FROM MaclayServiceBundle:User u "
-                            . "WHERE u. lastName = :lastName"
+                            . "WHERE u. lastName LIKE :lastName"
                         )
                 ->setParameter("lastName", $lastName)
                 ->getResult();

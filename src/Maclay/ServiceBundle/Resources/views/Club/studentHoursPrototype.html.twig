@@ -1,33 +1,47 @@
-<tr>
-    <td>{{form_widget(form.lastName, {'attr': {'class': 'studentLastName'}})}}</td>
-    <td class="dropdownCell"><select class="firstNameDropdown"></select></td>
-    <td class="finalcell">{{form_widget(form.numHours, {'attr': {'class': 'studentNumHours'}})}}{{form_widget(form.studentNumber, {'attr': {'class': 'studentNumber'}})}}<a href="#" class="remove_student"> X</a></td>
+<tr id="{{id}}">
+    <td>{{form_widget(form.lastName, {'attr': {'class': 'studentLastName' ~ id}})}}</td>
+    <td class="dropdownCell"><select></select>{{form_widget(form.firstName, {'attr': {'class': 'hidden studentFirstName', "disabled":"disabled"}})}}</td>
+    <td class="finalcell">{{form_widget(form.numHours, {'attr': {'class': 'studentNumHours'}})}}{{form_widget(form.studentNumber, {'attr': {'class': 'studentNumber'}})}}<a href="#" class="remove_student{{id}}"> X</a></td>
     <script>
         $(document).ready(function(){
-            $(".remove_student").on("click", function(){
+            $(".remove_student{{id}}").on("click", function(){
                 $(this).parent().parent().remove();
             });
-            $(".studentLastName").on("blur", function(){
-                
+            $(".studentLastName{{id}}").on("blur", function(){
                 var options = [];
                 var lastName = $(this).val();
+                if (lastName == ""){
+                    return false;
+                }
                 options.url = "{{ path('getStudentsByLastName', {'lastName' : 'LastNameHere'}) }}";
                 options.url = options.url.replace("LastNameHere", lastName);
                 options.success = function(response){
                     var results = response;
+                    var dropdownCell = $("#{{id}}").children(".dropdownCell");
+                    dropdownCell.children("select").html("");
+                    dropdownCell.children("input").val("");
+                    if (results.length == 1){
+                        dropdownCell.children("select").addClass("hidden");
+                        dropdownCell.children(".studentFirstName").removeClass("hidden").val(results[0]["firstName"]);
+                        $("#{{id}}").children(".finalcell").children(".studentNumber").val(results[0]["studentNumber"]);
+                        return true;
+                    }
                     for (i = 0; i < results.length; i++){
-                        $(".firstNameDropdown").addClass("firstNameDropdown" + results[i]["studentNumber"]).removeClass("firstNameDropdown")
-                        $(".firstNameDropdown" + results[i]["studentNumber"]).html('<option value="' + results[i]["studentNumber"] + '">' + results[i]["firstName"] + '</option');
-                        $(".firstNameDropdown" + results[i]["studentNumber"]).parent().parent().children(".finalcell").children("studentNumber").val(results[i]["studentNumber"]);
+                        dropdownCell.children("select").removeClass("hidden");
+                        dropdownCell.children(".studentFirstName").addClass("hidden");
+                        dropdownCell.children("select").append('<option value="' + results[i]["studentNumber"] + '">' + results[i]["firstName"] + '</option>')
+                        if (i == 0){
+                            $("#{{id}}").children(".finalcell").children(".studentNumber").val(results[i]["studentNumber"]);
+                        }
                     }
                 };
                 options.error = function(a,b,c){
-                    alert("error");
+                    alert(a.responseText);
                 };
                 $.ajax(options);
             });
-            $("select").on("change", function(){
-                $(this).parent().parent().children(".finalCell").children("studentNumber").val($(this).val());
+            $("#{{id}}").children(".dropdownCell").children("select").on("change", function(){
+                $("#{{id}}").children(".finalcell").children(".studentNumber").val($("#{{id}}").children(".dropdownCell").children("select").val());
             });
         });
     </script>

@@ -463,4 +463,19 @@ class AdminController extends Controller
         }
         return $this->render("MaclayServiceBundle:Admin:createSchoolAdmins.html.twig", array("form" => $form->createView()));
     }
+    
+    public function removeLineFromLastNameAction(){
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository("MaclayServiceBundle:User")->findAll();
+        foreach ($users as $user){
+            $lastName = trim($user->getLastName());
+            $user->setLastName($lastName);
+        }
+        $em->flush();
+        $response = new Response();                                         
+        $response->headers->set('Content-type', 'application/json; charset=utf-8');
+        $response->setContent("success");
+        
+        return $response;
+    }
 }

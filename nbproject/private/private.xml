@@ -1,34 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
-        <file>
-            <url>src/Maclay/ServiceBundle/Controller/AdminController.php</url>
-            <bookmark id="1">
-                <name/>
-                <line>0</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Record/newRecord.html.twig</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Club/manage.html.twig</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Record/pendingRecords.html.twig</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Club/newRecord.html.twig</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/ClubController.php</file>
-            <file>file:/Applications/XAMPP/htdocs/app/config/config.yml</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/RecordController.php</file>
-=======
             <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/AdminController.php</file>
             <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/config/routing.yml</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/config/validation.yml</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Record/pendingRecords.html.twig</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Entity/Record.php</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Email/recordApproved.html.twig</file>
-            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/AccountController.php</file>
->>>>>>> FETCH_HEAD
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Club/batchRecord.html.twig</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Resources/views/Club/studentHoursPrototype.html.twig</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Entity/UserRepository.php</file>
+            <file>file:/Applications/XAMPP/htdocs/src/Maclay/ServiceBundle/Controller/ClubController.php</file>
         </group>
     </open-files>
 </project-private>
