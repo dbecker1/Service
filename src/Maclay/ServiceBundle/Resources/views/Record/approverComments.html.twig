@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-sm-3">
+        <p>Approver Comments:</p>
+    </div>
+    <div class="col-sm-3">
+        <textarea class="comments" rows="4" cols="40"></textarea>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-3 col-sm-offset-4">
+        <button class="denyRecord">Deny Record</button>
+    </div>
+</div>
+
+<script>
+     $(document).ready(function() {
+        $(".denyRecord").on("click", function(){
+            var id = {{ record.id }};
+            var comments = $(".comments").val();
+            var options = [];
+            options.url = "{{ path("denyRecordWithComments", { "id" : "IDHERE", "approval": "false", "comments": "COMMENTSHERE"}) }}";
+            options.url = options.url.replace("IDHERE", id);
+            options.url = options.url.replace("COMMENTSHERE", comments);
+            options.success = function(response) {
+                alert ("denied " + response.denied + " approved " + response.approved);
+                if (response.denied == true){
+                    alert("Denied.");
+                    $("#popup").dialog("close");
+                }
+                else {
+                    alert("error");
+                }
+            }
+            options.error = function(a,b,c){
+                $("#popup").html(a.responseText);
+                $("#popup").dialog({
+                    width: "500px",
+                    title: "Error Details"
+                });
+            }
+            $.ajax(options);
+        });
+    });
+</script>

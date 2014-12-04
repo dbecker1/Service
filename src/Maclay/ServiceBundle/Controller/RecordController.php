@@ -95,14 +95,19 @@ class RecordController extends Controller
        return $this->render("MaclayServiceBundle:Record:recordHistory.html.twig", array("records" => $records));
    }
    
-   public function getRecordPartialAction($id, $isCoordinator = false){
+   public function getRecordPartialAction($id, $isCoordinator = false, $deny = false){
        $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:Record");
        $record = $repository->findOneById($id);
        $path = "";
        if ($record->getAttachmentFileName() !== NULL){
            $path = $this->container->getParameter("recordFileViewLink") . $record->getAttachmentFileName();
        }
-       $answer["html"] = $this->render("MaclayServiceBundle:Record:recordPartial.html.twig", array("record" => $record, "path" => $path, "isCoordinator" => $isCoordinator))->getContent();
+       if ($deny == "true"){
+           $answer["html"] = $this->render("MaclayServiceBundle:Record:approverComments.html.twig", array("record" => $record))->getContent();
+       }
+       else{
+           $answer["html"] = $this->render("MaclayServiceBundle:Record:recordPartial.html.twig", array("record" => $record, "path" => $path, "isCoordinator" => $isCoordinator))->getContent();
+       }
        $response = new Response();                                         
        $response->headers->set('Content-type', 'application/json; charset=utf-8');
        $response->setContent(json_encode($answer));
@@ -116,7 +121,7 @@ class RecordController extends Controller
        return $this->render("MaclayServiceBundle:Record:pendingRecords.html.twig", array("records" => $records));
    }
    
-   public function approveRecordAction($id, $approval){
+   public function approveRecordAction($id, $approval, $comments = ""){
        $em = $this->getDoctrine()->getManager();
        $repository = $em->getRepository("MaclayServiceBundle:Record");
        $record = $repository->findOneById($id);
@@ -131,6 +136,9 @@ class RecordController extends Controller
        else if ($approval === "false"){
            $record->setApprovalStatus(-1);
            $answer["denied"] = true;
+           if (!empty($comments)){
+               $record->setApproverComments($comments);
+           }
        }
        $em->flush();
        

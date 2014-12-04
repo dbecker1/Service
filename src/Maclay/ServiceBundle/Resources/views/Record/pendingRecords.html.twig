@@ -56,7 +56,7 @@
     <script>
         function recordInfo(id){
             var options = [];
-            options.url = "{{ path('recordpartial', {'id' : 'IdHere', 'isCoordinator' : 'true'}) }}";
+            options.url = "{{ path('recordpartial', {'id' : 'IdHere', 'isCoordinator' : 'true', 'deny' : 'false'}) }}";
             options.url = options.url.replace("IdHere", id);
             options.success = function(response){
                 $("#popup").html(response.html);
@@ -103,22 +103,22 @@
             $(".deny").on("click", function(){
                 var id = $(this).parent().children(".record_id").val();
                 var options = [];
-                options.url = "{{ path('default', {'controller' : 'Record', 'action' : 'ApproveRecord'}) }}" + "/" + id + "/" + "false";
-                options.success = function(response) {
-                    if (response.denied == true){
-                        $("#" + id + "-approval").html("Denied.");
-                    }
-                    else {
-                        alert("error");
-                    }
-                }
+                options.url = "{{ path('recordpartial', {'id' : 'IdHere', 'isCoordinator' : 'true', 'deny' : 'true'}) }}";
+                options.url = options.url.replace("IdHere", id);
+                options.success = function(response){
+                    $("#popup").html(response.html);
+                    $("#popup").dialog({
+                        width: "500px",
+                        title: "Record Details"
+                    });
+                };
                 options.error = function(a,b,c){
                     $("#popup").html(a.responseText);
                     $("#popup").dialog({
                         width: "500px",
                         title: "Error Details"
                     });
-                }
+                };
                 $.ajax(options);
             });
         });

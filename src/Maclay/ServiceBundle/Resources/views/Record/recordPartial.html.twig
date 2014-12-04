@@ -92,12 +92,12 @@
     <div class="col-sm-6">
         <p>
         {% if record.approvalStatus > 0 %}
-            <span class="status">APPROVED</span>
+            <span class="status" style="color: #33cc33">APPROVED</span>
             {% if isCoordinator == 1 %}
                 <button value="{{ record.id }}" class="change approved">Change Status</button>
             {% endif %}
         {% elseif record.approvalStatus < 0 %}
-            <span class="status">NOT APPROVED</span>
+            <span class="status" style="color: #ff0000">NOT APPROVED</span>
             {% if isCoordinator == 1 %}
                 <button value="{{ record.id }}" class="change denied">Change Status</button>
             {% endif %}

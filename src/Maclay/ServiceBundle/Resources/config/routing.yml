@@ -22,8 +22,8 @@ addgroup:
     defaults: { _controller: MaclayServiceBundle:Account:group }
     
 recordpartial:
-    path: /Record/GetRecordPartial/{id}/{isCoordinator}
-    defaults: { _controller: MaclayServiceBundle:Record:getRecordPartial }
+    path: /Record/GetRecordPartial/{id}/{isCoordinator}?{deny}
+    defaults: { _controller: MaclayServiceBundle:Record:getRecordPartial, deny: false }
     
 approverecord:
     path: /Record/ApproveRecord/{id}/{approval}
@@ -64,6 +64,10 @@ recordEmail:
 getStudentsByLastName:
     path: /Club/GetStudentsByLastName/{lastName}
     defaults: { _controller: MaclayServiceBundle:Club:getStudentsByLastName }
+    
+denyRecordWithComments:
+    path: /Record/DenyRecordWithComments/{id}/{comments}/{approval}
+    defaults: { _controller: MaclayServiceBundle:Record:approveRecord }
 
 default:
     path: /{controller}/{action}
