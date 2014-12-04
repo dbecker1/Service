@@ -22,7 +22,7 @@ addgroup:
     defaults: { _controller: MaclayServiceBundle:Account:group }
     
 recordpartial:
-    path: /Record/GetRecordPartial/{id}/{isSponsor}
+    path: /Record/GetRecordPartial/{id}/{isCoordinator}
     defaults: { _controller: MaclayServiceBundle:Record:getRecordPartial }
     
 approverecord:

@@ -2,10 +2,14 @@
 <div class="row">
     <div class="col-sm-1"></div>
     <div class="col-sm-4" style="color: #0000ff">
-        <p>Student:</p>
+        <p>Student: {{ isCoordinator }}</p>
     </div>
     <div class="col-sm-6">
-        <p>{{record.student.firstName}} {{record.student.lastName}}</p>
+        {% if (isCoordinator == 1 or isCoordinator == "true") %}
+            <p><a href="{{path ("viewStudent", {"id" : record.student.id})}}" target="_blank">{{record.student.firstName}} {{record.student.lastName}}</a></p>
+        {% else %}
+            <p>{{record.student.firstName}} {{record.student.lastName}}</p>
+        {% endif %}
     </div>
 </div>
 <div class="row">
@@ -89,12 +93,12 @@
         <p>
         {% if record.approvalStatus > 0 %}
             <span class="status">APPROVED</span>
-            {% if isSponsor == 1 %}
+            {% if isCoordinator == 1 %}
                 <button value="{{ record.id }}" class="change approved">Change Status</button>
             {% endif %}
         {% elseif record.approvalStatus < 0 %}
             <span class="status">NOT APPROVED</span>
-            {% if isSponsor == 1 %}
+            {% if isCoordinator == 1 %}
                 <button value="{{ record.id }}" class="change denied">Change Status</button>
             {% endif %}
         {% else %}

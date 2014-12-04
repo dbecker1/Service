@@ -95,15 +95,14 @@ class RecordController extends Controller
        return $this->render("MaclayServiceBundle:Record:recordHistory.html.twig", array("records" => $records));
    }
    
-   public function getRecordPartialAction($id, $isSponsor = false){
+   public function getRecordPartialAction($id, $isCoordinator = false){
        $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:Record");
        $record = $repository->findOneById($id);
        $path = "";
        if ($record->getAttachmentFileName() !== NULL){
            $path = $this->container->getParameter("recordFileViewLink") . $record->getAttachmentFileName();
-           
        }
-       $answer["html"] = $this->render("MaclayServiceBundle:Record:recordPartial.html.twig", array("record" => $record, "path" => $path, "isSponsor" => $isSponsor))->getContent();
+       $answer["html"] = $this->render("MaclayServiceBundle:Record:recordPartial.html.twig", array("record" => $record, "path" => $path, "isCoordinator" => $isCoordinator))->getContent();
        $response = new Response();                                         
        $response->headers->set('Content-type', 'application/json; charset=utf-8');
        $response->setContent(json_encode($answer));
@@ -197,8 +196,8 @@ class RecordController extends Controller
        $student = $repository->findOneById($id);
        $records = $student->getRecords();
        $name = $student->getFirstName() . " " . $student->getLastName();
-       $isSponsor = $this->getUser()->hasRole("ROLE_COORDINATOR");
-       return $this->render("MaclayServiceBundle:Record:recordHistory.html.twig", array("records" => $records, "isSponsor" => $isSponsor, "name" => $name));
+       $isCoordinator = $this->getUser()->hasRole("ROLE_COORDINATOR");
+       return $this->render("MaclayServiceBundle:Record:recordHistory.html.twig", array("records" => $records, "isCoordinator" => $isCoordinator, "name" => $name));
    }
    
    public function printRecordAction($id){
