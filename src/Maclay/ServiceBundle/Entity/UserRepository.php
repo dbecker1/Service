@@ -13,6 +13,12 @@ use Doctrine\ORM\EntityRepository;
 class UserRepository extends EntityRepository
 {
     //incredibly inefficient way to do this... need to find a better way
+    /**
+     * This method gets all users by their role.
+     * 
+     * @param Role $role
+     * @return array
+     */
     public function findByRole($role){
         $query = $this->getEntityManager()
                 ->createQuery(
@@ -35,6 +41,11 @@ class UserRepository extends EntityRepository
         return $query;
     }
     
+    /**
+     * This method returns all of the uninvited users.
+     * 
+     * @return array
+     */
     public function getUninvitedUsers(){
         $query = $this->getEntityManager()
                 ->createQuery(
@@ -48,6 +59,13 @@ class UserRepository extends EntityRepository
         
     }
     
+    /**
+     * This method gets users by gender and grade.
+     * 
+     * @param int $grade
+     * @param string $gender
+     * @return array
+     */
     public function getUsersForClub($grade, $gender){
         $query = $this->getEntityManager()
                 ->createQuery(
@@ -63,6 +81,12 @@ class UserRepository extends EntityRepository
         return $query;
     }
     
+    /**
+     * This method gets a student by their student number.
+     * 
+     * @param int $number
+     * @return User
+     */
     public function getUserByStudentNumber($number){
         $query = $this->getEntityManager()
                 ->createQuery(
@@ -78,6 +102,12 @@ class UserRepository extends EntityRepository
         return $query;
     }
     
+    /**
+     * This method gets all users with a last name
+     * 
+     * @param string $lastName
+     * @return array
+     */
     public function getStudentsByLastName($lastName){
         $query = $this->getEntityManager()
                 ->createQuery(

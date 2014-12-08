@@ -7,8 +7,19 @@ use Symfony\Component\Security\Core\Util\SecureRandom;
 use Symfony\Component\Security\Core\Util\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * The controller for account methods.
+ * 
+ * This controller is used for basic account functions: logging in, changing password, forgot password, etc.
+ */
 class AccountController extends Controller
 {
+    /**
+     * This method checks if a user is logged in and then redirects. 
+     * 
+     * Since I used the FOSUserBundle for managing log in and users, this method simply checks if a user is logged in
+     * and redirets them to the correct place
+     */
     public function loginAction()
     {
         $securityContext = $this->container->get("security.context");
@@ -20,6 +31,14 @@ class AccountController extends Controller
         }
     }
     
+    /**
+     * This method sends an email to a user with a password reset link.
+     * 
+     * This method takes an email address, checks for a user with that email address, creates a code that will be sent
+     * to the user, and then emails the user
+     * 
+     * @param Request $request The form that contains the user's email.
+     */
     public function forgotPasswordAction(Request $request)
     {
         try{
@@ -85,6 +104,15 @@ class AccountController extends Controller
         }
     }
     
+    /**
+     * The method for resetting a user's password
+     * 
+     * This method is the second half of the forgot password workflow. The link sent to the user contains a code
+     * that this method compares against the users in the database and then lets them reset their password.
+     * 
+     * @param Request $request The form that contains the user's new password.
+     * @param string $code The reset key that was included in the link sent to the user.
+     */
     public function resetPasswordAction(Request $request, $code = null){
         $data = array();
             
@@ -128,6 +156,14 @@ class AccountController extends Controller
         }
     }
     
+    /**
+     * The method for changing a user's password
+     * 
+     * I didn't like the change password that came with FOSUserBundle since it didn't look good with my template, 
+     * so I made my own.
+     * 
+     * @param Request $request The form containing the user's old password and new password.
+     */
     public function changePasswordAction(Request $request){
         $data = array();
         $form = $this->createFormBuilder($data)
@@ -170,14 +206,19 @@ class AccountController extends Controller
         }
         return $this->render("MaclayServiceBundle:Account:changePassword.html.twig", array("form" => $form->createView()));
     }
-    
-//    public function groupAction()
-//    {
-//        $em = $this->getDoctrine()->getEntityManager();
-//        
-//        $group = new \Maclay\ServiceBundle\Entity\Role("Teacher", array("ROLE_TEACHER"));
-//        $em->persist($group);
-//        $em->flush();
-//        return $this->redirect($this->generateUrl("maclay_service_login"));
-//    }
+    /**
+     * This method create user roles (groups).
+     * 
+     * This method can be used to create groups of users. If you look in the databse under roles, you can see the 
+     * output of this method. This method really isn't needed anymore, so I commented it out.
+     */
+    public function groupAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        $group = new \Maclay\ServiceBundle\Entity\Role("Teacher", array("ROLE_TEACHER"));
+        $em->persist($group);
+        $em->flush();
+        return $this->redirect($this->generateUrl("maclay_service_login"));
+    }
 }

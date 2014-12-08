@@ -5,8 +5,22 @@ namespace Maclay\ServiceBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * This controller is used for assisting in file uploads.
+ */
 class FileController extends Controller
 {
+    /**
+     * The method for uploading files. 
+     * 
+     * This method takes a file, path, and import and upload booleans in order to upload the file. This file is only 
+     * used by the uploadStudent Admin method since I learned how to do it through Symfony's frameworks afterwards.
+     * 
+     * @param file $file The file to be uploaded
+     * @param string $path The location where the file will be uploaded to
+     * @param boolean $import Whether or not this is for importing records.
+     * @param boolean $upload Whether or not this file is for uploading students.
+     */
     public function uploadFileAction($file, $path, $import, $upload)
     {
         try 

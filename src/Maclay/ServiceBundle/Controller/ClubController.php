@@ -13,14 +13,48 @@ use Maclay\ServiceBundle\Form\ClubBatchRecordType;
 use Maclay\ServiceBundle\Form\StudentHoursType;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
+/**
+ * The controller for club methods.
+ * 
+ * This controller contians methods that the club sponsors will use. 
+ */
 class ClubController extends Controller
 {
+    /**
+     * @var DateTime $schoolStart The start of the school year.
+     */
     private $schoolStart;
+    
+    /**
+     * @var DateTime $q1End The end of the 1st quarter.
+     */
     private $q1End;
+    
+    /**
+     * @var DateTime $q1End The end of the 2nd quarter.
+     */
     private $q2End;
+    
+    /**
+     * @var DateTime $q1End The end of the 3rd quarter.
+     */
     private $q3End;
+    
+    /**
+     * @var DateTime $q1End The end of the 4th quarter.
+     */
     private $q4End;
     
+    /**
+     * The method for the club sponsor's home page.
+     * 
+     * This is the main page of the club sponsor. It shows each memeber and their total number of approved.
+     * There is then a dropdown to narrow down the hours by quarter and then an export function that will export 
+     * them to a CSV file that is readable by Excel.
+     * 
+     * @param int $quarter Optional. Used to narrow down approved totals.
+     * @param boolean $export Optional. Used to export approved totals.
+     */
     public function manageClubAction($quarter = 0, $export = false){
         $user = $this->getUser();
         
@@ -97,6 +131,9 @@ class ClubController extends Controller
         return $this->render("MaclayServiceBundle:Club:manage.html.twig", array("clubs" => $clubs, "error" => "", "quarter" => $quarter));
     }
     
+    /*
+     * This method simply returns the view for adding members to a club.
+     */
     public function addClubMembersAction(){
         $user = $this->getUser();
         
@@ -105,6 +142,16 @@ class ClubController extends Controller
         return $this->render("MaclayServiceBundle:Club:addMembers.html.twig", array("error" => "", "clubId" => $club->getId()));
     }
     
+    /*
+     * The method for getting users to be added to a club.
+     * 
+     * This method returns students by gender and grade. This is called by Ajax from the addClubMember page. The goal
+     * of this method is to narrow down the list of users for club sponsors to add members to their club with.
+     * 
+     * @param string $gender The desired gender of the users.
+     * @param int $grade The desired grade of the users.
+     * @return array $users The users with the matching gender and grade.
+     */
     public function getUsersForClubAction($gender, $grade){
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository("MaclayServiceBundle:User")->getUsersForClub($grade, $gender); 
@@ -117,6 +164,15 @@ class ClubController extends Controller
         return $response;
     }
     
+    /**
+     * The method for adding users to a club.
+     * 
+     * This method is called by Ajax from the addClubMembers page. It takes a user id and adds that user to a club
+     * with the club id.
+     * 
+     * @param int $userId The ID of the user to be added to the club.
+     * @param int $clubId The ID of the club that the user should be added to.
+     */
     public function addUserToClubAction($userId, $clubId){
         try{
             $em = $this->getDoctrine()->getManager();
@@ -140,6 +196,13 @@ class ClubController extends Controller
         }
     }
     
+    /**
+     * The method for a sponsor to add a record for a member.
+     * 
+     * This method can be used by club sponsors to add a record for a single member.
+     * 
+     * @param Request $request The form containing the record to be added.
+     */
     public function newRecordForMemberAction(Request $request){
         $user = $this->getUser();
         
@@ -193,6 +256,14 @@ class ClubController extends Controller
         return $this->render("MaclayServiceBundle:Club:newRecord.html.twig", array("form" => $form->createView()));
     }
     
+    /**
+     * The method for entering records for members in batch.
+     * 
+     * This method is for when club sponsors want to enter multiple records with the same details for multiple users.
+     * The sponsors have the freedom to put in a number of hours for each individual student.
+     * 
+     * @param Reqest $request The form containing the records to be added.
+     */
     public function batchEnterRecordAction(Request $request){
         $batchRecord = new ClubBatchRecord();
         $now = new \DateTime("now");
@@ -267,6 +338,16 @@ class ClubController extends Controller
         return $this->render("MaclayServiceBundle:Club:batchRecord.html.twig", array("form" => $form->createView()));
     }
     
+    /**
+     * The method to get users by their last name.
+     * 
+     * This method is called by Ajax from the batchEnterRecord page. When a club sponsor types in a last name in to a
+     * text box, this method returns a list of students with that last name. If there are multiple students, then there
+     * is a dropdown list. If there is only one, then it simply shows the first name.
+     * 
+     * @param string $lastName The last name of the desired students
+     * @return array $users The users matching the last name. 
+     */
     public function getStudentsByLastNameAction($lastName){
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository("MaclayServiceBundle:User")->getStudentsByLastName($lastName);

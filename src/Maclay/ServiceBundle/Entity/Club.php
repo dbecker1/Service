@@ -18,9 +18,21 @@ class Club
         $this->memberRecords = new ArrayCollection();
     }
     
+    /**
+     * @var array
+     */
     protected $sponsors;
+    
+    /**
+     * @var array
+     */
     protected $members;
+    
+    /**
+     * @var array
+     */
     protected $memberRecords;
+    
     /**
      * @var integer
      */

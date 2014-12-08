@@ -9,7 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class StudentInfo
 {
+    /**
+     * @var User
+     */
     protected $student;
+    
     /**
      * @var integer
      */

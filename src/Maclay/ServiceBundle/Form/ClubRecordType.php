@@ -8,6 +8,9 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ClubRecordType extends AbstractType
 {
+    /**
+     * @var array 
+     */
     private $students;
     
     public function __construct($students)

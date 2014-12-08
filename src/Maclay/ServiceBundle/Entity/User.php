@@ -26,22 +26,55 @@ class User extends BaseUser
         return $this->firstName . " " . $this->lastName;
     }
     
+    /**
+     * @var StudentInfo
+     */
     protected $studentinfo;
+    
+    /**
+     * @var array $parents A users parents **NOT IN USE**
+     */
     protected $parents;
+    
+    /**
+     * @var array $children A users children **NOT IN USE**
+     */
     protected $children;
-    protected $clubowner;
+    
+    /**
+     * @var array
+     */
     protected $clubs;
+    
+    /**
+     * @var integer
+     */
     protected $records;
+    
+    /**
+     * @var integer
+     */
     protected $approvedHours;
+    
+    /**
+     * @var array
+     */
     protected $sponsorForClubs;
+    
+    /**
+     * @var boolean
+     */
     protected $isInvited;
+    
+    /**
+     * @var string
+     */
     protected $forgotPasswordCode;
+    
     /**
      * @var integer
      */
     protected $id;
-
-    
 
     /**
      * @var string
@@ -200,26 +233,53 @@ class User extends BaseUser
         return $this->clubs;
     }
     
+    /**
+     * Get records
+     * 
+     * @return type
+     */
     public function getRecords()
     {
         return $this->records;
     }
     
+    /**
+     * Get approvedHours
+     * 
+     * @return int
+     */
     public function getApprovedHours(){
         return $this->approvedHours;
     }
     
+    /**
+     * Set approvedHours
+     * 
+     * @param int $approvedHours
+     * @return User
+     */
     public function setApprovedHours($approvedHours){
         $this->approvedHours = $approvedHours;
         
         return $approvedHours;
     }
     
+    /**
+     * Get tempPass
+     * 
+     * @return string
+     */
     public function getTempPass()
     {
         return $this->tempPass;
     }
     
+    /**
+     * Set tempPass
+     * 
+     * @param string $tempPass
+     * @return User
+     */
     public function setTempPass($tempPass)
     {
         $this->tempPass = $tempPass;

@@ -8,9 +8,20 @@ use Maclay\ServiceBundle\Entity\Record;
 use Maclay\ServiceBundle\Form\RecordType;
 use Symfony\Component\HttpFoundation\Response;
 
-
+/**
+ * The controller for record methods. 
+ * 
+ * This controller contains methods pertaining to the community service records. It is used by the student and 
+ * coordinator roles.
+ */
 class RecordController extends Controller
 {
+    /**
+     * The method for the student home page.
+     * 
+     * This method is the home page of a student account. It gets the student's total number of approved, pending, and
+     * denied hours plus the students most recent records. (The number of records is configurable from the paramenters file)
+     */
     public function recordSummaryAction()
     {
         $user = $this->getUser();
@@ -38,6 +49,13 @@ class RecordController extends Controller
         return $this->render("MaclayServiceBundle:Record:recordSummary.html.twig", array("user" => $user, "records" => $records, "hours" => $hours));
     }
     
+    /**
+     * The method for entering records.
+     * 
+     * This method contains the form that students use for entering records themselves.
+     * 
+     * @param Request $request The form containing the record.
+     */
     public function newRecordAction(Request $request){
          $user = $this->getUser();
          
@@ -89,12 +107,29 @@ class RecordController extends Controller
          return $this->render("MaclayServiceBundle:Record:newRecord.html.twig", array("error" => "", "form" => $form->createView()));
    }
    
+   /**
+    * The method for viewing previous records. 
+    * 
+    * This method is the page that students go to to view all of their records at once. 
+    */
    public function recordHistoryAction(){
        $user = $this->getUser();
        $records = $user->getRecords();
        return $this->render("MaclayServiceBundle:Record:recordHistory.html.twig", array("records" => $records));
    }
    
+   /**
+    * The method for returning the record partial.
+    * 
+    * When a student clicks on a record from the record history page, it makes an Ajax call to this method. This
+    * method returns a partial view contianing all of the details for the record. This method is also called from 
+    * the pendingRecords coordinator page and the viewStudent page as well. If deny is true, then it will return the
+    * partial page for approval comments and a deny button.
+    * 
+    * @param int $id The ID of the desired record.
+    * @param boolean $isCoordinator Optional. Whether or not it is the coordinator who is viewing the partial.
+    * @param boolean $deny Optional. If true, the partial returned will instead be a box for approval comments and a deny button.
+    */
    public function getRecordPartialAction($id, $isCoordinator = false, $deny = false){
        $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:Record");
        $record = $repository->findOneById($id);
@@ -114,6 +149,11 @@ class RecordController extends Controller
        return $response;
    }
    
+   /**
+    * The method for viewing pending records.
+    * 
+    * This method retrieves all of the pending records and provides an approve and deny button for each
+    */
    public function pendingRecordsAction(){
        $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:Record");
        $records = $repository->getPendingRecords();
@@ -121,6 +161,16 @@ class RecordController extends Controller
        return $this->render("MaclayServiceBundle:Record:pendingRecords.html.twig", array("records" => $records));
    }
    
+   /**
+    * The method for approving or denyinga record
+    * 
+    * This method is called by Ajax from either the pendingRecords page or the recordPartial. Will either approve
+    * record or deny with optional comments.
+    * 
+    * @param int $id The ID of the record.
+    * @param boolean $approval Whether or not the record is to be approved.
+    * @param string $comments Optional. Approver's comments.
+    */
    public function approveRecordAction($id, $approval, $comments = ""){
        $em = $this->getDoctrine()->getManager();
        $repository = $em->getRepository("MaclayServiceBundle:Record");
@@ -182,6 +232,12 @@ class RecordController extends Controller
        return $response;
    }
    
+   /**
+    * The method for viewing all students.
+    * 
+    * This method is a page for the coordinator to view the approved totals for all students and then access the 
+    * students' individual pages.
+    */
    public function studentHistoryAction(){
        $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:User");
        $students = $repository->findByRole("ROLE_STUDENT");
@@ -199,6 +255,14 @@ class RecordController extends Controller
        return $this->render("MaclayServiceBundle:Record:studentHistory.html.twig", array("students" => $students));
    }
    
+   /**
+    * The method to view a student.
+    * 
+    * This method is called when a coordinator or a club sponsor clicks on a student's name. It returns that student's
+    * student history page.
+    * 
+    * @param int $id The ID of the user.
+    */
    public function viewStudentAction($id){
        $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:User");
        $student = $repository->findOneById($id);
@@ -208,6 +272,13 @@ class RecordController extends Controller
        return $this->render("MaclayServiceBundle:Record:recordHistory.html.twig", array("records" => $records, "isCoordinator" => $isCoordinator, "name" => $name));
    }
    
+   /**
+    * The method for printing records.
+    * 
+    * This method can be called to create a printable version of a record that does not include an attachment.
+    * 
+    * @param int $id The ID of the record.
+    */
    public function printRecordAction($id){
        $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:Record");
        $record = $repository->getRecordAndStudentById($id)[0];
@@ -221,6 +292,13 @@ class RecordController extends Controller
        
    }
    
+   /**
+    * The method for emailing a user that has a record without an attachment.
+    * 
+    * This method is used by the coordinator to send emails to students that have entered records without attachemnts.
+    * 
+    * @param int $id The ID of the record.
+    */
    public function recordEmailAction($id){
        $repository = $this->getDoctrine()->getRepository("MaclayServiceBundle:Record");
        $record = $repository->findOneById($id); 

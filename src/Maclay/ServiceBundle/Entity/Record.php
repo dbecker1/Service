@@ -9,10 +9,29 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Record
 {
+    /**
+     * @var User
+     */
     protected $student;
+    
+    /**
+     * @var file
+     */
     public $attachment;
+    
+    /**
+     * @var string
+     */
     private $attachmentFileName;
+    
+    /**
+     * @var int $enteredByClub The club that entered the record..
+     */
     private $enteredByClub;
+    
+    /**
+     * @var boolean
+     */
     private $emailIsSent;
     
     /**
@@ -374,11 +393,22 @@ class Record
         return $this;
     }
     
+    /**
+     * Get student
+     *
+     * @return User 
+     */
     public function getStudent()
     {
         return $this->student;
     }
     
+    /**
+     * Set attachmentFileName
+     *
+     * @param string $attachmentFileName
+     * @return Record
+     */
     public function setAttachmentFileName($attachmentFileName)
     {
         $this->attachmentFileName = $attachmentFileName;
@@ -386,6 +416,11 @@ class Record
         return $this;
     }
     
+    /**
+     * Get attachementFileName
+     *
+     * @return string 
+     */
     public function getAttachmentFileName()
     {
         return $this->attachmentFileName;
@@ -398,17 +433,33 @@ class Record
         return $this;
     }
     
+    /**
+     * Get enteredByClub
+     *
+     * @return Club 
+     */
     public function getEnteredByClub()
     {
         return $this->enteredByClub;
     }
     
+    /**
+     * Set emailIsSent
+     *
+     * @param string $emailIsSent
+     * @return Record
+     */
     public function setEmailIsSent($emailIsSent){
         $this->emailIsSent = $emailIsSent;
         
         return $this;
     }
     
+    /**
+     * Get emailIsSent
+     *
+     * @return boolean 
+     */
     public function getEmailIsSent(){
         return $this->emailIsSent;
     }

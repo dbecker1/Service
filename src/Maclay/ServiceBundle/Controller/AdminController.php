@@ -10,8 +10,22 @@ use Maclay\ServiceBundle\Form\ClubType;
 use Maclay\ServiceBundle\Entity\Club;
 use Maclay\ServiceBundle\Entity\Record;
 
+/**
+ * The controller used for admin functions.
+ * 
+ * This controller is used for admin purposes such as uploading students and creating clubs
+ */
 class AdminController extends Controller
 {
+    /**
+     * This method is used for uploading users.
+     * 
+     * WARNING: Before using this method, email Daniel Becker to make sure your csv file is formatted correctly.
+     * This method takes in a CSV file, parses it, and then creates the user accounts out of it. This method DOES 
+     * NOT send them their invite emails.
+     * 
+     * @param file $file Not actually a parameter, but worth noting that a file must be in the body of the POST request.
+     */
     public function uploadStudentsAction()
     {
         $file;
@@ -92,6 +106,11 @@ class AdminController extends Controller
 
     }
     
+    /**
+     * This method is used to randomly generate a temporary password for new users.
+     * 
+     * @return string $password The temporary password.
+     */
     public function randomPassword()
     {
         $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
@@ -104,6 +123,13 @@ class AdminController extends Controller
         return implode($pass);
     }
     
+    /**
+     * The method for creating new clubs.
+     * 
+     * This method is used for creating new clubs. This is the only Admin method that the coordinator has access to.
+     * 
+     * @param Request $request The form containing the new club and user's emails.
+     */
     public function createClubAction(Request $request)
     {
         $form = $this->createForm(new ClubType(), new Club());
@@ -155,6 +181,15 @@ class AdminController extends Controller
         return $this->render("MaclayServiceBundle:Admin:createClub.html.twig", array("error" => "", "form" => $form->createView()));
     }
     
+    /**
+     * The method for emailing users who haven't been invited yet.
+     * 
+     * WARNING: Using this method doesn't work that well on GoDaddy's server for some reason that I do not know. 
+     *          That is the reason for the message on the log in screen.
+     * This method provides the admin with a list of types of users to email and then sends out the invite email.
+     * 
+     * @param Request $request The request object. Simply used for determining GET vs. POST
+     */
     public function emailUninvitedUsersAction(Request $request){
         
         $em = $this->getDoctrine()->getManager();
@@ -248,6 +283,15 @@ class AdminController extends Controller
         
     }
     
+    /**
+     * The method for getting a count of uninvited users by grade.
+     * 
+     * This method is called from Ajax on the emailUninvitedUsers page. When the dropdown is changed, it calls this
+     * method which returns the number of users of that type.
+     * 
+     * @param int $grade The grade of the desired users. -1 for non-students.
+     * @return int $count The count of uninvited users in the grade.
+     */
     public function getUninvitedUserCountAction($grade){
         $em = $this->getDoctrine()->getManager();
         $uninvitedUsers = $em->getRepository("MaclayServiceBundle:User")->getUninvitedUsers();
@@ -280,6 +324,14 @@ class AdminController extends Controller
         return $response;
     }
     
+    /**
+     * The method for importing previous records.
+     * 
+     * There should theoretically be no use for the following method. It was used in the beginning to import all of 
+     * the previous records that students had into the system. 
+     * 
+     * @param file $file Not a parameter, but worth noting that a file must be in the body of the POST request.
+     */
     public function importPreviousRecordsAction(){
         $file;
         ini_set('auto_detect_line_endings', true);
@@ -418,6 +470,14 @@ class AdminController extends Controller
         
     }
     
+    /**
+     * The method for creating school admins. 
+     * 
+     * This method process a list of email addresses of school admins and then creates accounts for them. This method
+     * DOES NOT send them their invite emails. 
+     * 
+     * @param Request $request The form containing the list of school admins.
+     */
     public function createSchoolAdminsAction(Request $request){
         $data = array();
         
@@ -464,6 +524,13 @@ class AdminController extends Controller
         return $this->render("MaclayServiceBundle:Admin:createSchoolAdmins.html.twig", array("form" => $form->createView()));
     }
     
+    /**
+     * The method for removing the blank spaces of user's last names in the database. 
+     * 
+     * When the users were first imported in to the system, they randomly had new lines before their last names.
+     * This affected the ability to search for a user by their last name. This method gets all of the users in the
+     * database, removes the spaces at the beginning and end of their last name, and then save it to the database.
+     */
     public function removeLineFromLastNameAction(){
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository("MaclayServiceBundle:User")->findAll();

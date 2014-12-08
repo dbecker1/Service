@@ -12,6 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class RecordRepository extends EntityRepository
 {
+    /**
+     * The method for getting the most recent records of a user.
+     * 
+     * @param int $length The number of records to return.
+     * @param int $userId The ID of the User
+     * @return array
+     */
     public function getRecentRecords($length, $userId){
         return $this->getEntityManager()
                 ->createQuery(
@@ -26,6 +33,11 @@ class RecordRepository extends EntityRepository
                 ->getResult();
     }
     
+    /**
+     * The method for getting all pending records
+     * 
+     * @return array
+     */
     public function getPendingRecords(){
         return $this->getEntityManager()
                 ->createQuery(
@@ -37,6 +49,13 @@ class RecordRepository extends EntityRepository
                 ->getResult();
     }
     
+    /**
+     * The method for getting a student's records by grade.
+     * 
+     * @param User $student
+     * @param int $grade
+     * @return arra
+     */
     public function getRecordByGrade($student, $grade){
         return $this->getEntityManager()
                 ->createQuery(
@@ -49,6 +68,12 @@ class RecordRepository extends EntityRepository
                 ->getResult();
     }
     
+    /**
+     * The method for getting a record it's student and the student's student info
+     * 
+     * @param int $id
+     * @return array
+     */
     public function getRecordAndStudentById($id){
         return $this->getEntityManager()
                 ->createQuery(
