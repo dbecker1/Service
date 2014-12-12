@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Maclay.html">\Maclay</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">213</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-245521570"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-245521570" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-243912314"></a>
+                                <a href="../namespaces/Maclay.html" style="margin-left: 30px; padding-left: 0">Maclay</a>
+            </div>
+            <div id="namespace-243912314" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1200998530"></a>
+                                <a href="../namespaces/Maclay.ServiceBundle.html" style="margin-left: 30px; padding-left: 0">ServiceBundle</a>
+            </div>
+            <div id="namespace-1200998530" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-322004065"></a>
+                                <a href="../namespaces/Maclay.ServiceBundle.Controller.html" style="margin-left: 30px; padding-left: 0">Controller</a>
+            </div>
+            <div id="namespace-322004065" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Controller.AccountController.html">AccountController</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Controller.AdminController.html">AdminController</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Controller.ClubController.html">ClubController</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Controller.FileController.html">FileController</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Controller.LayoutController.html">LayoutController</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Controller.ProfileController.html">ProfileController</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Controller.RecordController.html">RecordController</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Controller.RoutingController.html">RoutingController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-871115817"></a>
+                                <a href="../namespaces/Maclay.ServiceBundle.DependencyInjection.html" style="margin-left: 30px; padding-left: 0">DependencyInjection</a>
+            </div>
+            <div id="namespace-871115817" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.DependencyInjection.Configuration.html">Configuration</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.DependencyInjection.MaclayServiceExtension.html">MaclayServiceExtension</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1181297983"></a>
+                                <a href="../namespaces/Maclay.ServiceBundle.Entity.html" style="margin-left: 30px; padding-left: 0">Entity</a>
+            </div>
+            <div id="namespace-1181297983" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.Club.html">Club</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.ClubRepository.html">ClubRepository</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.Record.html">Record</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.RecordRepository.html">RecordRepository</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.Role.html">Role</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.StudentInfo.html">StudentInfo</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.StudentInfoRepository.html">StudentInfoRepository</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.User.html">User</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.UserRepository.html">UserRepository</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1858051831"></a>
+                                <a href="../namespaces/Maclay.ServiceBundle.Form.html" style="margin-left: 30px; padding-left: 0">Form</a>
+            </div>
+            <div id="namespace-1858051831" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Form.ClubBatchRecordType.html">ClubBatchRecordType</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Form.ClubRecordType.html">ClubRecordType</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Form.ClubType.html">ClubType</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Form.RecordType.html">RecordType</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Form.StudentHoursType.html">StudentHoursType</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-286560845"></a>
+                                <a href="../namespaces/Maclay.ServiceBundle.Model.html" style="margin-left: 30px; padding-left: 0">Model</a>
+            </div>
+            <div id="namespace-286560845" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Model.ClubBatchRecord.html">ClubBatchRecord</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Model.StudentHours.html">StudentHours</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2030249323"></a>
+                                <a href="../namespaces/Maclay.ServiceBundle.Tests.html" style="margin-left: 30px; padding-left: 0">Tests</a>
+            </div>
+            <div id="namespace-2030249323" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1442274422"></a>
+                                <a href="../namespaces/Maclay.ServiceBundle.Tests.Controller.html" style="margin-left: 30px; padding-left: 0">Controller</a>
+            </div>
+            <div id="namespace-1442274422" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Tests.Controller.DefaultControllerTest.html">DefaultControllerTest</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.MaclayServiceBundle.html">MaclayServiceBundle</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Maclay.ServiceBundle.Controller.html">\Maclay\ServiceBundle\Controller</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Maclay\ServiceBundle\Controller</small>ClubController</h1>
+                    <p><em>The controller for club methods.</em></p>
+                    <p>This controller contians methods that the club sponsors will use.</p>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Maclay.ServiceBundle.Controller.ClubController.html#method_manageClubAction" class="">manageClubAction()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Controller.ClubController.html#method_addClubMembersAction" class="">addClubMembersAction()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Controller.ClubController.html#method_getUsersForClubAction" class="">getUsersForClubAction()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Controller.ClubController.html#method_addUserToClubAction" class="">addUserToClubAction()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Controller.ClubController.html#method_newRecordForMemberAction" class="">newRecordForMemberAction()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Controller.ClubController.html#method_batchEnterRecordAction" class="">batchEnterRecordAction()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Controller.ClubController.html#method_getStudentsByLastNameAction" class="">getStudentsByLastNameAction()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Maclay.ServiceBundle.Controller.ClubController.html#property_schoolStart" class="">$schoolStart</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Controller.ClubController.html#property_q1End" class="">$q1End</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Controller.ClubController.html#property_q2End" class="">$q2End</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Controller.ClubController.html#property_q3End" class="">$q3End</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Controller.ClubController.html#property_q4End" class="">$q4End</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Controller.ClubController.html"><div class="path-wrapper">Controller/ClubController.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper">\Symfony\Bundle\FrameworkBundle\Controller\Controller</div>
+                                                                                                    <div class="namespace-wrapper">\Maclay\ServiceBundle\Controller\ClubController</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_schoolStart" name="property_schoolStart" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$schoolStart</h3>
+                <pre class="signature">$schoolStart : \Maclay\ServiceBundle\Controller\DateTime</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Maclay\ServiceBundle\Controller\DateTime
+                &mdash; The start of the school year.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_q1End" name="property_q1End" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$q1End</h3>
+                <pre class="signature">$q1End : \Maclay\ServiceBundle\Controller\DateTime</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Maclay\ServiceBundle\Controller\DateTime
+                &mdash; The end of the 1st quarter.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_q2End" name="property_q2End" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$q2End</h3>
+                <pre class="signature">$q2End : \Maclay\ServiceBundle\Controller\DateTime</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Maclay\ServiceBundle\Controller\DateTime
+                &mdash; The end of the 2nd quarter.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_q3End" name="property_q3End" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$q3End</h3>
+                <pre class="signature">$q3End : \Maclay\ServiceBundle\Controller\DateTime</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Maclay\ServiceBundle\Controller\DateTime
+                &mdash; The end of the 3rd quarter.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_q4End" name="property_q4End" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$q4End</h3>
+                <pre class="signature">$q4End : \Maclay\ServiceBundle\Controller\DateTime</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Maclay\ServiceBundle\Controller\DateTime
+                &mdash; The end of the 4th quarter.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_manageClubAction" name="method_manageClubAction" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">manageClubAction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">manageClubAction(integer  <span class="argument">$quarter</span>, boolean  <span class="argument">$export = false</span>) </pre>
+                <p><em>The method for the club sponsor&#039;s home page.</em></p>
+                <p>This is the main page of the club sponsor. It shows each memeber and their total number of approved.
+There is then a dropdown to narrow down the hours by quarter and then an export function that will export
+them to a CSV file that is readable by Excel.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$quarter </td>
+                                <td><p>Optional. Used to narrow down approved totals.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$export </td>
+                                <td><p>Optional. Used to export approved totals.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addClubMembersAction" name="method_addClubMembersAction" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addClubMembersAction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addClubMembersAction() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUsersForClubAction" name="method_getUsersForClubAction" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUsersForClubAction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUsersForClubAction(  <span class="argument">$gender</span>,   <span class="argument">$grade</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$gender </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$grade </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addUserToClubAction" name="method_addUserToClubAction" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addUserToClubAction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addUserToClubAction(integer  <span class="argument">$userId</span>, integer  <span class="argument">$clubId</span>) </pre>
+                <p><em>The method for adding users to a club.</em></p>
+                <p>This method is called by Ajax from the addClubMembers page. It takes a user id and adds that user to a club
+with the club id.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$userId </td>
+                                <td><p>The ID of the user to be added to the club.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$clubId </td>
+                                <td><p>The ID of the club that the user should be added to.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_newRecordForMemberAction" name="method_newRecordForMemberAction" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">newRecordForMemberAction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">newRecordForMemberAction(\Symfony\Component\HttpFoundation\Request  <span class="argument">$request</span>) </pre>
+                <p><em>The method for a sponsor to add a record for a member.</em></p>
+                <p>This method can be used by club sponsors to add a record for a single member.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Symfony\Component\HttpFoundation\Request</td>
+                                <td>$request </td>
+                                <td><p>The form containing the record to be added.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_batchEnterRecordAction" name="method_batchEnterRecordAction" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">batchEnterRecordAction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">batchEnterRecordAction(\Maclay\ServiceBundle\Controller\Reqest  <span class="argument">$request</span>) </pre>
+                <p><em>The method for entering records for members in batch.</em></p>
+                <p>This method is for when club sponsors want to enter multiple records with the same details for multiple users.
+The sponsors have the freedom to put in a number of hours for each individual student.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Maclay\ServiceBundle\Controller\Reqest</td>
+                                <td>$request </td>
+                                <td><p>The form containing the records to be added.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getStudentsByLastNameAction" name="method_getStudentsByLastNameAction" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getStudentsByLastNameAction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getStudentsByLastNameAction(string  <span class="argument">$lastName</span>) : array</pre>
+                <p><em>The method to get users by their last name.</em></p>
+                <p>This method is called by Ajax from the batchEnterRecord page. When a club sponsor types in a last name in to a
+text box, this method returns a list of students with that last name. If there are multiple students, then there
+is a dropdown list. If there is only one, then it simply shows the first name.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$lastName </td>
+                                <td><p>The last name of the desired students</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>$users The users matching the last name.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">ClubController.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Controller/ClubController.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Maclay.html">\Maclay</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on 
+Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in phar:///Users/dbecker/phpDocumentor.phar/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
+December 12th, 2014 at 00:22.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

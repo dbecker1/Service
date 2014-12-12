@@ -1,0 +1,1972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Maclay.html">\Maclay</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">213</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1880711550"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1880711550" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-286477338"></a>
+                                <a href="../namespaces/Maclay.html" style="margin-left: 30px; padding-left: 0">Maclay</a>
+            </div>
+            <div id="namespace-286477338" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1384044984"></a>
+                                <a href="../namespaces/Maclay.ServiceBundle.html" style="margin-left: 30px; padding-left: 0">ServiceBundle</a>
+            </div>
+            <div id="namespace-1384044984" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1330245128"></a>
+                                <a href="../namespaces/Maclay.ServiceBundle.Controller.html" style="margin-left: 30px; padding-left: 0">Controller</a>
+            </div>
+            <div id="namespace-1330245128" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Controller.AccountController.html">AccountController</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Controller.AdminController.html">AdminController</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Controller.ClubController.html">ClubController</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Controller.FileController.html">FileController</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Controller.LayoutController.html">LayoutController</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Controller.ProfileController.html">ProfileController</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Controller.RecordController.html">RecordController</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Controller.RoutingController.html">RoutingController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1808236893"></a>
+                                <a href="../namespaces/Maclay.ServiceBundle.DependencyInjection.html" style="margin-left: 30px; padding-left: 0">DependencyInjection</a>
+            </div>
+            <div id="namespace-1808236893" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.DependencyInjection.Configuration.html">Configuration</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.DependencyInjection.MaclayServiceExtension.html">MaclayServiceExtension</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-798875292"></a>
+                                <a href="../namespaces/Maclay.ServiceBundle.Entity.html" style="margin-left: 30px; padding-left: 0">Entity</a>
+            </div>
+            <div id="namespace-798875292" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.Club.html">Club</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.ClubRepository.html">ClubRepository</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.Record.html">Record</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.RecordRepository.html">RecordRepository</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.Role.html">Role</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.StudentInfo.html">StudentInfo</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.StudentInfoRepository.html">StudentInfoRepository</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.User.html">User</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Entity.UserRepository.html">UserRepository</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-860199060"></a>
+                                <a href="../namespaces/Maclay.ServiceBundle.Form.html" style="margin-left: 30px; padding-left: 0">Form</a>
+            </div>
+            <div id="namespace-860199060" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Form.ClubBatchRecordType.html">ClubBatchRecordType</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Form.ClubRecordType.html">ClubRecordType</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Form.ClubType.html">ClubType</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Form.RecordType.html">RecordType</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Form.StudentHoursType.html">StudentHoursType</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1597910327"></a>
+                                <a href="../namespaces/Maclay.ServiceBundle.Model.html" style="margin-left: 30px; padding-left: 0">Model</a>
+            </div>
+            <div id="namespace-1597910327" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Model.ClubBatchRecord.html">ClubBatchRecord</a></li>
+                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Model.StudentHours.html">StudentHours</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1543648779"></a>
+                                <a href="../namespaces/Maclay.ServiceBundle.Tests.html" style="margin-left: 30px; padding-left: 0">Tests</a>
+            </div>
+            <div id="namespace-1543648779" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-171728462"></a>
+                                <a href="../namespaces/Maclay.ServiceBundle.Tests.Controller.html" style="margin-left: 30px; padding-left: 0">Controller</a>
+            </div>
+            <div id="namespace-171728462" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.Tests.Controller.DefaultControllerTest.html">DefaultControllerTest</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Maclay.ServiceBundle.MaclayServiceBundle.html">MaclayServiceBundle</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Maclay.ServiceBundle.Entity.html">\Maclay\ServiceBundle\Entity</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Maclay\ServiceBundle\Entity</small>User</h1>
+                    <p><em>User</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method___toString" class="">__toString()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_getId" class="">getId()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_setFirstName" class="">setFirstName()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_getFirstName" class="">getFirstName()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_setLastName" class="">setLastName()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_getLastName" class="">getLastName()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_setMiddleName" class="">setMiddleName()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_getMiddleName" class="">getMiddleName()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_setStudentinfo" class="">setStudentinfo()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_getStudentinfo" class="">getStudentinfo()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_addClub" class="">addClub()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_removeClub" class="">removeClub()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_getClubs" class="">getClubs()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_getRecords" class="">getRecords()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_getApprovedHours" class="">getApprovedHours()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_setApprovedHours" class="">setApprovedHours()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_getTempPass" class="">getTempPass()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_setTempPass" class="">setTempPass()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_addRecord" class="">addRecord()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_removeRecord" class="">removeRecord()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_addSponsorForClub" class="">addSponsorForClub()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_removeSponsorForClub" class="">removeSponsorForClub()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_getSponsorForClubs" class="">getSponsorForClubs()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_setIsInvited" class="">setIsInvited()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_getIsInvited" class="">getIsInvited()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_addParent" class="">addParent()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_removeParent" class="">removeParent()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_getParents" class="">getParents()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_addChild" class="">addChild()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_removeChild" class="">removeChild()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_getChildren" class="">getChildren()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_setForgotPasswordCode" class="">setForgotPasswordCode()</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#method_getForgotPasswordCode" class="">getForgotPasswordCode()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#property_studentinfo" class="">$studentinfo</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#property_parents" class="">$parents</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#property_children" class="">$children</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#property_clubs" class="">$clubs</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#property_records" class="">$records</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#property_approvedHours" class="">$approvedHours</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#property_sponsorForClubs" class="">$sponsorForClubs</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#property_isInvited" class="">$isInvited</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#property_forgotPasswordCode" class="">$forgotPasswordCode</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#property_id" class="">$id</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#property_firstName" class="">$firstName</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#property_lastName" class="">$lastName</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#property_middleName" class="">$middleName</a><br />
+                                                                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html#property_tempPass" class="">$tempPass</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Entity.User.html"><div class="path-wrapper">Entity/User.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper">\FOS\UserBundle\Model\User</div>
+                                                                                                    <div class="namespace-wrapper">\Maclay\ServiceBundle\Entity\User</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_studentinfo" name="property_studentinfo" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$studentinfo</h3>
+                <pre class="signature">$studentinfo : \Maclay\ServiceBundle\Entity\StudentInfo</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                <a href="../classes/Maclay.ServiceBundle.Entity.StudentInfo.html">\Maclay\ServiceBundle\Entity\StudentInfo</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_parents" name="property_parents" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$parents</h3>
+                <pre class="signature">$parents : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; A users parents **NOT IN USE**                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_children" name="property_children" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$children</h3>
+                <pre class="signature">$children : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; A users children **NOT IN USE**                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_clubs" name="property_clubs" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$clubs</h3>
+                <pre class="signature">$clubs : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_records" name="property_records" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$records</h3>
+                <pre class="signature">$records : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_approvedHours" name="property_approvedHours" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$approvedHours</h3>
+                <pre class="signature">$approvedHours : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_sponsorForClubs" name="property_sponsorForClubs" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$sponsorForClubs</h3>
+                <pre class="signature">$sponsorForClubs : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_isInvited" name="property_isInvited" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$isInvited</h3>
+                <pre class="signature">$isInvited : boolean</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_forgotPasswordCode" name="property_forgotPasswordCode" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$forgotPasswordCode</h3>
+                <pre class="signature">$forgotPasswordCode : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_id" name="property_id" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$id</h3>
+                <pre class="signature">$id : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_firstName" name="property_firstName" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$firstName</h3>
+                <pre class="signature">$firstName : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_lastName" name="property_lastName" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$lastName</h3>
+                <pre class="signature">$lastName : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_middleName" name="property_middleName" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$middleName</h3>
+                <pre class="signature">$middleName : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_tempPass" name="property_tempPass" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$tempPass</h3>
+                <pre class="signature">$tempPass : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___toString" name="method___toString" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__toString()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__toString() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getId" name="method_getId" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getId()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getId() : integer</pre>
+                <p><em>Get id</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setFirstName" name="method_setFirstName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setFirstName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setFirstName(string  <span class="argument">$firstName</span>) : \Maclay\ServiceBundle\Entity\User</pre>
+                <p><em>Set firstName</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$firstName </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFirstName" name="method_getFirstName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getFirstName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFirstName() : string</pre>
+                <p><em>Get firstName</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setLastName" name="method_setLastName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setLastName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setLastName(string  <span class="argument">$lastName</span>) : \Maclay\ServiceBundle\Entity\User</pre>
+                <p><em>Set lastName</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$lastName </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getLastName" name="method_getLastName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getLastName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getLastName() : string</pre>
+                <p><em>Get lastName</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setMiddleName" name="method_setMiddleName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setMiddleName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setMiddleName(string  <span class="argument">$middleName</span>) : \Maclay\ServiceBundle\Entity\User</pre>
+                <p><em>Set middleName</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$middleName </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getMiddleName" name="method_getMiddleName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getMiddleName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getMiddleName() : string</pre>
+                <p><em>Get middleName</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setStudentinfo" name="method_setStudentinfo" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setStudentinfo()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setStudentinfo(\Maclay\ServiceBundle\Entity\StudentInfo  <span class="argument">$studentinfo = null</span>) : \Maclay\ServiceBundle\Entity\User</pre>
+                <p><em>Set studentinfo</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Maclay.ServiceBundle.Entity.StudentInfo.html">\Maclay\ServiceBundle\Entity\StudentInfo</a></td>
+                                <td>$studentinfo </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getStudentinfo" name="method_getStudentinfo" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getStudentinfo()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getStudentinfo() : \Maclay\ServiceBundle\Entity\StudentInfo</pre>
+                <p><em>Get studentinfo</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Maclay.ServiceBundle.Entity.StudentInfo.html">\Maclay\ServiceBundle\Entity\StudentInfo</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addClub" name="method_addClub" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addClub()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addClub(\Maclay\ServiceBundle\Entity\Club  <span class="argument">$clubs</span>) : \Maclay\ServiceBundle\Entity\User</pre>
+                <p><em>Add clubs</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Maclay.ServiceBundle.Entity.Club.html">\Maclay\ServiceBundle\Entity\Club</a></td>
+                                <td>$clubs </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_removeClub" name="method_removeClub" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">removeClub()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">removeClub(\Maclay\ServiceBundle\Entity\Club  <span class="argument">$clubs</span>) </pre>
+                <p><em>Remove clubs</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Maclay.ServiceBundle.Entity.Club.html">\Maclay\ServiceBundle\Entity\Club</a></td>
+                                <td>$clubs </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getClubs" name="method_getClubs" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getClubs()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getClubs() : \Doctrine\Common\Collections\Collection</pre>
+                <p><em>Get clubs</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Doctrine\Common\Collections\Collection
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRecords" name="method_getRecords" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRecords()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRecords() : \Maclay\ServiceBundle\Entity\type</pre>
+                <p><em>Get records</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Maclay\ServiceBundle\Entity\type
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getApprovedHours" name="method_getApprovedHours" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getApprovedHours()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getApprovedHours() : integer</pre>
+                <p><em>Get approvedHours</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setApprovedHours" name="method_setApprovedHours" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setApprovedHours()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setApprovedHours(integer  <span class="argument">$approvedHours</span>) : \Maclay\ServiceBundle\Entity\User</pre>
+                <p><em>Set approvedHours</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$approvedHours </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTempPass" name="method_getTempPass" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTempPass()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTempPass() : string</pre>
+                <p><em>Get tempPass</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setTempPass" name="method_setTempPass" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setTempPass()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setTempPass(string  <span class="argument">$tempPass</span>) : \Maclay\ServiceBundle\Entity\User</pre>
+                <p><em>Set tempPass</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$tempPass </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addRecord" name="method_addRecord" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addRecord()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addRecord(\Maclay\ServiceBundle\Entity\Record  <span class="argument">$records</span>) : \Maclay\ServiceBundle\Entity\User</pre>
+                <p><em>Add records</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Maclay.ServiceBundle.Entity.Record.html">\Maclay\ServiceBundle\Entity\Record</a></td>
+                                <td>$records </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_removeRecord" name="method_removeRecord" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">removeRecord()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">removeRecord(\Maclay\ServiceBundle\Entity\Record  <span class="argument">$records</span>) </pre>
+                <p><em>Remove records</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Maclay.ServiceBundle.Entity.Record.html">\Maclay\ServiceBundle\Entity\Record</a></td>
+                                <td>$records </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addSponsorForClub" name="method_addSponsorForClub" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addSponsorForClub()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addSponsorForClub(\Maclay\ServiceBundle\Entity\Club  <span class="argument">$sponsorForClubs</span>) : \Maclay\ServiceBundle\Entity\User</pre>
+                <p><em>Add sponsorForClubs</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Maclay.ServiceBundle.Entity.Club.html">\Maclay\ServiceBundle\Entity\Club</a></td>
+                                <td>$sponsorForClubs </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_removeSponsorForClub" name="method_removeSponsorForClub" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">removeSponsorForClub()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">removeSponsorForClub(\Maclay\ServiceBundle\Entity\Club  <span class="argument">$sponsorForClubs</span>) </pre>
+                <p><em>Remove sponsorForClubs</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Maclay.ServiceBundle.Entity.Club.html">\Maclay\ServiceBundle\Entity\Club</a></td>
+                                <td>$sponsorForClubs </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSponsorForClubs" name="method_getSponsorForClubs" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSponsorForClubs()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSponsorForClubs() : \Doctrine\Common\Collections\Collection</pre>
+                <p><em>Get sponsorForClubs</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Doctrine\Common\Collections\Collection
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setIsInvited" name="method_setIsInvited" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setIsInvited()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setIsInvited(boolean  <span class="argument">$isInvited</span>) : \Maclay\ServiceBundle\Entity\User</pre>
+                <p><em>Set isInvited</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$isInvited </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getIsInvited" name="method_getIsInvited" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getIsInvited()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getIsInvited() : boolean</pre>
+                <p><em>Get isInvited</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addParent" name="method_addParent" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addParent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addParent(\Maclay\ServiceBundle\Entity\User  <span class="argument">$parents</span>) : \Maclay\ServiceBundle\Entity\User</pre>
+                <p><em>Add parents</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a></td>
+                                <td>$parents </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_removeParent" name="method_removeParent" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">removeParent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">removeParent(\Maclay\ServiceBundle\Entity\User  <span class="argument">$parents</span>) </pre>
+                <p><em>Remove parents</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a></td>
+                                <td>$parents </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getParents" name="method_getParents" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getParents()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getParents() : \Doctrine\Common\Collections\Collection</pre>
+                <p><em>Get parents</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Doctrine\Common\Collections\Collection
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addChild" name="method_addChild" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addChild()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addChild(\Maclay\ServiceBundle\Entity\User  <span class="argument">$children</span>) : \Maclay\ServiceBundle\Entity\User</pre>
+                <p><em>Add children</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a></td>
+                                <td>$children </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_removeChild" name="method_removeChild" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">removeChild()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">removeChild(\Maclay\ServiceBundle\Entity\User  <span class="argument">$children</span>) </pre>
+                <p><em>Remove children</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a></td>
+                                <td>$children </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getChildren" name="method_getChildren" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getChildren()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getChildren() : \Doctrine\Common\Collections\Collection</pre>
+                <p><em>Get children</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Doctrine\Common\Collections\Collection
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setForgotPasswordCode" name="method_setForgotPasswordCode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setForgotPasswordCode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setForgotPasswordCode(string  <span class="argument">$forgotPasswordCode</span>) : \Maclay\ServiceBundle\Entity\User</pre>
+                <p><em>Set forgotPasswordCode</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$forgotPasswordCode </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Maclay.ServiceBundle.Entity.User.html">\Maclay\ServiceBundle\Entity\User</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getForgotPasswordCode" name="method_getForgotPasswordCode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getForgotPasswordCode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getForgotPasswordCode() : string</pre>
+                <p><em>Get forgotPasswordCode</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">User.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Entity/User.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Maclay.html">\Maclay</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on 
+Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in phar:///Users/dbecker/phpDocumentor.phar/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
+December 12th, 2014 at 00:23.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
