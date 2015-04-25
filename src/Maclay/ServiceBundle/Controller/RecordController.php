@@ -89,7 +89,7 @@ class RecordController extends Controller
                 $record->setCurrentGrade($user->getStudentInfo()->getGrade());
                 $now = new \DateTime('now');
                 if($now <= $record->getDateFrom()){
-                    throw new \RuntimeError("Date From cannot be in the future.");
+                    throw new \RuntimeException("Date From cannot be in the future.");
                 }
                 $record->setDateCreated($now);
                 $record->setStudent($user);
