@@ -99,7 +99,7 @@ class ClubController extends Controller
                             $approvedHours += $record->getNumHours();
                         }
                         else if ($record->getDateTo() <= $endDate && $record->getDateTo() >= $startDate){
-                            if(strpos($record->activity, "Grade Hours") !== false){
+                            if(strpos($record->getActivity(), "Grade Hours") !== false){
                                 $approvedHours += $record->getNumHours();
                             }
                         }
