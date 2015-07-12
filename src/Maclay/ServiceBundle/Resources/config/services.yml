@@ -1,3 +1,9 @@
 services:
     maclay.filecontroller:
         class: "Maclay\ServiceBundle\Controller\FileController"
+    maclay.maintenancelistener:
+        class: Maclay\ServiceBundle\Listener\MaintenanceListener
+        arguments:
+            container: "@service_container"
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
