@@ -69,7 +69,7 @@ class UserRepository extends EntityRepository
     public function getUsersForClub($grade, $gender){
         $query = $this->getEntityManager()
                 ->createQuery(
-                            "SELECT u "
+                            "SELECT u " 
                             . "FROM MaclayServiceBundle:User u "
                             . "JOIN u.studentinfo s "
                             . "WHERE s.grade = :grade AND s.gender = :gender"
@@ -78,6 +78,19 @@ class UserRepository extends EntityRepository
                 ->setParameter("gender", $gender)
                 ->getResult();
         
+        return $query;
+    }
+    
+    public function getUsersByGrade($grade){
+        $query = $this->getEntityManager()
+                ->createQuery(
+                            "SELECT u "
+                            . "FROM MaclayServiceBundle:User u "
+                            . "JOIN u.studentinfo s "
+                            . "WHERE s.grade = :grade"
+                        )
+                ->setParameter("grade", $grade)
+                ->getResult();
         return $query;
     }
     

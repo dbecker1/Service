@@ -9,6 +9,7 @@ use Maclay\ServiceBundle\Entity\StudentInfo;
 use Maclay\ServiceBundle\Form\ClubType;
 use Maclay\ServiceBundle\Entity\Club;
 use Maclay\ServiceBundle\Entity\Record;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * The controller used for admin functions.
@@ -522,6 +523,70 @@ class AdminController extends Controller
             }
         }
         return $this->render("MaclayServiceBundle:Admin:createSchoolAdmins.html.twig", array("form" => $form->createView()));
+    }
+    
+    public function exportRecordsByGradeAction(Request $request){
+        $data = array();
+        
+        $form = $this->createFormBuilder($data)
+                ->add("grade", "choice", array(
+                    "choices" => array("12" => "12", "11" => "11", "10" => "10", "9" => "9"),
+                ))
+                ->add("submit", "submit")
+                ->getForm();
+        
+        $form->handleRequest($request);
+        
+        if($form->isValid()){
+            $data = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $users = $em->getRepository("MaclayServiceBundle:User")->getUsersByGrade($data["grade"]); 
+            try{
+                foreach($users as $user){
+                    $approvedHours = 0;
+                    $records = $user->getRecords();
+                    foreach($records as $record){
+                        if ($record->getApprovalStatus() > 0){
+                            $approvedHours =+ $record->getNumHours();
+                       }
+                    }
+                    $user->setApprovedHours($approvedHours);
+                    $name = $user->getLastName();
+                    if(strpos($name, "1") !== false){
+                        $newName = substr($name, 0, strlen($name) -1);
+                        $user->setLastName($newName);
+                    }
+                }
+            } catch (Exception $ex) {
+                return $this->render("MaclayServiceBundle:Admin:exportRecordsByGrade.html.twig", array("form" => $form->createView(), "error" => "Error calculating hours: ". $ex->getMessage()));
+            }
+
+            try{
+                $response = new StreamedResponse();
+                $response->setCallback(function() use ($users){
+                    $handle = fopen('php://output', 'w+');
+
+                    fputcsv($handle, array('Last Name', 'First Name', 'Hours'),',');
+
+                    foreach($users as $user){
+                        fputcsv($handle,array($user->getLastName(), $user->getFirstName(), $user->getApprovedHours()),',');
+                    }
+
+                    fclose($handle);
+                });
+
+                $response->setStatusCode(200);
+                $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
+                $response->headers->set('Content-Disposition','attachment; filename="export.csv"');
+
+                return $response;
+            } catch (Exception $ex) {
+                return $this->render("MaclayServiceBundle:Admin:exportRecordsByGrade.html.twig", array("form" => $form->createView(), "error" => "Error exporting hours: ". $ex->getMessage()));
+            }
+        }
+        else{
+            return $this->render("MaclayServiceBundle:Admin:exportRecordsByGrade.html.twig", array("form" => $form->createView()));
+        }
     }
     
     /**
