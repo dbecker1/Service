@@ -543,19 +543,13 @@ class AdminController extends Controller
             $users = $em->getRepository("MaclayServiceBundle:User")->getUsersByGrade($data["grade"]); 
             try{
                 foreach($users as $user){
-                    $approvedHours = 0;
-                    $records = $user->getRecords();
-                    foreach($records as $record){
+                    $numHours = 0;
+                    foreach($user->getRecords() as $record){
                         if ($record->getApprovalStatus() > 0){
-                            $approvedHours =+ $record->getNumHours();
-                       }
+                            $numHours += $record->getNumHours();
+                        }
                     }
-                    $user->setApprovedHours($approvedHours);
-                    $name = $user->getLastName();
-                    if(strpos($name, "1") !== false){
-                        $newName = substr($name, 0, strlen($name) -1);
-                        $user->setLastName($newName);
-                    }
+                    $user->setApprovedHours($numHours);
                 }
             } catch (Exception $ex) {
                 return $this->render("MaclayServiceBundle:Admin:exportRecordsByGrade.html.twig", array("form" => $form->createView(), "error" => "Error calculating hours: ". $ex->getMessage()));

@@ -46,8 +46,7 @@ security:
             #    realm: "Secured Demo Area"
 
     access_control:
-        - { path: ^/Admin/CreateClub, roles: [ROLE_ADMIN, ROLE_COORDINATOR] }
-        - { path: ^/Admin, role: ROLE_ADMIN }
+        - { path: ^/Admin, roles: [ROLE_ADMIN, ROLE_COORDINATOR] }
         - { path: ^/Record, role: ROLE_USER }
         - { path: ^/Club, role: ROLE_CLUBSPONSOR }
         - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }
