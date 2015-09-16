@@ -46,7 +46,6 @@ Maclay\ServiceBundle\Entity\User:
         records:
             targetEntity: Record
             mappedBy: student
-            
     oneToOne:
         studentinfo:
             targetEntity: StudentInfo

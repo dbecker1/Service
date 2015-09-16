@@ -1,0 +1,34 @@
+{% extends 'MaclayServiceBundle:Profile:profile.html.twig' %}
+
+{% block pagename %}
+    Admin Profile - Export Records
+{% endblock %}
+    
+{% block form_row %}
+    {% spaceless %}
+        <div class="row">
+            <div class="col-sm-2">
+                {{form_label(form) }}
+            </div>
+            <div class="col-sm-3 form-group">
+                {{form_widget(form) }}
+            </div>
+            <div class="col-sm-5 error-text">
+                {{ form_errors(form) }}
+            </div>
+        </div>
+        <br />
+    {% endspaceless %}
+{% endblock %}   
+
+{% block usercontent %}
+    <div class="row">
+        <p>Select the grade of the users that you would like to delete.</p>
+        <p>{{ error|default('') }} </p>
+        <br />
+        {{ form(form, {'attr': {'onsubmit': 'return confirm("Are you sure you want to delete these users and their records? This action cannot be undone.");'}}) }}
+        
+    </div>
+
+
+{% endblock %}

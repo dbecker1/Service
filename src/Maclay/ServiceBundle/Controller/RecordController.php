@@ -253,7 +253,6 @@ class RecordController extends Controller
            }
            $student->setApprovedHours($numHours);
        }
-               
        
        return $this->render("MaclayServiceBundle:Record:studentHistory.html.twig", array("students" => $students));
    }

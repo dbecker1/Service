@@ -583,6 +583,47 @@ class AdminController extends Controller
         }
     }
     
+    public function deleteUsersByGradeAction(Request $request){
+        $data = array();
+        
+        $form = $this->createFormBuilder($data)
+                ->add("grade", "choice", array(
+                    "choices" => array("12" => "12", "11" => "11", "10" => "10", "9" => "9"),
+                ))
+                ->add("submit", "submit")
+                ->getForm();
+        
+        $form->handleRequest($request);
+        
+        if($form->isValid()){
+            $data = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $users = $em->getRepository("MaclayServiceBundle:User")->getUsersByGrade($data["grade"]); 
+            $path = $this->container->getParameter("recordUploadDirectory");
+            try{
+                foreach($users as $student){
+                    $username = $student->getUsername();
+                    $files = glob($path . $username . "*");
+                    foreach($files as $file){
+                        unlink($file);
+                    }
+                    $em->remove($student->getStudentInfo());
+                    foreach($student->getRecords() as $record){
+                        $em->remove($record);
+                    }
+                    $em->remove($student);
+                    $em->flush();
+                }
+            } catch (Exception $ex) {
+                return $this->render("MaclayServiceBundle:Admin:deleteUsersByGrade.html.twig", array("form" => $form->createView(), "error" => "Error deleting users: " . $ex->getMessage()));
+            }
+            return $this->render("MaclayServiceBundle:Admin:deleteUsersByGrade.html.twig", array("form" => $form->createView(), "error" => "Users Successfully Deleted."));
+        }
+        else{
+            return $this->render("MaclayServiceBundle:Admin:deleteUsersByGrade.html.twig", array("form" => $form->createView()));
+        }
+    }
+    
     /**
      * The method for removing the blank spaces of user's last names in the database. 
      * 
