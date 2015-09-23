@@ -49,61 +49,79 @@ class AdminController extends Controller
         try{
             set_time_limit(600);
             $students = array();
-            if (($handle = fopen($path . $error["fileName"], "r")) !== FALSE) {
-                while(($data = fgetcsv($handle, 1000, ",")) !== FALSE){
+            //old method
+//            if (($handle = fopen($path . $error["fileName"], "r")) !== FALSE) {
+//                while(($data = fgetcsv($handle, 1000, ",")) !== FALSE){
+//                    $students[] = $data;
+//                }
+//                fclose($handle);
+//            }
+//            else{
+//                throw new \RuntimeException("Unable to open file for parsing");
+//            }
+            try{
+                $fp = fopen($path . $error["fileName"], "r");
+                while(!feof($fp)){
+                    $line = fgets($fp, 2048);
+                    $delimiter = "\t";
+                    $data = str_getcsv($line, $delimiter);
                     $students[] = $data;
                 }
-                fclose($handle);
-            }
-            else{
-                throw new \RuntimeException("Unable to open file for parsing");
+            } catch (Exception $ex) {
+                throw new \RuntimeException("Error parsing file.");
             }
             $userManager = $this->get("fos_user.user_manager");
             $em = $this->getDoctrine()->getManager();
             $studentGroup = $em->getRepository("MaclayServiceBundle:Role")->findOneByName("Student");
+            $failedUsers = "";
             foreach($students as $student){
                 if($student === NULL){
                     continue;
                 }
-                $user = $userManager->createUser();
-                $existingUser = $userManager->findUserByUsername($student[8]);
-                if ($existingUser !== NULL){
-                    $studentInfo = $existingUser->getStudentInfo();
-                    $studentInfo->setGrade($student[5]);
-                }
-                else{
-                    $user->setUsername($student[8]);
-                    $randomPass = $this->randomPassword();
-                    $user->setPlainPassword($randomPass);
-                    $user->setTempPass($randomPass);
-                    if($student[5] == 8){
-                        $user->setEnabled(0);
+                try{
+                    $user = $userManager->createUser();
+                    $existingUser = $userManager->findUserByUsername($student[8]);
+                    if ($existingUser !== NULL){
+                        $studentInfo = $existingUser->getStudentInfo();
+                        $studentInfo->setGrade($student[5]);
                     }
                     else{
-                        $user->setEnabled(1);
+                        $user->setUsername($student[8]);
+                        $randomPass = $this->randomPassword();
+                        $user->setPlainPassword($randomPass);
+                        $user->setTempPass($randomPass);
+                        if($student[5] == 8){
+                            $user->setEnabled(0);
+                        }
+                        else{
+                            $user->setEnabled(1);
+                        }
+                        $user->setEmail($student[9]);
+                        $user->setFirstName($student[1]);
+                        $user->setMiddleName($student[2]);
+                        $user->setLastName($student[0]);
+                        $user->addGroup($studentGroup);
+                        $user->setIsInvited(false);
+                        $userManager->updateUser($user);
+                        $info = new StudentInfo();
+                        $info->setGender($student[6]);
+                        $info->setGradYear($student[7]);
+                        $info->setGrade($student[5]);
+                        $info->setStudent($user);
+                        $info->setStudentNumber($student[4]);
+                        $em->persist($info);
                     }
-                    $user->setEmail($student[9]);
-                    $user->setFirstName($student[1]);
-                    $user->setMiddleName($student[2]);
-                    $user->setLastName($student[0]);
-                    $user->addGroup($studentGroup);
-                    $user->setIsInvited(false);
-                    $userManager->updateUser($user);
-                    $info = new StudentInfo();
-                    $info->setGender($student[6]);
-                    $info->setGradYear($student[7]);
-                    $info->setGrade($student[5]);
-                    $info->setStudent($user);
-                    $info->setStudentNumber($student[4]);
-                    $em->persist($info);
+                    $em->flush();
+                } catch (\Exception $ex) {
+                    $failedUsers = $failedUsers . $student[8];
                 }
+                
             }
-            $em->flush();
         } catch (\Exception $ex) {
             return $this->render("MaclayServiceBundle:Admin:upload.html.twig", array("newUsers" => true, "error" => $ex->getMessage()));
         }
         
-        return $this->render("MaclayServiceBundle:Admin:upload.html.twig", array("newUsers" => true, "error" => "Students Successfully Uploaded"));
+        return $this->render("MaclayServiceBundle:Admin:upload.html.twig", array("newUsers" => true, "error" => "Students Successfully Uploaded; Failed Users: " . $failedUsers));
 
     }
     

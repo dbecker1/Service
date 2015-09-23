@@ -47,7 +47,7 @@ class FileController extends Controller
 
             $filetypes = array();
             if($import === TRUE){
-                $filetypes = array("csv" => "text/plain");
+                $filetypes = array("csv" => "text/plain", "txt" => "text/plain");
             }
             else if ($upload === TRUE) {
                 $filetypes = array("jpg" => "image/jpeg", "pdf" => "application/pdf");
