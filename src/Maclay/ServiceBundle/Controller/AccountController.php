@@ -80,8 +80,9 @@ class AccountController extends Controller
                 
                 $name = $user->getFirstName();
                 $code = $user->getForgotPasswordCode();
+                $username = $user->getUsername();
 
-                $body = $this->render("MaclayServiceBundle:Email:forgotPassword.html.twig", array("name" => $name, "code" => $code))->getContent();
+                $body = $this->render("MaclayServiceBundle:Email:forgotPassword.html.twig", array("name" => $name, "code" => $code, "username" => $username))->getContent();
 
                 $message = \Swift_Message::newInstance('Password Reset')
                     ->setFrom(array("maclayservice@maclay.org" => "Maclay School Community Service"))
