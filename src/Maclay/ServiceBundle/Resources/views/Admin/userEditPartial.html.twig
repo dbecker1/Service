@@ -1,0 +1,35 @@
+{% form_theme form _self %}
+
+{% block form_row %}
+    {% spaceless %}
+        <div class="row">
+            <div class="col-sm-3">
+                {{form_label(form) }}
+            </div>
+            <div class="col-sm-6 form-group">
+                {{form_widget(form) }}
+            </div>
+            <div class="col-sm-1 error-text">
+                {{ form_errors(form) }}
+            </div>
+        </div>
+        <br />
+    {% endspaceless %}
+{% endblock %}   
+        
+        
+{{ form_start(form) }}
+{{ form_row(form) }}
+{{ form_end(form) }}
+        
+<script>
+    $(document).ready(function(){
+        if($("#editUser_studentNumber").val() === ""){
+            $("#editUser_studentNumber").hide();
+            $("#editUser_grade").hide();
+            $("#editUser_studentNumber").parent().parent().children("label").hide();            
+            $("#editUser_grade").parent().parent().children("label").hide();
+        }
+        
+    });
+</script>

@@ -16,6 +16,8 @@
     {% if newUsers %}
         <form action="{{ path('default', {'controller' : 'Admin', 'action' : 'UploadStudents'}) }}" method="POST"  enctype="multipart/form-data">
             <input type="file" name="uploadedUsers"/>
+            <input type="radio" name="delimeter" value="," checked="checked">Comma Separated <br/>
+            <input type="radio" name="delimeter" value="\t">Tab Separated <br />
             <input type="submit" />
         </form>
     {% endif %}

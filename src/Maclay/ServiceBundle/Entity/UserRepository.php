@@ -128,8 +128,50 @@ class UserRepository extends EntityRepository
                             . "FROM MaclayServiceBundle:User u "
                             . "WHERE u. lastName LIKE :lastName"
                         )
-                ->setParameter("lastName", $lastName)
+                ->setParameter("lastName", '%'.$lastName.'%')
                 ->getResult();
+        
+        return $query;
+    }
+    
+    public function searchUsers($lastName, $firstName, $grade){
+        $queryString = "SELECT u FROM MaclayServiceBundle:User u ";
+        $whereString = " WHERE u.lastName LIKE :lastName AND u.firstName LIKE :firstName ";
+        if($grade > 1){
+            $queryString .= " JOIN u.studentinfo s";
+            $whereString .= " AND s.grade = :grade ";
+        }
+        else if ($grade == 1) {
+            $queryString .= " JOIN u.groups g";
+            $whereString .= " AND g.roles NOT LIKE :role";
+        }
+        
+        $queryString .= $whereString;
+        $query = $this->getEntityManager()
+                ->createQuery(
+                            $queryString
+                        )
+                ->setParameter("lastName", $lastName)
+                ->setParameter("firstName", $firstName);
+        if($grade > 1){
+            $query->setParameter("grade", $grade);
+        } else if ($grade == 1){
+            $query->setParameter("role", "%student%");
+        }
+        return $query->getResult();
+    }
+    
+    public function getUsersForEdit($id){
+        $query = $this->getEntityManager()
+                ->createQuery(
+                            "SELECT u "
+                            . "FROM MaclayServiceBundle:User u "
+                            . "JOIN u.studentinfo s "
+                            . "WHERE u.id = :id"
+                        )
+                ->setParameter("id", $id)
+                ->setMaxResults(1)
+                ->execute();
         
         return $query;
     }

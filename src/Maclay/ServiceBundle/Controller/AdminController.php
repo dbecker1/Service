@@ -18,6 +18,31 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  */
 class AdminController extends Controller
 {
+    public function adminPanelAction(){
+        $em = $this->getDoctrine()->getmanager();
+        $clubs = $em->getRepository("MaclayServiceBundle:Club")->getAllClubs();
+        return $this->render("MaclayServiceBundle:Admin:adminPanel.html.twig", array("clubs" => $clubs,"error" => ""));
+    }
+    
+    public function searchUsersAction($lastName, $firstName, $grade){
+        if($lastName == "LN"){
+            $lastName = "";
+        }
+        if($firstName == "FN"){
+            $firstName = "";
+        }
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository("MaclayServiceBundle:User")->searchUsers('%'.$lastName.'%', '%'.$firstName.'%', $grade);
+        return $this->render("MaclayServiceBundle:Admin:userSearchPartial.html.twig", array("users" => $users));
+    }
+    
+    public function getEditUserPartialAction($userID){
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository("MaclayServiceBundle:User")->getUsersForEdit($userID);
+         
+        $form = $this->createForm(new \Maclay\ServiceBundle\Form\EditUserType(), $user[0]);
+        return $this->render("MaclayServiceBundle:Admin:userEditPartial.html.twig", array("form" => $form->createView()));
+    }
     /**
      * This method is used for uploading users.
      * 
@@ -46,6 +71,8 @@ class AdminController extends Controller
             return $this->render("MaclayServiceBundle:Admin:upload.html.twig", array("newUsers" => true, "error" => $error["error"]));
         }
         
+        $delimeter = $_POST["delimeter"];
+        
         try{
             set_time_limit(600);
             $students = array();
@@ -63,7 +90,7 @@ class AdminController extends Controller
                 $fp = fopen($path . $error["fileName"], "r");
                 while(!feof($fp)){
                     $line = fgets($fp, 2048);
-                    $delimiter = "\t";
+                    $delimiter = $delimeter;
                     $data = str_getcsv($line, $delimiter);
                     $students[] = $data;
                 }

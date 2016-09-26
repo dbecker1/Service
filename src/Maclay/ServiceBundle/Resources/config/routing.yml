@@ -68,7 +68,15 @@ getStudentsByLastName:
 denyRecordWithComments:
     path: /Record/DenyRecordWithComments/{id}/{comments}/{approval}
     defaults: { _controller: MaclayServiceBundle:Record:approveRecord }
+    
+searchUsers:
+    path: /Admin/SearchUsers/{lastName}/{firstName}/{grade}
+    defaults: { _controller: MaclayServiceBundle:Admin:searchUsers}
 
+getEditUserPartial:
+    path: /Admin/GetEditUserPartial/{userID}
+    defaults: { _controller: MaclayServiceBundle:Admin:getEditUserPartial }
+    
 default:
     path: /{controller}/{action}
     defaults: { _controller: MaclayServiceBundle:Routing:route }

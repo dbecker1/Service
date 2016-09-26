@@ -12,6 +12,7 @@
             <li><h4><a href="{{ path('default', {'controller' : 'Record', 'action' : 'RecordHistory'}) }}">History</a></h4></li>
         {% endif %}
         {% if isCoordinator or isAdmin %}
+            {#<li><h4><a href="{{ path('default', {'controller' : 'Admin', 'action' : 'AdminPanel'}) }}">Admin Panel</a></h4></li>#}
             <li><h4><a href="{{ path('default', {'controller' : 'Admin', 'action' : 'CreateClub'}) }}">Create Club</a></h4></li>
             <li><h4><a href="{{ path('default', {'controller' : 'Admin', 'action' : 'ExportRecordsByGrade'}) }}">Export Records</a></h4></li>
             <li><h4><a href="{{ path('default', {'controller' : 'Admin', 'action' : 'DeleteUsersByGrade'}) }}">Delete Students</a></h4></li>

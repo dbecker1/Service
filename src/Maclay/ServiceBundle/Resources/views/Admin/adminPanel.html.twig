@@ -1,0 +1,144 @@
+{% extends 'MaclayServiceBundle:Profile:profile.html.twig' %}
+
+
+{% block pagename %}
+    Admin Panel
+{% endblock %}
+    
+{% block usercontent %}
+    <div class="row"><h3>Admin Actions</h3></div>
+    <div class="row">
+        <button type="button" class="btn btn-primary-outline">Add User</button>
+        <button type="button" class="btn btn-primary-outline">Export Records</button>
+        <button type="button" class="btn btn-primary-outline">Upload Users</button>
+        <button type="button" class="btn btn-primary-outline">Email Uninvited Users</button>
+    </div>
+    <div class="row"><h3>Users</h3></div>
+    <div class="row">
+        <form id="search">
+            <p>
+                Search:
+                <input type="text" id="searchLastName" placeholder="Last Name" />
+                <input type="text" id="searchFirstName" placeholder="First Name" />
+                <select id="searchGrade">
+                    <option value="0">Grade</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="1">Faculty</option>
+                </select>
+                <input type="submit" value="Search" />
+            </p>
+        </form>
+    </div>
+    <div class="row">
+        <div style="width:800px; height: 250px; border: 2px solid; overflow-y: scroll">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <td>Last Name</td>
+                        <td>First Name</td>
+                        <td>Email Address</td>
+                        <td>User Type</td>
+                    </tr>
+                </thead>
+                <tbody class="table-striped" id="searchBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row"><h3>Clubs</h3></div>
+    <div class="row">
+        <div style="width:800px; height: 250px; border: 2px solid; overflow-y: scroll">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <td>Club Name</td>
+                        <td>Sponsors</td>
+                    </tr>
+                </thead>
+                <tbody class="table-striped">
+                    {% for club in clubs %}
+                    <tr onclick="editClub({{club.id}})">
+                        <td>{{club.clubName}}</td>
+                        <td>
+                            {% for sponsor in club.sponsors %}
+                            <span> {{sponsor.email}} </span>
+                            {% endfor%}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div id="dialog"></div>
+{% endblock %}
+    
+{% block endscripts %}
+    <script>
+        $(document).ready(function(){
+                
+            
+            
+            $("#search").on("submit", function(e){
+                e.preventDefault();
+                var lastName = $("#searchLastName").val();
+                var firstName = $("#searchFirstName").val();
+                var grade = $("#searchGrade").val();
+                var url = "{{ path('searchUsers', {'firstName' : 'FN', 'lastName' : 'LN', 'grade' : 'GR' } ) }}";
+                if(lastName.length > 0){
+                    url = url.replace("LN", lastName);
+                }
+                if(firstName.length > 0){
+                    url = url.replace("FN", firstName);
+                }
+                url = url.replace("GR", grade);
+                var request = $.get(url, function(data){
+                    $("#searchBody").html(data);
+                });
+            })
+            
+            $(".userRow").on("click", function(){
+                var url = "{{ path('getEditUserPartial', {'userID' : 'ID' })}}";
+                var id = $(this).attr("user-id");
+                url = url.replace("ID", id);
+                $.get(url, function(result){
+                    $("#dialog").html(result);
+                    $("#dialog").show();
+                })
+            })
+        });
+        
+        function editUser(userID){
+            var url = "{{ path('getEditUserPartial', {'userID' : 'ID' })}}";
+            url = url.replace("ID", userID);
+            $.get(url, function(result){
+                $("#dialog").html(result);
+                $("#dialog").dialog({
+                    modal: true,
+                    width: 500,
+                    height: "auto"
+                });
+            });
+        }
+        
+        function editClub(clubID){
+//            var url = "{{ path('getEditUserPartial', {'userID' : 'ID' })}}";
+//            url = url.replace("ID", clubID);
+//            $.get(url, function(result){
+//                $("#dialog").html(result);
+//                $("#dialog").dialog({
+//                    modal: true,
+//                    width: 500,
+//                    height: "auto"
+//                });
+//            });
+        }
+    </script>
+{% endblock %}

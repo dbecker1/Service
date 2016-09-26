@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class ClubRepository extends EntityRepository
 {
+    public function getAllClubs(){
+        $query = $this->getEntityManager()
+                ->createQuery(
+                        "SELECT c "
+                        . "FROM MaclayServiceBundle:Club c "
+                  )
+                ->getResult();
+        return $query;
+    }
 }
